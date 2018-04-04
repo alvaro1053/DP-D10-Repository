@@ -35,7 +35,7 @@ public class ActorService {
 		super();
 	}
 
-	// Simple CRUD methods
+	// Simple methods
 
 	//findOne realizado de esta manera debido a que en ActorServiceTest daba null el findOne 
 	//para las clases extendidas de Actor 

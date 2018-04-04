@@ -7,7 +7,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -20,11 +19,11 @@ import domain.Actor;
 import domain.Article;
 import domain.Chirp;
 import domain.Newspaper;
+
 import domain.User;
 import forms.ActorForm;
 
 @Service
-@Transactional
 public class UserService {
 
 	// Managed Repository
@@ -36,6 +35,7 @@ public class UserService {
 	
 	@Autowired
 	private Validator		validator;
+
 
 
 	// Supporting services
@@ -130,6 +130,7 @@ public class UserService {
 		user.setSurname(actorForm.getSurname());
 		user.setEmail(actorForm.getEmail());
 		user.setId(actorForm.getId());
+		user.setPostalAddress(actorForm.getAddress());
 		user.setVersion(actorForm.getVersion());
 		user.setPhone(actorForm.getPhone());
 		user.setUserAccount(actorForm.getUserAccount());
