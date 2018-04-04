@@ -1,22 +1,19 @@
 
 package forms;
 
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
+
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 import security.UserAccount;
 import domain.DomainEntity;
@@ -28,7 +25,6 @@ public class ActorForm extends DomainEntity {
 	private String		email;
 	private String		phone;
 	private String		address;
-	private Date		dateBirth;
 	private UserAccount	userAccount;
 	private String		confirmPassword;
 	private Boolean		check;
@@ -52,17 +48,7 @@ public class ActorForm extends DomainEntity {
 		this.confirmPassword = confirmPassword;
 	}
 
-	@Past
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@NotNull
-	public Date getDateBirth() {
-		return this.dateBirth;
-	}
 
-	public void setDateBirth(final Date dateBirth) {
-		this.dateBirth = dateBirth;
-	}
 	@NotBlank
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getName() {
