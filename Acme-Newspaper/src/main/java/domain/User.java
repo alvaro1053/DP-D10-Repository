@@ -14,26 +14,34 @@ import javax.persistence.OneToMany;
 @Access(AccessType.PROPERTY)
 public class User extends Actor {
 
-	private Collection<Chirp> 		chrips;
-	private Collection<User> 		users;
+	private Collection<Chirp> 		chirps;
+	private Collection<User> 		follows;
+	private Collection<User> 		followers;
 	private Collection<Newspaper> 	newspapers;
 	private Collection<Article>		articles;
 	
 	
-	@OneToMany(mappedBy="user")
-	public Collection<Chirp> getChrips() {
-		return chrips;
-	}
-	public void setChrips(Collection<Chirp> chrips) {
-		this.chrips = chrips;
-	}
 	
 	@ManyToMany
-	public Collection<User> getUsers() {
-		return users;
+	public Collection<User> getFollows() {
+		return follows;
 	}
-	public void setUsers(Collection<User> users) {
-		this.users = users;
+	public void setFollows(Collection<User> follows) {
+		this.follows = follows;
+	}
+	@ManyToMany()
+	public Collection<User> getFollowers() {
+		return followers;
+	}
+	public void setFollowers(Collection<User> followers) {
+		this.followers = followers;
+	}
+	@OneToMany(mappedBy="user")
+	public Collection<Chirp> getChirps() {
+		return chirps;
+	}
+	public void setChirps(Collection<Chirp> chirps) {
+		this.chirps = chirps;
 	}
 	
 	@OneToMany(mappedBy="user")

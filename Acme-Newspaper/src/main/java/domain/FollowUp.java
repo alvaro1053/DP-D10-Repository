@@ -2,12 +2,16 @@
 package domain;
 
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.validator.constraints.URL;
 
 
 
@@ -19,7 +23,7 @@ public class FollowUp extends DomainEntity {
 	private Date		publicationDate;
 	private String		summary;
 	private String		text;
-	private String		photosURL;
+	private Collection<String>		photosURL;
 	
 	private Article 	article;
 	
@@ -56,16 +60,16 @@ public class FollowUp extends DomainEntity {
 		this.text = text;
 	}
 	
-	
-	public String getPhotosURL() {
+	@ElementCollection
+	public Collection<String> getPhotosURL() {
 		return photosURL;
 	}
-	public void setPhotosURL(String photosURL) {
+	public void setPhotosURL(Collection<String> photosURL) {
 		this.photosURL = photosURL;
 	}
 
 //Relationship
-	@ManyToOne
+	@ManyToOne(optional = true)
 	public Article getArticle() {
 		return article;
 	}

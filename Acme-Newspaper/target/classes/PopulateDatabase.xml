@@ -13,8 +13,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- User accounts -->
 
@@ -29,6 +28,66 @@
 			</list>
 		</property>
 	</bean>
+	
+		<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="user1" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+		<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="user2" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+			<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="user3" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+		<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+			<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="customer2" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	
 	<!-- Admins -->
@@ -38,15 +97,392 @@
 	<property name="surname" value="Bartual Moreno" />
 	<property name="email" value="admintodopoderoso@email.com"/>
 	<property name="phone" value=""/>	
-	<property name="address" value=""/>
-	<property name="dateBirth" value="1957/05/22"/>
+	<property name="postalAddress" value=""/>
 	
 	<property name="userAccount" ref="userAccount1"/>
 	
 	</bean>
 	
 	
+	<!-- USER -->
 	
+	
+		<!-- User1 -->
+	<bean class="domain.User" id="user1">
+	<property name="name" value="Julio" />
+	<property name="surname" value="Sanabria" />
+	<property name="email" value="illojulio@email.com"/>
+	<property name="phone" value="902242526"/>	
+	<property name="postalAddress" value="Avenida séptima nº5"/>
+	<property name="userAccount" ref="userAccount2"/>
+	
+	<property name="chirps">
+	<list>
+	<ref bean="chirp1"/>
+	<ref bean="chirp2"/>
+	</list>
+	</property>
+	
+	<property name="follows">
+	<list>
+	<ref bean="user2"/>
+	</list>
+	</property>
+	
+	<property name="followers">
+	<list>
+	<ref bean="user3"/>
+	</list>
+	</property>
+	
+	<property name="newspapers">
+	<list>
+	<ref bean="newspaper1"/>
+	<ref bean="newspaper2"/>
+	</list>
+	</property>
+	
+	<property name="articles">
+	<list>
+	<ref bean="article1"/>
+	<ref bean="article2"/>
+	</list>
+	</property>
+	</bean>
+	
+			<!-- User2 -->
+	<bean class="domain.User" id="user2">
+	<property name="name" value="Mari Carmen" />
+	<property name="surname" value="Fuertes" />
+	<property name="email" value="hastaluegomaricarmen@email.com"/>
+	<property name="phone" value=""/>	
+	<property name="postalAddress" value="C/Infierno nº4"/>
+	<property name="userAccount" ref="userAccount3"/>
+	
+	<property name="chirps">
+	<list>
+	<ref bean="chirp3"/>
+	</list>
+	</property>
+	
+	<property name="follows">
+	<list>
+	</list>
+	</property>
+	
+	<property name="followers">
+	<list>
+	<ref bean="user1"/>
+	</list>
+	</property>
+	
+	<property name="newspapers">
+	<list>
+	<ref bean="newspaper3"/>
+	</list>
+	</property>
+	
+	<property name="articles">
+	<list>
+	</list>
+	</property>
+	</bean>
+	
+			<!-- User3 -->
+<bean class="domain.User" id="user3">
+	<property name="name" value="Manolo" />
+	<property name="surname" value="Benitez Perez" />
+	<property name="email" value="manolito@gmail.com"/>
+	<property name="phone" value=""/>	
+	<property name="postalAddress" value=""/>   
+	<property name="userAccount" ref="userAccount4"/>
+	
+	<property name="chirps">
+	<list>
+	</list>
+	</property>
+	
+	<property name="follows">
+	<list>
+	<ref bean="user1"/>
+	</list>
+	</property>
+	
+	<property name="followers">
+	<list>
+	</list>
+	</property>
+	
+	<property name="newspapers">
+	<list>
+	</list>
+	</property>
+	
+	<property name="articles">
+	<list>
+	</list>
+	</property>
+	</bean>
 
+<!-- CUSTOMERS -->
+			<!-- Customer1 -->
+<bean class="domain.Customer" id="customer1">
+	<property name="name" value="Antonio" />
+	<property name="surname" value="Cuesta" />
+	<property name="email" value="micomunidad@email.com"/>
+	<property name="phone" value="648567784"/>	
+	<property name="postalAddress" value="Desengaño nº21"/>
+	<property name="userAccount" ref="userAccount5"/>
+	
+	<property name="newspapers">
+	<list>
+	<ref bean="newspaper2"/>
+	</list>
+	</property>
+
+</bean>
+
+			<!-- Customer2 -->
+<bean class="domain.Customer" id="customer2">
+	<property name="name" value="Isabel" />
+	<property name="surname" value="Cuesta" />
+	<property name="email" value="mipresidente@email.com"/>
+	<property name="phone" value="977455874"/>	
+	<property name="postalAddress" value="Desengaño nº21"/>
+	<property name="userAccount" ref="userAccount6"/>
+	
+	<property name="newspapers">
+	<list>
+	</list>
+	</property>
+
+</bean>
+
+
+<!-- Newspapers -->
+	<!-- Newspaper1 -->
+<bean class="domain.Newspaper" id="newspaper1">
+	<property name="title" value="Marca" />
+	<property name="publicationDate" value="2018/03/22 12:26"/>
+	<property name="description" value="El mejor periódico de deportes"/>
+	<property name="pictureURL" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Marca.svg/2000px-Marca.svg.png"/>	
+	<property name="isPublished" value="true"/>
+	<property name="isPrivate" value="false"/>
+	<property name="user" ref="user1"/>
+	
+	<property name="articles">
+	<list>
+	<ref bean="article1"/>
+	<ref bean="article2"/>
+	</list>
+	</property>
+	
+	<property name="customers">
+	<list>
+	</list>
+	</property>
+
+</bean>
+
+	<!-- Newspaper 2 -->
+
+<bean class="domain.Newspaper" id="newspaper2">
+	<property name="title" value="Corazón Latino" />
+	<property name="publicationDate" value="2018/04/12 12:21"/>
+	<property name="description" value="Mucha prensa rosa, mucho cotilleo y mucha polémica"/>
+	<property name="pictureURL" value="https://www.himgs.com/imagenes/hola/comunes/hola-2017.gif"/>	
+	<property name="isPublished" value="true"/>
+	<property name="isPrivate" value="true"/>
+	<property name="user" ref="user1"/>
+	
+	<property name="articles">
+	<list>
+	<ref bean="article3"/>
+	</list>
+	</property>
+	
+	<property name="customers">
+	<list>
+	<ref bean="customer1"/>
+	</list>
+	</property>
+
+</bean>
+
+	<!-- Newspaper 3 -->
+
+<bean class="domain.Newspaper" id="newspaper3">
+	<property name="title" value="El jueves" />
+	<property name="publicationDate" value="2019/04/12 12:21"/>
+	<property name="description" value="Nos cachondeamos de todo lo que se mueve"/>
+	<property name="pictureURL" value=""/>	
+	<property name="isPublished" value="false"/>
+	<property name="isPrivate" value="true"/>
+	<property name="user" ref="user1"/>
+	
+	<property name="articles">
+	<list>
+	</list>
+	</property>
+	
+	<property name="customers">
+	<list>
+	</list>
+	</property>
+</bean>
+
+<!-- Articles -->
+	<!-- Article1 -->
+	
+	<bean class="domain.Article" id="article1">
+	<property name="title" value="Cristiano ronaldo lesionado" />
+	<property name="moment" value="2018/02/12 12:21"/>
+	<property name="summary" value="Cristiano ronaldo se rompe la uña del pie al abrir una lata de monster.Parece que le dió mucho LA LATA"/>
+	<property name="body" value="A lo largo de su carrera profesional, ha conseguido batir diversos récords. Entre ellos, se destacan..."/>
+	<property name="photosURL">
+	<list>
+	<value>https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/New_Zealand-Portugal_%2820%29.jpg/375px-New_Zealand-Portugal_%2820%29.jpg</value>
+	</list>
+	</property>	
+	<property name="isDraft" value="false"/>
+	<property name="tabooWords" value="false"/>
+	<property name="newspaper" ref="newspaper1"/>
+	<property name="user" ref="user1"/>
+	<property name="followUps">
+	<list>
+	<ref bean="followUp1"/>
+	</list>
+	</property>
+</bean>
+
+<!-- Article2 -->
+	
+	<bean class="domain.Article" id="article2">
+	<property name="title" value="Messi ha roto una messita" />
+	<property name="moment" value="2018/01/13 12:21"/>
+	<property name="summary" value="Messi estaba en su casa cenando cuando de repente ropió su mesa al marcar un gol con el cuenco de la sopa"/>
+	<property name="body" value="Nacido y criado en la ciudad de Rosario, a los 13 años se radicó en España, donde el Barcelona accedió a..."/>
+	<property name="photosURL">
+	<list>
+	</list>
+	</property>		
+	<property name="isDraft" value="false"/>
+	<property name="tabooWords" value="false"/>
+	<property name="newspaper" ref="newspaper1"/>
+	<property name="user" ref="user1"/>
+	<property name="followUps">
+	<list>
+	<ref bean="followUp2"/>
+	<ref bean="followUp3"/>
+	</list>
+	</property>
+</bean>
+
+<!-- Article3 -->
+	
+	<bean class="domain.Article" id="article3">
+	<property name="title" value="La pantoja vuelve a la carga" />
+	<property name="moment" value="2018/02/10 12:21"/>
+	<property name="summary" value="Se ha visto a la pantoja de nuevo por Sevilla cerca de alameda"/>
+	<property name="body" value="Sex.Ha cosechado un alto número de éxitos musicales y posee una extensa discografía con 29 álbumes. También..."/>
+	<property name="photosURL">
+	<list>
+	</list>
+	</property>	
+	<property name="isDraft" value="false"/>
+	<property name="tabooWords" value="true"/>
+	<property name="newspaper" ref="newspaper2"/>
+	<property name="user" ref="user2"/>
+	<property name="followUps">
+	<list>
+	</list>
+	</property>
+</bean>
+
+<!-- Follow-Ups -->
+
+<!-- FollowUp1 -->
+	
+	<bean class="domain.FollowUp" id="followUp1">
+	<property name="title" value="Ya se ha curado" />
+	<property name="publicationDate" value="2018/04/01 12:21"/>
+	<property name="summary" value="La uña de Cristiano ronaldo se le ha curado completamente"/>
+	<property name="text" value="Tras meses de intensa recuperación, el jugador de futbol..."/>
+<property name="photosURL">
+	<list>
+	</list>
+	</property>	
+	<property name="article" ref="article1"/>
+</bean>
+
+<!-- FollowUp2 -->
+	
+	<bean class="domain.FollowUp" id="followUp2">
+	<property name="title" value="Ya se ha arreglado la mesa" />
+	<property name="publicationDate" value="2018/04/02 06:21"/>
+	<property name="summary" value="La mesa de messi se le ha arreglado completamente"/>
+	<property name="text" value="Tras meses de intenso arreglo, el jugador de futbol y su mesa..."/>
+<property name="photosURL">
+	<list>
+	</list>
+	</property>	
+	<property name="article" ref="article2"/>
+</bean>
+
+<!-- FollowUp3 -->
+	
+	<bean class="domain.FollowUp" id="followUp3">
+	<property name="title" value="Se ha vuelto a romper" />
+	<property name="publicationDate" value="2018/04/02 09:21"/>
+	<property name="summary" value="La mesa de messi se le ha vuelto a romper"/>
+	<property name="text" value="Cuando creíamos todos que la mesa estaba arreglada al parecer la pobre..."/>
+<property name="photosURL">
+	<list>
+	</list>
+	</property>		
+	<property name="article" ref="article2"/>
+</bean>
+
+
+<!-- Chirp -->
+
+<!-- Chirp1 -->
+
+	<bean class="domain.Chirp" id="chirp1">
+	<property name="title" value="Este es mi chirp1" />
+	<property name="moment" value="2018/03/12 09:21"/>
+	<property name="description" value="Estoy escribiendo un chirp"/>
+	<property name="user" ref="user1"/>
+</bean>
+
+<!-- Chirp2 -->
+
+	<bean class="domain.Chirp" id="chirp2">
+	<property name="title" value="Este es mi chirp2" />
+	<property name="moment" value="2018/03/12 09:32"/>
+	<property name="description" value="Estoy escribiendo otro chirp"/>
+	<property name="user" ref="user1"/>
+</bean>
+
+<!-- Chirp3 -->
+
+	<bean class="domain.Chirp" id="chirp3">
+	<property name="title" value="Este es mi primer chirp3" />
+	<property name="moment" value="2018/03/13 09:21"/>
+	<property name="description" value="Estoy escribiendo un chirp3"/>
+	<property name="user" ref="user2"/>
+</bean>
+
+<!-- Customisation -->
+	<bean class="domain.Customisation" id="customisation">
+	<property name="tabooWords" >
+	<list>
+	<value>sex</value>
+	<value>sexo</value>
+	<value>viagra</value>
+	<value>cialis</value>
+	</list>
+	</property>
+</bean>
 
 </beans>

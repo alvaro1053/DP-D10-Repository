@@ -45,7 +45,7 @@ public class Chirp extends DomainEntity {
 	}
 
 //Relationship
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public User getUser() {
 		return user;
 	}

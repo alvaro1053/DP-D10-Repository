@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -29,15 +30,21 @@ public class Article extends DomainEntity {
 	private Date					moment;
 	private String					summary;
 	private String					body;
-	private String					photosURL;
-	private Boolean					isDraft;
-	
+	private Collection<String>		photosURL;
+	private Boolean					isDraft;	
 	private Newspaper 				newspaper;
 	private User 					user;
 	private Collection<FollowUp> 	followUps;
+	private Boolean 				tabooWords;
 	
 	
 	
+	public Boolean getTabooWords() {
+		return tabooWords;
+	}
+	public void setTabooWords(Boolean tabooWords) {
+		this.tabooWords = tabooWords;
+	}
 	@NotBlank
 	public String getTitle() {
 		return title;
@@ -71,11 +78,11 @@ public class Article extends DomainEntity {
 		this.body = body;
 	}
 	
-	@URL
-	public String getPhotosURL() {
+	@ElementCollection
+	public Collection<String> getPhotosURL() {
 		return photosURL;
 	}
-	public void setPhotosURL(String photosURL) {
+	public void setPhotosURL(Collection<String> photosURL) {
 		this.photosURL = photosURL;
 	}
 	
@@ -92,7 +99,7 @@ public class Article extends DomainEntity {
 
 //Relationships	
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Newspaper getNewspaper() {
 		return newspaper;
 	}
@@ -100,7 +107,7 @@ public class Article extends DomainEntity {
 		this.newspaper = newspaper;
 	}
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public User getUser() {
 		return user;
 	}
@@ -109,10 +116,10 @@ public class Article extends DomainEntity {
 	}
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<FollowUp> getFollowUp() {
+	public Collection<FollowUp> getFollowUps() {
 		return followUps;
 	}
-	public void setFollowUp(Collection<FollowUp> followUps) {
+	public void setFollowUps(Collection<FollowUp> followUps) {
 		this.followUps = followUps;
 	}
 	

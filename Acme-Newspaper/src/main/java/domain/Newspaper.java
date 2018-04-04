@@ -34,7 +34,7 @@ public class Newspaper extends DomainEntity {
 	
 	private Collection<Article>	articles;
 	private User 				user;
-	private Customer			customer;
+	private Collection<Customer>			customers;
 	
 	
 	@NotBlank
@@ -96,7 +96,7 @@ public class Newspaper extends DomainEntity {
 		this.articles = articles;
 	}
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public User getUser() {
 		return user;
 	}
@@ -105,10 +105,10 @@ public class Newspaper extends DomainEntity {
 	}
 	
 	@ManyToMany
-	public Customer getCustomer() {
-		return customer;
+	public Collection<Customer> getCustomers() {
+		return customers;
 	}
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomers(Collection<Customer> customer) {
+		this.customers = customer;
 	}
 }
