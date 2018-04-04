@@ -47,9 +47,6 @@ function Terms(){
 	<acme:textbox code="user.address" path="address"/>
 	<br />
 	
-	<acme:textbox code="user.dateBirth" path="dateBirth"/>
-	<br />
-	
 	
 	<acme:textbox code="user.username" path="userAccount.username"/>
 	<br />

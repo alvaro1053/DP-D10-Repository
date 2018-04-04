@@ -16,11 +16,12 @@ import repositories.UserRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.User;
 import forms.ActorForm;
 
 @Service
-@Transactional
+
 public class UserService {
 
 	// Managed Repository
@@ -28,6 +29,8 @@ public class UserService {
 	private UserRepository	UserRepository;
 	@Autowired
 	private Validator		validator;
+	@Autowired
+	private ActorService actorService;
 
 
 	// Supporting services
@@ -50,15 +53,18 @@ public class UserService {
 	public User save(final User User) {
 		User saved;
 		Assert.notNull(User);
-
+		Actor principal = null;
+		
+		try{
+			principal = this.actorService.findByPrincipal();
+		}catch(Throwable oops){
+		}
+		
+		Assert.isTrue(principal == null);
+		
 		if (User.getId() == 0) {
 			final Md5PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
 			User.getUserAccount().setPassword(passwordEncoder.encodePassword(User.getUserAccount().getPassword(), null));
-		} else {
-			User principal;
-			principal = this.findByPrincipal();
-			Assert.notNull(principal);
-
 		}
 
 		saved = this.UserRepository.save(User);
@@ -107,6 +113,7 @@ public class UserService {
 		user.setSurname(actorForm.getSurname());
 		user.setEmail(actorForm.getEmail());
 		user.setId(actorForm.getId());
+		user.setPostalAddress(actorForm.getAddress());
 		user.setVersion(actorForm.getVersion());
 		user.setPhone(actorForm.getPhone());
 		user.setUserAccount(actorForm.getUserAccount());
