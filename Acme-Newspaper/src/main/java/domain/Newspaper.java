@@ -35,6 +35,8 @@ public class Newspaper extends DomainEntity {
 	private Collection<Article>	articles;
 	private User 				user;
 	private Collection<Customer>			customers;
+	private Collection<Subscription>	subscriptions;
+	
 	
 	
 	@NotBlank
@@ -110,5 +112,13 @@ public class Newspaper extends DomainEntity {
 	}
 	public void setCustomers(Collection<Customer> customer) {
 		this.customers = customer;
+	}
+	
+	@OneToMany(mappedBy="newspaper")
+	public Collection<Subscription> getSubscriptions() {
+		return subscriptions;
+	}
+	public void setSubscriptions(Collection<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
 	}
 }
