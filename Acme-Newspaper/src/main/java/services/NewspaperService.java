@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 import repositories.NewspaperRepository;
 import domain.Admin;
 import domain.Article;
-import domain.Customer;
 import domain.Newspaper;
 import domain.Subscription;
 import domain.User;

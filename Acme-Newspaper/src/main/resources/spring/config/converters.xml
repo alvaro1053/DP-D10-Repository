@@ -23,8 +23,12 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
+		<!-- User -->
 		<bean class="converters.StringToUserConverter" />
 		<bean class="converters.UserToStringConverter" />
+		<!-- Customer -->
+		<bean class="converters.StringToCustomerConverter" />
+		<bean class="converters.CustomerToStringConverter" />
 		
 	</util:list>
 	
