@@ -29,7 +29,7 @@ public class User extends Actor {
 	public void setFollows(Collection<User> follows) {
 		this.follows = follows;
 	}
-	@ManyToMany()
+	@ManyToMany(mappedBy="follows")
 	public Collection<User> getFollowers() {
 		return followers;
 	}
