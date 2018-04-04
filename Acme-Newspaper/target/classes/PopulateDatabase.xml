@@ -234,9 +234,9 @@
 	<property name="postalAddress" value="Desengaño nº21"/>
 	<property name="userAccount" ref="userAccount5"/>
 	
-	<property name="newspapers">
+	<property name="subscriptions">
 	<list>
-	<ref bean="newspaper2"/>
+	<ref bean="subscription1"/>
 	</list>
 	</property>
 
@@ -251,7 +251,7 @@
 	<property name="postalAddress" value="Desengaño nº21"/>
 	<property name="userAccount" ref="userAccount6"/>
 	
-	<property name="newspapers">
+	<property name="subscriptions">
 	<list>
 	</list>
 	</property>
@@ -277,7 +277,7 @@
 	</list>
 	</property>
 	
-	<property name="customers">
+	<property name="subscriptions">
 	<list>
 	</list>
 	</property>
@@ -301,9 +301,9 @@
 	</list>
 	</property>
 	
-	<property name="customers">
+	<property name="subscriptions">
 	<list>
-	<ref bean="customer1"/>
+	<ref bean="subscription1"/>
 	</list>
 	</property>
 
@@ -325,7 +325,7 @@
 	</list>
 	</property>
 	
-	<property name="customers">
+	<property name="subscriptions">
 	<list>
 	</list>
 	</property>
@@ -484,5 +484,36 @@
 	</list>
 	</property>
 </bean>
+<!-- CreditCards -->
+<!-- CreditCard1 -->
+<bean class="domain.CreditCard" id="creditCard1">
+<property name="holderName" value="Juan Cuesta Sanabria" />
+<property name="brandName" value="MasterCard" />
+<property name="number" value="5220277771031876"  />
+<property name="expirationMonth" value="7" />
+<property name="expirationYear" value="22" />
+<property name="CVV" value="621" />
+</bean>
+<!-- CreditCard2 -->
+<bean class="domain.CreditCard" id="creditCard2">
+<property name="holderName" value="Isabel Cuesta Fernandez" />
+<property name="brandName" value="Visa" />
+<property name="number" value="5632152478545969"  />
+<property name="expirationMonth" value="11" />
+<property name="expirationYear" value="24" />
+<property name="CVV" value="541" />
+</bean>
+
+
+<!-- Subscriptions -->
+<!-- Subscription1 -->
+<bean class="domain.Subscription" id="subscription1">
+<property name="creditCard" ref="creditCard1"/>
+<property name="customer" ref="customer1"/>
+<property name="newspaper" ref="newspaper2"/>
+
+
+</bean>
+
 
 </beans>

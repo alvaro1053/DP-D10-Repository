@@ -19,6 +19,7 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Customer;
 import domain.Newspaper;
+import domain.Subscription;
 import forms.ActorForm;
 
 @Service
@@ -49,7 +50,7 @@ public class CustomerService {
 		Customer result;
 
 		result = new Customer();
-		result.setNewspapers(new ArrayList<Newspaper>());
+		result.setSubscriptions(new ArrayList<Subscription>());
 		
 		
 		return result;

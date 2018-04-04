@@ -60,7 +60,7 @@ public class ChirpService {
 
 		moment = new Date(System.currentTimeMillis() - 1);
 
-		Assert.notNull(chirp);
+		Assert.isTrue(chirp.getId()==0);//Me aseguro de que no pueda editar un chirp, solo crearlo
 
 		principal = this.userService.findByPrincipal();
 		Assert.notNull(principal);

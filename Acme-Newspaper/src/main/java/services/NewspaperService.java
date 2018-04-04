@@ -15,6 +15,7 @@ import domain.Admin;
 import domain.Article;
 import domain.Customer;
 import domain.Newspaper;
+import domain.Subscription;
 import domain.User;
 
 @Service
@@ -40,7 +41,7 @@ public class NewspaperService {
 		result = new Newspaper();
 		result.setUser(principal);
 		result.setArticles(new ArrayList<Article>());
-		result.setCustomers(new ArrayList<Customer>());
+		result.setSubscriptions(new ArrayList<Subscription>());
 		return result;
 	}
 
