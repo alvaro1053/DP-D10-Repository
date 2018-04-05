@@ -44,10 +44,30 @@
 <td class="right-display"> <jstl:out value ="${article.body}" /> &nbsp; </td>
 </tr>
 
+
 <tr>
-<td> <strong> <spring:message code="article.photosURL" /> : </strong> </td>
-<td> <img src="${article.photosURL}"  width="auto" height="200"> </td>
+<td class ="left-display"> <strong> <spring:message code="article.photosURL" /> : </strong> </td>
+<td class="right-display"> 
+
+<jstl:choose>
+<jstl:when test="${not empty article.photosURL}"> 
+<ul>
+<jstl:forEach items="${article.photosURL}" var="photoURL">
+<li> <img src="${photoURL}"  width="auto" height="200"> &nbsp; </li>
+</jstl:forEach>
+</ul> 
+</jstl:when>
+<jstl:otherwise>
+
+<spring:message code="article.photosURL.empty" />
+
+</jstl:otherwise>
+</jstl:choose>
+
+</td>
 </tr>
+
+
 
 <tr>
 <td class ="left-display"> <strong> <spring:message code="article.isDraft" /> : </strong> </td>
