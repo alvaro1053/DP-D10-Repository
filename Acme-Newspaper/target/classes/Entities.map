@@ -1,35 +1,28 @@
 #./src/main/resources/Entities.map
-<<<<<<< HEAD
-#Wed Apr 04 21:02:46 CEST 2018
-=======
-<<<<<<< HEAD
-#Wed Apr 04 21:18:45 CEST 2018
-=======
-#Wed Apr 04 19:42:18 CEST 2018
->>>>>>> 5c875b9172644b683f615f7638826ddc0a9d2e6d
->>>>>>> 2ee45f7ece46e6957a9f25794e39f1c49480fabc
-chirp2=48
-followUp3=43
-chirp1=47
-followUp2=42
-followUp1=40
-admin1=32
-article3=45
-customisation=50
-article2=41
-article1=39
-userAccount6=31
-userAccount5=30
-userAccount4=29
-userAccount3=28
-userAccount2=27
-userAccount1=26
-customer2=37
-customer1=36
-user3=35
-user2=34
-user1=33
-newspaper3=46
-newspaper2=44
-chirp3=49
-newspaper1=38
+#Wed Apr 04 22:43:13 CEST 2018
+chirp2=49
+followUp3=44
+chirp1=48
+followUp2=43
+followUp1=41
+admin1=33
+article3=46
+customisation=51
+article2=42
+article1=40
+subscription1=52
+userAccount6=32
+userAccount5=31
+userAccount4=30
+userAccount3=29
+userAccount2=28
+userAccount1=27
+customer2=38
+customer1=37
+user3=36
+user2=35
+user1=34
+newspaper3=47
+newspaper2=45
+chirp3=50
+newspaper1=39
