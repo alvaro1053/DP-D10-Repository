@@ -29,6 +29,9 @@
 		<!-- Customer -->
 		<bean class="converters.StringToCustomerConverter" />
 		<bean class="converters.CustomerToStringConverter" />
+		<!-- Newspaper -->
+		<bean class="converters.StringToNewspaperConverter" />
+		<bean class="converters.NewspaperToStringConverter" />
 		
 	</util:list>
 	
