@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -15,27 +16,22 @@ import repositories.UserRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
 import domain.Article;
 import domain.Chirp;
 import domain.Newspaper;
-
 import domain.User;
 import forms.ActorForm;
 
 @Service
+@Transactional
 public class UserService {
 
 	// Managed Repository
 	@Autowired
 	private UserRepository	UserRepository;
-	
-	@Autowired
-	private ActorService	actorService;
-	
+
 	@Autowired
 	private Validator		validator;
-
 
 
 	// Supporting services
@@ -63,26 +59,14 @@ public class UserService {
 	public User save(final User User) {
 		User saved;
 		Assert.notNull(User);
-		Actor principal = null;
-		
-		try{
-			principal =  this.actorService.findByPrincipal();
-		}catch(Throwable oops){
-		}
-		
-		//TEST ASSERT - Testing if someone is trying to register while he/she is already being registered to the system at the moment
-		Assert.isTrue(principal == null);
-		//TEST ASSERT ======================================
-		
 
 		if (User.getId() == 0) {
 			final Md5PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
 			User.getUserAccount().setPassword(passwordEncoder.encodePassword(User.getUserAccount().getPassword(), null));
 		}
-		
 
 		saved = this.UserRepository.save(User);
-		
+
 		//TEST ASSERT - Testing if the user is in the system after saving him/her
 		Assert.isTrue(this.UserRepository.findAll().contains(saved));
 		//TEST ASSERT =========================================
@@ -147,8 +131,8 @@ public class UserService {
 			binding.rejectValue("check", "user.uncheck");
 		return user;
 	}
-	
-	public void flush(){
+
+	public void flush() {
 		this.UserRepository.flush();
 	}
 }
