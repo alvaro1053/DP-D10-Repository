@@ -57,6 +57,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
+					<li><a href="chirp/user/create.do"><spring:message code="master.page.chirp.create" /> </a></li>
 				</ul>
 			</li>
 		</security:authorize>

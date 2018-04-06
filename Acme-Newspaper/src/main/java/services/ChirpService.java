@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ChirpRepository;
 import domain.Admin;
 import domain.Chirp;
 import domain.User;
+import forms.ChirpForm;
 
 @Service
 @Transactional
@@ -29,6 +32,9 @@ public class ChirpService {
 
 	@Autowired
 	private AdminService		adminService;
+	
+	@Autowired
+	private Validator			validator;
 
 
 	//Constructor
@@ -36,9 +42,9 @@ public class ChirpService {
 		super();
 	}
 
-	public Chirp create(final int rendeId) {
+	public ChirpForm create() {
 		User principal;
-		Chirp chirp;
+		ChirpForm chirpForm;
 		Date moment;
 
 		moment = new Date(System.currentTimeMillis() - 1);
@@ -46,11 +52,11 @@ public class ChirpService {
 		principal = this.userService.findByPrincipal();
 		Assert.notNull(principal);
 
-		chirp = new Chirp();
+		chirpForm = new ChirpForm();
 
-		chirp.setMoment(moment);
+		chirpForm.setMoment(moment);
 
-		return chirp;
+		return chirpForm;
 	}
 
 	public Chirp save(final Chirp chirp) {
@@ -102,5 +108,23 @@ public class ChirpService {
 
 	public void flush(){
 		this.chirpRepository.flush();
+	}
+
+	public Chirp reconstruct(ChirpForm chirpForm, BindingResult binding) {
+		Chirp result = new Chirp();
+		User principal;
+		
+		
+		principal = this.userService.findByPrincipal();
+		
+		
+		result.setTitle(chirpForm.getTitle());
+		result.setDescription(chirpForm.getDescription());
+		result.setMoment(chirpForm.getMoment());
+		result.setUser(principal);
+		
+		this.validator.validate(result, binding);
+		
+		return result;
 	}
 }

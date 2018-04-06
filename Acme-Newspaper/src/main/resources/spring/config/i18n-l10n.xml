@@ -25,6 +25,7 @@
 		<value>/views/administrator/messages</value>
 		<value>/views/user/messages</value>
 		<value>/views/customer/messages</value>
+		<value>/views/chirp/messages</value>
 
 	</util:list>
 
