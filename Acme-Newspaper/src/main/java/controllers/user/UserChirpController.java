@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import controllers.AbstractController;
+
 import domain.Chirp;
 import domain.User;
 
@@ -23,7 +25,7 @@ import services.UserService;
 
 @Controller
 @RequestMapping("/chirp/user")
-public class UserChirpController {
+public class UserChirpController extends AbstractController{
 	
 	@Autowired
 	ChirpService chirpService;

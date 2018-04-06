@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
+
 import domain.Newspaper;
 import domain.User;
 
@@ -19,7 +21,7 @@ import services.UserService;
 
 @Controller
 @RequestMapping("/newspaper/user")
-public class UserNewspaperController {
+public class UserNewspaperController extends AbstractController{
 
 	// Services
 
