@@ -36,7 +36,7 @@
 			<li><a class="fNiv"><spring:message	code="master.page.user" /></a>
 				<ul>
 					<li class="arrow"></li>
-						
+					<li><a href="chirp/user/followingChirps.do"><spring:message code="master.page.chirp.followingChirps" /> </a></li>	
 				</ul>
 			</li>
 		</security:authorize>

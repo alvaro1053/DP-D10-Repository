@@ -1,5 +1,7 @@
 package controllers.user;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import domain.Chirp;
+import domain.User;
 
 import forms.ChirpForm;
 
 
 import services.ChirpService;
+import services.UserService;
 
 @Controller
 @RequestMapping("/chirp/user")
@@ -23,6 +27,10 @@ public class UserChirpController {
 	
 	@Autowired
 	ChirpService chirpService;
+	
+	//Auxilliary servicies
+	@Autowired
+	UserService userService;
 	
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -49,7 +57,7 @@ public class UserChirpController {
 			try{
 				this.chirpService.save(chirp);
 				result = new ModelAndView("redirect:../../");
-				String successfulMessage = "chirp.commit.ok";
+				String successfulMessage = "master.page.chirp.commit.ok";
 				redir.addFlashAttribute("message", successfulMessage);
 			}catch(Throwable oops){
 				result = this.createEditModelAndView(chirpForm, "chirp.commit.error");
@@ -57,6 +65,22 @@ public class UserChirpController {
 		}
 		
 		
+		return result;
+		
+	}
+	
+	@RequestMapping(value = "/followingChirps", method = RequestMethod.GET)
+	public ModelAndView streamChirps(){
+		ModelAndView result;
+		User principal;
+		Collection<Chirp> followingChirps;
+		principal = this.userService.findByPrincipal();
+		
+		followingChirps = this.chirpService.findByUserFollowers(principal.getId());
+		
+		result = new ModelAndView("chirp/list");
+		result.addObject("followingChirps", followingChirps);
+				
 		return result;
 		
 	}

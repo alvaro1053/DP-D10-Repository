@@ -105,6 +105,15 @@ public class ChirpService {
 		return chirp;
 
 	}
+	
+	public Collection<Chirp> findByUserFollowers(final int userId){
+		Collection<Chirp> result;
+		
+		result = this.chirpRepository.findByUserFollowers(userId);
+		
+		return result;
+		
+	}
 
 	public void flush(){
 		this.chirpRepository.flush();
