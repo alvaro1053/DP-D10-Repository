@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.user;
 
 import java.util.Collection;
 
@@ -16,8 +16,8 @@ import domain.Article;
 import domain.User;
 
 @Controller
-@RequestMapping("/user")
-public class UserController extends AbstractController {
+@RequestMapping("/user/user")
+public class UserUserController {
 
 	//Autowired
 	@Autowired
@@ -28,21 +28,23 @@ public class UserController extends AbstractController {
 
 
 	//Constructor
-	public UserController() {
+	public UserUserController() {
 		super();
 	}
 
 	//list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		String uri = "";
+		String uri = "/user";
 		ModelAndView result;
+		final User principal = this.userService.findByPrincipal();
 		Collection<User> users;
 
 		users = this.userService.findAll();
 
 		result = new ModelAndView("user/list");
 		result.addObject("users", users);
+		result.addObject("principal", principal);
 		result.addObject("uri", uri);
 		return result;
 	}
@@ -51,8 +53,9 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int userId) {
 		final ModelAndView result;
+		final User principal = this.userService.findByPrincipal();
 		User user;
-		final String uri = "";
+		final String uri = "/user";
 		Collection<Article> articles;
 
 
@@ -63,7 +66,7 @@ public class UserController extends AbstractController {
 		result.addObject("user", user);
 		result.addObject("uri", uri);
 		result.addObject("articles", articles);
-		result.addObject("principal", null);
+		result.addObject("principal", principal);
 		return result;
 
 	}

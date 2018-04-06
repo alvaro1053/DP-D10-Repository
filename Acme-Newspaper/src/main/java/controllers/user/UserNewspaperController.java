@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.user;
 
 import java.util.Collection;
 
@@ -11,23 +11,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Newspaper;
+import domain.User;
 
 import services.NewspaperService;
+import services.UserService;
 
 
 @Controller
-@RequestMapping("/newspaper")
-public class NewspaperController extends AbstractController {
+@RequestMapping("/newspaper/user")
+public class UserNewspaperController {
 
 	// Services
 
 	@Autowired
 	private NewspaperService	newspaperService;
+	
+	@Autowired
+	private UserService	userService;
 
 
 	// Constructors
 
-	public NewspaperController() {
+	public UserNewspaperController() {
 		super();
 	}
 
@@ -36,10 +41,12 @@ public class NewspaperController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
-		final String uri = "";
+		final User principal = this.userService.findByPrincipal();
+		final String uri = "/user";
 		newspapers = this.newspaperService.publishedNewspapers();
 		result = new ModelAndView("newspaper/list");
 		result.addObject("newspapers", newspapers);
+		result.addObject(principal);
 		result.addObject("uri", uri);
 		return result;
 	}	

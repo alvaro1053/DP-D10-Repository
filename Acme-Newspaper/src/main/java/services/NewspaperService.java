@@ -71,7 +71,7 @@ public class NewspaperService {
 		Assert.notNull(principal);
 		Assert.isTrue(newspaper.getUser().equals(principal));
 		
-		if(newspaper.getIsPublished() == true){
+		if(newspaper.getPublicationDate() != null){
 			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 		}
 		
@@ -90,6 +90,15 @@ public class NewspaperService {
 		result = this.newspaperRepository.findOne(newspaperId);
 		Assert.notNull(result);
 
+		return result;
+	}
+	
+	public Collection<Newspaper> publishedNewspapers(){
+		Collection<Newspaper>result;
+		
+		result = this.newspaperRepository.publishedNewspapers();
+		Assert.notNull(result);
+		
 		return result;
 	}
 

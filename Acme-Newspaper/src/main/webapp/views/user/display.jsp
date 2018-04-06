@@ -73,9 +73,9 @@
 <td class="right-display"> 
 
 <jstl:choose>
-<jstl:when test="${not empty user.articles}"> 
+<jstl:when test="${not empty articles}"> 
 <ul>
-<jstl:forEach items="${user.articles}" var="article">
+<jstl:forEach items="${articles}" var="article">
 <li> <jstl:out value="${article.title}"/> &nbsp; (<a href="article${uri}/display.do?articleId=${article.id}"> ${showArticle} </a>) </li>
 </jstl:forEach>
 </ul> 

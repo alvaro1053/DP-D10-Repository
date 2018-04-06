@@ -42,12 +42,6 @@
 	<spring:message code="newspaper.pictureError" var="pictureError" />
 	<display:column title="${pictureHeader}" sortable="true" > <img src="${row.pictureURL}"  width="auto" height="200"></display:column> 
 
-	<!-- isPublished -->
-		<spring:message code="newspaper.isPublished"
-		var="isPublishedHeader" />
-	<display:column property="isPublished" title="${isPublishedHeader}"
-		sortable="true" />
-		
 	<!-- isPrivate -->
 		<spring:message code="newspaper.isPrivate"
 		var="isPrivateHeader" />
@@ -69,10 +63,21 @@
 	</ul>
 	</display:column>
 	
+
 	<!-- Publisher -->
 	<spring:message code="newspaper.user"
 		var="userHeader" />
-	<display:column property="user.name" title="${userHeader}"
-		sortable="true" />
+	<display:column title="${userHeader}" sortable="true" > 
+		<a href="user${uri}/display.do?userId=${row.user.id}">
+			<jstl:out value="${row.user.name} ${row.user.surname}"/>
+		</a>
+	</display:column>
+	
+	
+	<display:column>
+		<a href="newspaper${uri}/display.do?newspaperId=${row.id}"> <spring:message
+			code="newspaper.display" />
+		</a>
+	</display:column>
 		
 </display:table>

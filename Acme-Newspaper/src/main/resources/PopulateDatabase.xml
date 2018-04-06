@@ -266,7 +266,6 @@
 	<property name="publicationDate" value="2018/03/22 12:26"/>
 	<property name="description" value="El mejor periódico de deportes"/>
 	<property name="pictureURL" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Marca.svg/2000px-Marca.svg.png"/>	
-	<property name="isPublished" value="true"/>
 	<property name="isPrivate" value="false"/>
 	<property name="user" ref="user1"/>
 	
@@ -291,7 +290,6 @@
 	<property name="publicationDate" value="2018/04/12 12:21"/>
 	<property name="description" value="Mucha prensa rosa, mucho cotilleo y mucha polémica"/>
 	<property name="pictureURL" value="https://www.himgs.com/imagenes/hola/comunes/hola-2017.gif"/>	
-	<property name="isPublished" value="true"/>
 	<property name="isPrivate" value="true"/>
 	<property name="user" ref="user1"/>
 	
@@ -316,7 +314,6 @@
 	<property name="publicationDate" value="2019/04/12 12:21"/>
 	<property name="description" value="Nos cachondeamos de todo lo que se mueve"/>
 	<property name="pictureURL" value=""/>	
-	<property name="isPublished" value="false"/>
 	<property name="isPrivate" value="true"/>
 	<property name="user" ref="user1"/>
 	

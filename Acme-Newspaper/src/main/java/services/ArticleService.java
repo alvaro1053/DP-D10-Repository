@@ -103,5 +103,14 @@ public class ArticleService {
 
 		return result;
 	}
+	
+	public Collection<Article> articlesPublishedByUser(final int userId){
+		Collection<Article> result;
+		
+		result = this.articleRepository.articlesPublishedByUser(userId);
+		Assert.notNull(result);
+		
+		return result;
+	}
 
 }
