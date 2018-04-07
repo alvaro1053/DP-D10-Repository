@@ -135,4 +135,44 @@ public class UserService {
 	public void flush() {
 		this.UserRepository.flush();
 	}
+
+	public void follow(User userToBeFollowed) {
+		User principal;
+		Collection<User> usersToBeAdded;
+		principal = this.findByPrincipal();
+		
+		usersToBeAdded = principal.getFollows();
+		usersToBeAdded.add(userToBeFollowed);
+		principal.setFollows(usersToBeAdded);
+		
+		usersToBeAdded = userToBeFollowed.getFollowers();
+		usersToBeAdded.add(principal);
+		userToBeFollowed.setFollowers(usersToBeAdded);
+		
+		
+	}
+
+	public void unfollow(User userToBeUnfollowed) {
+		User principal;
+		Collection<User> usersToBeUnfollowed;
+		principal = this.findByPrincipal();
+		
+		usersToBeUnfollowed = principal.getFollows();
+		
+		if(usersToBeUnfollowed.contains(userToBeUnfollowed))
+			usersToBeUnfollowed.remove(userToBeUnfollowed);
+		
+		principal.setFollows(usersToBeUnfollowed);
+		
+		
+		usersToBeUnfollowed = userToBeUnfollowed.getFollowers();
+		
+		if(usersToBeUnfollowed.contains(userToBeUnfollowed))
+			usersToBeUnfollowed.remove(userToBeUnfollowed);
+			
+		userToBeUnfollowed.setFollowers(usersToBeUnfollowed);
+		
+		
+		
+	}
 }

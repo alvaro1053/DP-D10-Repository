@@ -38,6 +38,8 @@
 					<li class="arrow"></li>
 					<li><a href="chirp/user/followingChirps.do"><spring:message code="master.page.chirp.followingChirps" /> </a></li>
 					<li><a href="user/user/list.do"><spring:message code="master.page.userList" /> </a></li>		
+					<li><a href="user/user/followingList.do"><spring:message code="master.page.chirp.followingList" /> </a></li>
+					<li><a href="user/user/followersList.do"><spring:message code="master.page.chirp.followersList" /> </a></li>
 				</ul>
 			</li>
 		</security:authorize>
@@ -69,6 +71,7 @@
 					<li class="arrow"></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 					<li><a href="chirp/user/create.do"><spring:message code="master.page.chirp.create" /> </a></li>
+					<li><a href="user/user/displayUserProfile.do"><spring:message code="master.page.chirp.displayUserProfile" /> </a></li>
 				</ul>
 			</li>
 		</security:authorize>
