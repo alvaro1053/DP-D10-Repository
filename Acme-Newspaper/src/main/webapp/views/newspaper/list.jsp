@@ -18,6 +18,7 @@
 <display:table pagesize="5" class="displaytag" 
 	name="newspapers" requestURI="newspaper${uri}/list.do" id="row">
 	
+
 	
 	<!-- title -->
 	<spring:message code="newspaper.title"
@@ -79,5 +80,27 @@
 			code="newspaper.display" />
 		</a>
 	</display:column>
+
+		<display:column>
+		<jsp:useBean id="now" class="java.util.Date"/>
+			<jstl:if test="${principal.newspapers.contains(row) && row.publicationDate > now}">
+		<a href="newspaper/user/publish.do?newspaperId=${row.id}"> <spring:message
+			code="newspaper.publish" />
+		</a>
+		</jstl:if>
+	</display:column>
+	
+<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+		<a href="newspaper/admin/delete.do?newspaperId=${row.id}"> <spring:message
+			code="master.page.delete" />
+		</a>
+	</display:column>
+</security:authorize>
 		
 </display:table>
+
+<security:authorize access="hasRole('USER')">
+<a href="newspaper/user/create.do"> <spring:message
+			code="newspaper.create" /> </a>
+</security:authorize>

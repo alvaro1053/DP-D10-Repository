@@ -112,4 +112,14 @@ public class ArticleService {
 		return result;
 	}
 
+	public Collection<Article> findByFilter(final String filter) {
+		Collection<Article> articles = new ArrayList<Article>();
+		if(filter == ""|| filter== null){
+			articles = this.findAll();
+		} else{
+		articles = this.articleRepository.findByFilter(filter);
+		}
+		return articles;
+	}
+	
 }
