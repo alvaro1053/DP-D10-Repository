@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -15,20 +16,17 @@ import repositories.CustomerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
 import domain.Customer;
 import domain.Subscription;
 import forms.ActorForm;
 
 @Service
+@Transactional
 public class CustomerService {
 
 	// Managed Repository
 	@Autowired
 	private CustomerRepository	customerRepository;
-	
-	@Autowired
-	private ActorService	actorService;
 	
 	@Autowired
 	private Validator		validator;
@@ -56,17 +54,6 @@ public class CustomerService {
 	public Customer save(final Customer customer) {
 		Customer saved;
 		Assert.notNull(customer);
-		Actor principal = null;
-		
-		try{
-			principal =  this.actorService.findByPrincipal();
-		}catch(Throwable oops){
-		}
-		
-		//TEST ASSERT - Testing if someone is trying to register while he/she is already being registered to the system at the moment
-		Assert.isTrue(principal == null);
-		//TEST ASSERT ======================================
-		
 
 		if (customer.getId() == 0) {
 			final Md5PasswordEncoder passwordEncoder = new Md5PasswordEncoder();

@@ -38,6 +38,12 @@
 	<display:column property="surname" title="${surnameHeader}"
 		sortable="true" />
 		
+	<!-- email -->
+	<spring:message code="user.email"
+		var="emailHeader" />
+	<display:column property="email" title="${emailHeader}"
+		sortable="true" />
+		
 	<!-- phone -->
 	<spring:message code="user.phone"
 		var="phoneHeader" />
@@ -51,7 +57,7 @@
 			<display:column title="${addressHeader}"
 			sortable="true">
 		<jstl:if test="${principal==row}">
-			<jstl:out value ="${row.address}"/>
+			<jstl:out value ="${row.postalAddress}"/>
 		</jstl:if>
 			</display:column>
 	</security:authorize>
@@ -59,23 +65,12 @@
 	<security:authorize access="hasRole('ADMIN')">
 			<display:column title="${addressHeader}"
 			sortable="true">
-			<jstl:out value ="${row.address}"/>
+			<jstl:out value ="${row.postalAddress}"/>
 			</display:column>
 	</security:authorize>
 
-	<!-- email -->
-	<spring:message code="user.email"
-		var="emailHeader" />
-	<display:column property="email" title="${emailHeader}"
-		sortable="true" />
-		
-	<!-- dateBirth -->
-	<spring:message code="user.dateBirth"
-		var="dateBirthHeader" />
-	<display:column property="dateBirth" title="${dateBirthHeader}"
-		sortable="true" />	
-		
 	
+		
 	<display:column>
 		<a href="user${uri}/display.do?userId=${row.id}"> <spring:message
 			code="user.display" />

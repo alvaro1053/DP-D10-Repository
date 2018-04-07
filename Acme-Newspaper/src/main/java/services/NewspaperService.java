@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import services.UserService;
+
 import repositories.NewspaperRepository;
 import domain.Admin;
 import domain.Article;
@@ -39,7 +41,6 @@ public class NewspaperService {
 		Assert.notNull(principal);
 		result = new Newspaper();
 		result.setUser(principal);
-		result.setIsPublished(false);
 		result.setArticles(new ArrayList<Article>());
 		result.setSubscriptions(new ArrayList<Subscription>());
 		return result;
@@ -71,8 +72,10 @@ public class NewspaperService {
 		User principal = userService.findByPrincipal();
 		Assert.notNull(principal);
 		Assert.isTrue(newspaper.getUser().equals(principal));
-		Assert.isTrue(newspaper.getIsPublished() == false);
-		newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
+		
+		if(newspaper.getPublicationDate() != null){
+			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
+		}
 		
 		result = this.newspaperRepository.save(newspaper);
 		
@@ -93,14 +96,14 @@ public class NewspaperService {
 		return result;
 	}
 	
-	public void publish(final Newspaper newspaper){
-		User principal = userService.findByPrincipal();
-		Assert.notNull(principal);
-		Assert.isTrue(principal.equals(newspaper.getUser()));
-		for(Article a: newspaper.getArticles()){
-			Assert.isTrue(a.getIsDraft() == false);
-		}
-		newspaper.setIsPublished(true);
+
+	public Collection<Newspaper> publishedNewspapers(){
+		Collection<Newspaper>result;
+		
+		result = this.newspaperRepository.publishedNewspapers();
+		Assert.notNull(result);
+		
+		return result;
 	}
 
 

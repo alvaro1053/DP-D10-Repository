@@ -28,7 +28,6 @@ public class Newspaper extends DomainEntity {
 	private Date				publicationDate;
 	private String				description;
 	private String				pictureURL;
-	private Boolean				isPublished;
 	private Boolean				isPrivate;
 	
 	private Collection<Article>	articles;
@@ -69,14 +68,6 @@ public class Newspaper extends DomainEntity {
 	}
 	public void setPictureURL(String pictureURL) {
 		this.pictureURL = pictureURL;
-	}
-	
-	@NotNull
-	public Boolean getIsPublished() {
-		return isPublished;
-	}
-	public void setIsPublished(Boolean isPublished) {
-		this.isPublished = isPublished;
 	}
 	
 	@NotNull

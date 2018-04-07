@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.UserService;
+import controllers.AbstractController;
 import domain.User;
 import forms.ActorForm;
 
 @Controller
 @RequestMapping("/user")
-public class UserRegisterController {
+public class UserRegisterController extends AbstractController {
 
 	@Autowired
 	private UserService	userService;
@@ -24,11 +25,11 @@ public class UserRegisterController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-	
+
 		final ActorForm actorForm = new ActorForm();
 		result = this.createEditModelAndView(actorForm);
 		result.addObject("permiso", true);
-		
+
 		return result;
 	}
 
@@ -40,7 +41,7 @@ public class UserRegisterController {
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(actorForm);
 			result.addObject("permiso", true);
-		} else{
+		} else
 			try {
 				this.userService.save(user);
 				result = new ModelAndView("redirect:../");
@@ -51,7 +52,6 @@ public class UserRegisterController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actorForm, "user.commit.error");
 			}
-		}
 		return result;
 	}
 

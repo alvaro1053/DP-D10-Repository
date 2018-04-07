@@ -40,6 +40,11 @@
 </tr>
 
 <tr>
+<td class ="left-display"> <strong> <spring:message code="user.email" /> : </strong> </td>
+<td class="right-display"> <jstl:out value ="${user.email}" /> &nbsp; </td>
+</tr>
+
+<tr>
 <td class ="left-display"> <strong> <spring:message code="user.phone" /> : </strong> </td>
 <td class="right-display">  <jstl:out value="${user.phone}" /> &nbsp; </td>
 </tr>
@@ -48,7 +53,7 @@
 <jstl:if test="${principal.id == user.id }">
 <tr>
 <td class ="left-display"> <strong> <spring:message code="user.address" /> : </strong> </td>
-<td class="right-display">  <jstl:out value="${user.address}" /> &nbsp; </td>
+<td class="right-display">  <jstl:out value="${user.postalAddress}" /> &nbsp; </td>
 </tr>
 </jstl:if>
 </security:authorize>
@@ -56,41 +61,28 @@
 <security:authorize access="hasRole('ADMIN')">
 <tr>
 <td class ="left-display"> <strong> <spring:message code="user.address" /> : </strong> </td>
-<td class="right-display">  <jstl:out value="${user.address}" /> &nbsp; </td>
+<td class="right-display">  <jstl:out value="${user.postalAddress}" /> &nbsp; </td>
 </tr>
 
 </security:authorize>
+ 
+<spring:message code="user.articles" var="showArticle"/>
 
 <tr>
-<td class ="left-display"> <strong> <spring:message code="user.email" /> : </strong> </td>
-<td class="right-display"> <jstl:out value ="${user.email}" /> &nbsp; </td>
-</tr>
-
-<tr>
-<td class ="left-display"> <strong> <spring:message code="user.dateBirth" /> : </strong> </td>
-<td class="right-display"> <jstl:out value ="${user.dateBirth}" /> &nbsp; </td>
-</tr>
-
-
-
-
-<spring:message code="user.showRende" var="showRende"/>
-
-<tr>
-<td class ="left-display"> <strong> <spring:message code="user.rendes" /> : </strong> </td>
+<td class ="left-display"> <strong> <spring:message code="user.articles" /> : </strong> </td>
 <td class="right-display"> 
 
 <jstl:choose>
-<jstl:when test="${not empty user.rendes}"> 
+<jstl:when test="${not empty articles}"> 
 <ul>
-<jstl:forEach items="${user.rendes}" var="rende">
-<li> <jstl:out value="${rende.name}"/> &nbsp; (<a href="rende/user/display.do?rendeId=${rende.id}"> ${showRende} </a>) </li>
+<jstl:forEach items="${articles}" var="article">
+<li> <jstl:out value="${article.title}"/> &nbsp; (<a href="article${uri}/display.do?articleId=${article.id}"> ${showArticle} </a>) </li>
 </jstl:forEach>
 </ul> 
 </jstl:when>
 <jstl:otherwise>
 
-<spring:message code="user.rendes.empty" />
+<spring:message code="user.articles.empty" />
 
 </jstl:otherwise>
 </jstl:choose>
@@ -98,26 +90,5 @@
 </td>
 </tr>
 
-<jstl:if test="${viewAttendants}">
-
-		<spring:message code="user.questionAndReplies" var="QuestionReplies"/>
-	<tr><td class ="left-display"><strong><jstl:out value="${QuestionReplies}"/> <spring:message code="user.to"/> ${rende.name} :</strong></td>
-		<td class="right-display"><jstl:forEach items="${mapQuestionsView}" var="map" varStatus="loop">
-				<br/>
-					<strong> <spring:message code="user.question" /> ${loop.count} : </strong><jstl:out value="${map.key.question}"/> &nbsp; <br/>
-					<strong> <spring:message code="user.reply" /> ${loop.count} : </strong><jstl:out value="${map.value.reply}"/><br/>
-				<br/>
-		</jstl:forEach></td>
-	
-	
-	</tr>
-	
-</jstl:if>
 
 </table>
-
-
-
-
-
-

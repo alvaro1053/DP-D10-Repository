@@ -36,7 +36,8 @@
 			<li><a class="fNiv"><spring:message	code="master.page.user" /></a>
 				<ul>
 					<li class="arrow"></li>
-						
+					<li><a href="chirp/user/followingChirps.do"><spring:message code="master.page.chirp.followingChirps" /> </a></li>
+					<li><a href="user/user/list.do"><spring:message code="master.page.userList" /> </a></li>		
 				</ul>
 			</li>
 		</security:authorize>
@@ -46,7 +47,17 @@
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="newspaper/list.do"><spring:message code="master.page.newspaper" /></a></li>
+		</security:authorize>
 		
+		<security:authorize access="hasRole('USER')">
+			<li><a class="fNiv" href="newspaper/user/list.do"><spring:message code="master.page.newspaper" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.userList" /></a></li>
+		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
 			<li>
@@ -57,6 +68,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
+					<li><a href="chirp/user/create.do"><spring:message code="master.page.chirp.create" /> </a></li>
 				</ul>
 			</li>
 		</security:authorize>

@@ -52,7 +52,7 @@ public class FollowUpService {
 		Assert.isTrue(followUp.getId() == 0);
 		User principal = userService.findByPrincipal();
 		Assert.notNull(principal);
-		Assert.isTrue(followUp.getArticle().getIsDraft() == false || followUp.getArticle().getNewspaper().getIsPublished() == true);
+		Assert.isTrue(followUp.getArticle().getIsDraft() == false || followUp.getArticle().getNewspaper().getPublicationDate() != null);
 		followUp.setPublicationDate(new Date(System.currentTimeMillis() - 1));	
 		result = this.followUpRepository.save(followUp);
 		
