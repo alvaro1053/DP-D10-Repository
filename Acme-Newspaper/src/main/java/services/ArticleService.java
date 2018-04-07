@@ -77,9 +77,8 @@ public class ArticleService {
 		User principal = userService.findByPrincipal();
 		Assert.notNull(principal);
 		
-		if(article.getIsDraft() == false){
 		article.setMoment(new Date(System.currentTimeMillis() - 1));
-		}
+
 		
 		User creator = article.getUser();
 		Collection<Article> creatorsArticle = creator.getArticles();

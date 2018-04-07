@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 import repositories.NewspaperRepository;
 import domain.Admin;
 import domain.Article;
-import domain.Customer;
 import domain.Newspaper;
 import domain.Subscription;
 import domain.User;
@@ -40,6 +39,7 @@ public class NewspaperService {
 		Assert.notNull(principal);
 		result = new Newspaper();
 		result.setUser(principal);
+		result.setIsPublished(false);
 		result.setArticles(new ArrayList<Article>());
 		result.setSubscriptions(new ArrayList<Subscription>());
 		return result;
@@ -71,16 +71,15 @@ public class NewspaperService {
 		User principal = userService.findByPrincipal();
 		Assert.notNull(principal);
 		Assert.isTrue(newspaper.getUser().equals(principal));
-		
-		if(newspaper.getIsPublished() == true){
-			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
-		}
+		Assert.isTrue(newspaper.getIsPublished() == false);
+		newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 		
 		result = this.newspaperRepository.save(newspaper);
 		
 		Collection<Newspaper> creatorsNewspapers = principal.getNewspapers();
 		creatorsNewspapers.add(result);
 		principal.setNewspapers(creatorsNewspapers);
+		
 	
 		return result;
 	}
@@ -92,6 +91,16 @@ public class NewspaperService {
 		Assert.notNull(result);
 
 		return result;
+	}
+	
+	public void publish(final Newspaper newspaper){
+		User principal = userService.findByPrincipal();
+		Assert.notNull(principal);
+		Assert.isTrue(principal.equals(newspaper.getUser()));
+		for(Article a: newspaper.getArticles()){
+			Assert.isTrue(a.getIsDraft() == false);
+		}
+		newspaper.setIsPublished(true);
 	}
 
 

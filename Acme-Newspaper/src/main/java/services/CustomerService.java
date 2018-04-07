@@ -7,7 +7,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -18,12 +17,10 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Customer;
-import domain.Newspaper;
 import domain.Subscription;
 import forms.ActorForm;
 
 @Service
-@Transactional
 public class CustomerService {
 
 	// Managed Repository
@@ -125,6 +122,7 @@ public class CustomerService {
 		customer.setName(actorForm.getName());
 		customer.setSurname(actorForm.getSurname());
 		customer.setEmail(actorForm.getEmail());
+		customer.setPostalAddress(actorForm.getAddress());
 		customer.setId(actorForm.getId());
 		customer.setVersion(actorForm.getVersion());
 		customer.setPhone(actorForm.getPhone());
