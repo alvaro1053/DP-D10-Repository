@@ -29,19 +29,47 @@
 </script>
 <form:form action="customisation/admin/edit.do" modelAttribute="customisation">
 
+	<fieldset>
 
-	<jstl:forEach items = "${customisation.tabooWords}" var="word" varStatus="j" begin="0">
 	
-		<div class="list-item">
-		
-			<form:input path="tabooWords[${j.index}]"/>
-			<a href="#" class="list-remove" onclick="event.preventDefault();">
-				<spring:message code="customisation.removeWord"/>
-			</a>
-		</div>
-		<br/>
-	</jstl:forEach>
+	<legend> <spring:message code="customisation.tabooWords"/> :  </legend>
 	
+    <div id="list1">
+    <jstl:choose> 
+		<jstl:when test="${empty customisation.tabooWords}">
+			<div class="list-item">
+				 <form:input path="tabooWords[0]"/>
+				 <a href="#" class="list-remove" onclick="event.preventDefault();"> <spring:message code="customisation.removeWord"/> </a>
+			 </div>
+			 
+		</jstl:when>
+		<jstl:otherwise>
+			<jstl:forEach items="${customisation.tabooWords}" var="word" varStatus="j" begin="0">
+    			<div class="list-item">
+      				<form:input path="tabooWords[${j.index}]"/>
+      				<a href= "#" class="list-remove" onclick="event.preventDefault();"> <spring:message code="customisation.removeWord"/> </a>
+	    		</div>
+
+        	</jstl:forEach>
+		</jstl:otherwise>
+	</jstl:choose>
+     
     <a href="#" class="list-add" onclick="event.preventDefault();"> <spring:message code="customisation.addWord"/> </a>
+    </div>
+    
+	
+	<form:errors cssClass="error" path="tabooWords" />
+
+	</fieldset>
+	
+	
+	<input type="submit" name="save" id="save"
+		value="<spring:message code="customisation.save" />" />&nbsp; 
+	<input type="button" name="cancel"
+		value="<spring:message code="customisation.cancel" />"
+		onclick="javascript: relativeRedir('');" />
+	<br />
+<jstl:out value="${message}"/>
+	
 
 </form:form>

@@ -25,7 +25,7 @@
 
 
 <tr>
-<td class ="left-display"> <strong> <spring:message code="customisation.taboowords" /> : </strong> </td>
+<td class ="left-display"> <strong> <spring:message code="customisation.tabooWords" /> : </strong> </td>
 <td class="right-display">  
 		<jstl:forEach items="${customisation.tabooWords}" var="word">
 			<ul>
