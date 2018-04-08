@@ -86,7 +86,6 @@ public class UserChirpController extends AbstractController{
 		return result;
 		
 	}
-
 	
 	//Ancillary methods
 

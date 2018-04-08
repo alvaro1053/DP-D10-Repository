@@ -1,5 +1,9 @@
 #./src/main/resources/Entities.map
+<<<<<<< HEAD
 #Sat Apr 07 17:58:38 CEST 2018
+=======
+#Sat Apr 07 20:20:52 CEST 2018
+>>>>>>> 40e763826b1590a384264cb8a4b7a821a2117785
 chirp2=49
 followUp3=44
 chirp1=48

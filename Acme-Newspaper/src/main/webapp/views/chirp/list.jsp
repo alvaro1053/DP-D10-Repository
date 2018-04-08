@@ -12,7 +12,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <display:table pagesize="5" class="displaytag" 
-	name="followingChirps" requestURI="chirp/user/list.do" id="row">
+	name="followingChirps" requestURI="chirp/user/followingChirps.do" id="row">
 
 
 	<!-- title -->

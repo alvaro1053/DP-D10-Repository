@@ -18,6 +18,24 @@
 <display:table pagesize="5" class="displaytag" 
 	name="users" requestURI="user${uri}/list.do" id="row">
 	
+		<!-- Follow -->
+	<security:authorize access="hasRole('USER')">
+	<spring:message code="user.follow" var="followHeader" />
+	<spring:message code="user.unfollow" var="unfollowHeader" />
+		<jstl:choose>
+			<jstl:when test="${principal.follows.contains(row)}">
+				<display:column title="${followHeader}">
+					<a href = "user/user/unfollow.do?userId=${row.id}">${unfollowHeader}</a>
+				</display:column>	
+			</jstl:when>
+			<jstl:otherwise>
+				<display:column title="${followHeader}">
+					<a href = "user/user/follow.do?userId=${row.id}">${followHeader}</a>
+				</display:column>
+			</jstl:otherwise>
+			
+		</jstl:choose>
+	</security:authorize>
 	
 	<!-- userAccount -->
 	<spring:message code="user.username"

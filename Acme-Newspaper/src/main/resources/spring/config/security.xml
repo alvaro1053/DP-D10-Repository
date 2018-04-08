@@ -47,7 +47,8 @@
 		<!-- Chirp -->
 		<security:intercept-url pattern="/chirp/user/create.do" access = "hasRole('USER')"/>
 		<security:intercept-url pattern="/chirp/user/followingChirps.do" access = "hasRole('USER')"/>
-
+		<security:intercept-url pattern="/chirp/user/list.do" access = "hasRole('USER')"/>
+	
 		<!-- Newspaper -->
 		<security:intercept-url pattern="/newspaper/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/newspaper/user/list.do" access="hasRole('USER')" /> 
@@ -57,10 +58,15 @@
 		<security:intercept-url pattern="/newspaper/admin/delete.do" access="hasRole('ADMIN')" /> 
 		
 		<!-- User -->
+		<security:intercept-url pattern="/user/user/follow.do" access = "hasRole('USER')"/>
+		<security:intercept-url pattern="/user/user/unfollow.do" access = "hasRole('USER')"/>
+		<security:intercept-url pattern="/user/user/displayUserProfile.do" access = "hasRole('USER')"/>
+		<security:intercept-url pattern="/user/user/followingList.do" access = "hasRole('USER')"/>
+		<security:intercept-url pattern="/user/user/followersList.do" access = "hasRole('USER')"/>
 		<security:intercept-url pattern="/user/list.do" access="permitAll" /> 
-			<security:intercept-url pattern="/user/user/list.do" access="hasRole('USER')" /> 
+		<security:intercept-url pattern="/user/user/list.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/user/display.do" access="permitAll" /> 
-			<security:intercept-url pattern="/user/user/display.do" access="hasRole('USER')" /> 
+		<security:intercept-url pattern="/user/user/display.do" access="hasRole('USER')" /> 
 		
 		
 		<!-- article -->
