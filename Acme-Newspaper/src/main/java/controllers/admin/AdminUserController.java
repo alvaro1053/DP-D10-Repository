@@ -17,7 +17,7 @@ import domain.User;
 
 @Controller
 @RequestMapping("/user/admin")
-public class UserAdminController extends AbstractController {
+public class AdminUserController extends AbstractController {
 
 	//Autowired
 	@Autowired
@@ -28,7 +28,7 @@ public class UserAdminController extends AbstractController {
 
 
 	//Constructor
-	public UserAdminController() {
+	public AdminUserController() {
 		super();
 	}
 

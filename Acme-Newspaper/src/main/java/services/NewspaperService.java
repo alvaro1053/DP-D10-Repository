@@ -101,6 +101,15 @@ public class NewspaperService {
 		
 		return result;
 	}
+	
+	public Collection<Newspaper> searchNewspapers(final String keyword){
+		Collection<Newspaper>result;
+		
+		result = this.newspaperRepository.searchNewspapers(keyword);
+		Assert.notNull(result);
+		
+		return result;
+	}
 
 
 }

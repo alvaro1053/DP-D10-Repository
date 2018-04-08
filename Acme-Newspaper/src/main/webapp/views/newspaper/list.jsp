@@ -11,7 +11,26 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<!-- Listing grid -->
+
+<jstl:if test="${searching == true}"> 
+<h2> <spring:message code="newspaper.results" />  </h2>
+</jstl:if>
+
+<spring:message code="newspaper.search" var="searchNewspapers"  />
+ 
+<form action="newspaper/search.do" method="post" > 
+
+<label for=""> <spring:message code="newspaper.search.keyword"/>:  </label>
+<input type="text"  id="keyWord" name="keyword">
+<br/>
+<br/>
+
+<input type="submit" name="save" value="${searchNewspapers}" >
+
+
+</form>
+
+
 
 
 

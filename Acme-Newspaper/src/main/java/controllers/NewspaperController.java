@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Newspaper;
@@ -44,6 +45,28 @@ public class NewspaperController extends AbstractController {
 		return result;
 	}	
 	
-	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView search(@RequestParam("keyword") final String keyword) {
+		ModelAndView result;
+		final Collection<Newspaper> newspapers;
+		final Collection<Newspaper> results;
+		final String uri = "";
+		Boolean searching;
+
+		results = this.newspaperService.searchNewspapers(keyword);
+		newspapers = this.newspaperService.publishedNewspapers();
+		newspapers.retainAll(results);
+
+		searching = true;
+
+		result = new ModelAndView("newspaper/list");
+		result.addObject("newspapers", newspapers);
+		result.addObject("searching", searching);
+		result.addObject("uri", uri);
+
+		return result;
+
+	}
+
 
 }
