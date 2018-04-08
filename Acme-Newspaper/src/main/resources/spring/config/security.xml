@@ -58,6 +58,11 @@
 		<security:intercept-url pattern="/newspaper/user/publish.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/newspaper/admin/delete.do" access="hasRole('ADMIN')" /> 
 		
+		
+		<!-- Customisation -->
+		<security:intercept-url pattern="/customisation/admin/display.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/customisation/admin/edit.do" access="hasRole('ADMIN')" /> 
+		
 		<!-- User -->
 		<security:intercept-url pattern="/user/user/follow.do" access = "hasRole('USER')"/>
 		<security:intercept-url pattern="/user/user/unfollow.do" access = "hasRole('USER')"/>

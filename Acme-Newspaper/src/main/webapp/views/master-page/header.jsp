@@ -61,9 +61,20 @@
 			<li><a class="fNiv" href="newspaper/user/list.do"><spring:message code="master.page.newspaper" /></a></li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('USER')">
+			<li><a href="chirp/user/create.do"><spring:message code="master.page.chirp.create" /> </a></li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv" href="article/admin/list.do"><spring:message code="master.page.article" /></a></li>
 		</security:authorize>
+		
+		
+		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv" href="customisation/admin/display.do"><spring:message code="master.page.taboowords" /></a></li>
+		</security:authorize>
+		
+		
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.userList" /></a></li>
@@ -82,7 +93,6 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
-					<li><a href="chirp/user/create.do"><spring:message code="master.page.chirp.create" /> </a></li>
 					<li><a href="user/user/displayUserProfile.do"><spring:message code="master.page.chirp.displayUserProfile" /> </a></li>
 				</ul>
 			</li>

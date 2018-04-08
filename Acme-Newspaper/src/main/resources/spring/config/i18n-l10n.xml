@@ -28,6 +28,7 @@
 		<value>/views/chirp/messages</value>
 		<value>/views/newspaper/messages</value>
 		<value>/views/article/messages</value>
+		<value>/views/customisation/messages</value>
 
 	</util:list>
 
