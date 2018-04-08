@@ -9,6 +9,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+
+import services.UserService;
 
 import repositories.NewspaperRepository;
 import domain.Admin;
@@ -16,6 +20,7 @@ import domain.Article;
 import domain.Newspaper;
 import domain.Subscription;
 import domain.User;
+import forms.NewspaperForm;
 
 @Service
 @Transactional
@@ -25,8 +30,12 @@ public class NewspaperService {
 	@Autowired
 	private NewspaperRepository	newspaperRepository;
 	//Services
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private Validator validator;
 
 	//Constructors
 	public NewspaperService() {
@@ -35,7 +44,7 @@ public class NewspaperService {
 
 	public Newspaper create() {
 		Newspaper result;
-		User principal = userService.findByPrincipal();
+		User principal = this.userService.findByPrincipal();
 		Assert.notNull(principal);
 		result = new Newspaper();
 		result.setUser(principal);
@@ -71,7 +80,7 @@ public class NewspaperService {
 		Assert.notNull(principal);
 		Assert.isTrue(newspaper.getUser().equals(principal));
 		
-		if(newspaper.getPublicationDate() != null){
+		if(newspaper.getPublicationDate() == null){
 			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 		}
 		
@@ -80,6 +89,7 @@ public class NewspaperService {
 		Collection<Newspaper> creatorsNewspapers = principal.getNewspapers();
 		creatorsNewspapers.add(result);
 		principal.setNewspapers(creatorsNewspapers);
+		
 	
 		return result;
 	}
@@ -93,6 +103,7 @@ public class NewspaperService {
 		return result;
 	}
 	
+
 	public Collection<Newspaper> publishedNewspapers(){
 		Collection<Newspaper>result;
 		
@@ -109,6 +120,32 @@ public class NewspaperService {
 		Assert.notNull(result);
 		
 		return result;
+	}
+	public void publish (Newspaper newspaper){
+		User principal = this.userService.findByPrincipal();
+		Assert.notNull(principal);
+		Assert.isTrue(principal.getNewspapers().contains(newspaper));
+		Date now = new Date(System.currentTimeMillis());
+		Assert.isTrue(newspaper.getPublicationDate().after(now));
+		for (Article a : newspaper.getArticles()){
+			Assert.isTrue(a.getIsDraft() == false);
+		}
+		newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
+	}
+	
+	public Newspaper reconstruct (NewspaperForm newspaperForm, BindingResult binding){
+		Newspaper newspaper = this.create();
+		
+		newspaper.setTitle(newspaperForm.getTitle());
+		newspaper.setDescription(newspaperForm.getDescription());
+		newspaper.setPictureURL(newspaperForm.getPictureURL());
+		newspaper.setIsPrivate(newspaperForm.getIsPrivate());
+		newspaper.setId(newspaperForm.getId());
+		newspaper.setVersion(newspaperForm.getVersion());
+		newspaper.setPublicationDate(newspaperForm.getPublicationDate());
+		
+		validator.validate(newspaperForm, binding);
+		return newspaper;
 	}
 
 

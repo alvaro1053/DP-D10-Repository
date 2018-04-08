@@ -53,6 +53,10 @@
 			<li><a class="fNiv" href="newspaper/list.do"><spring:message code="master.page.newspaper" /></a></li>
 		</security:authorize>
 		
+		<security:authorize access="hasAnyRole('ADMIN','CUSTOMER')">
+		<li><a class="fNiv" href="newspaper/list.do"><spring:message code="master.page.newspaper" /></a></li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('USER')">
 			<li><a class="fNiv" href="newspaper/user/list.do"><spring:message code="master.page.newspaper" /></a></li>
 		</security:authorize>
@@ -63,6 +67,10 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.userList" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="permitAll">
+			<li><a class="fNiv" href="article/list.do"><spring:message code="master.page.articles" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

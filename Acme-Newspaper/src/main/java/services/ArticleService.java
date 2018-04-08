@@ -77,9 +77,8 @@ public class ArticleService {
 		User principal = userService.findByPrincipal();
 		Assert.notNull(principal);
 		
-		if(article.getIsDraft() == false){
 		article.setMoment(new Date(System.currentTimeMillis() - 1));
-		}
+
 		
 		User creator = article.getUser();
 		Collection<Article> creatorsArticle = creator.getArticles();
@@ -113,4 +112,14 @@ public class ArticleService {
 		return result;
 	}
 
+	public Collection<Article> findByFilter(final String filter) {
+		Collection<Article> articles = new ArrayList<Article>();
+		if(filter == ""|| filter== null){
+			articles = this.findAll();
+		} else{
+		articles = this.articleRepository.findByFilter(filter);
+		}
+		return articles;
+	}
+	
 }
