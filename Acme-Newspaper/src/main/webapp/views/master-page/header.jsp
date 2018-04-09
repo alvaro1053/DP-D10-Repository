@@ -53,12 +53,16 @@
 			<li><a class="fNiv" href="newspaper/list.do"><spring:message code="master.page.newspaper" /></a></li>
 		</security:authorize>
 		
-		<security:authorize access="hasAnyRole('ADMIN','CUSTOMER')">
-		<li><a class="fNiv" href="newspaper/list.do"><spring:message code="master.page.newspaper" /></a></li>
-		</security:authorize>
-		
 		<security:authorize access="hasRole('USER')">
 			<li><a class="fNiv" href="newspaper/user/list.do"><spring:message code="master.page.newspaper" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv" href="newspaper/admin/list.do"><spring:message code="master.page.newspaper" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('CUSTOMER')">
+			<li><a class="fNiv" href="newspaper/customer/list.do"><spring:message code="master.page.newspaper" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('USER')">

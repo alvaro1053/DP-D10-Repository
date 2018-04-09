@@ -1,6 +1,7 @@
 
 package controllers.user;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -50,15 +51,21 @@ public class UserNewspaperController extends AbstractController{
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final String filter) {
 		ModelAndView result;
-		Collection<Newspaper> newspapers;
+		Collection<Newspaper> newspapers = new ArrayList<Newspaper>();
+		Set<Newspaper> noDuplicates = new HashSet<Newspaper>();
 		final User principal = this.userService.findByPrincipal();
 		final String uri = "/user";
-		newspapers = this.newspaperService.findByFilter(filter);
 		
-		//Añadimos los no-publicados por el usuario
-		newspapers.addAll(principal.getNewspapers());
-		//Lo paso a Set para que no haya duplicados
-		Set<Newspaper> noDuplicates = new HashSet<Newspaper>(newspapers);
+		if(filter == "" || filter == null){
+			newspapers = this.newspaperService.publishedNewspapers();
+			//Añadimos los no-publicados por el usuario
+			newspapers.addAll(principal.getNewspapers());
+			//Lo paso a Set para que no haya duplicados
+			noDuplicates.addAll(newspapers);
+		}else{
+			newspapers = this.newspaperService.findByFilter(filter);
+			noDuplicates.addAll(newspapers);
+		}
 		
 		result = new ModelAndView("newspaper/list");
 		result.addObject("newspapers", noDuplicates);

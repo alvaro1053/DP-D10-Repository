@@ -76,11 +76,11 @@ public class NewspaperService {
 		}else if(actor instanceof Admin && filter == ""|| filter== null){
 			newspapers = this.newspaperRepository.findAll();
 		}else if(actor instanceof User && filter == ""|| filter== null){
-			newspapers = this.newspaperRepository.publishedNewspapers();
+			newspapers = this.newspaperRepository.findByFilter(filter);
 		}else if(actor instanceof Customer && filter == ""|| filter== null){
 			newspapers = this.newspaperRepository.publishedNewspapers();
 		}else{
-			newspapers = this.newspaperRepository.findByFilter(filter);
+			newspapers = this.newspaperRepository.findByFilterPublished(filter);
 		}
 		return newspapers;
 	}

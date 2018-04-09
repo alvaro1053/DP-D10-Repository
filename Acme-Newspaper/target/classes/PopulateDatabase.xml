@@ -402,7 +402,7 @@
 	
 	<bean class="domain.FollowUp" id="followUp1">
 	<property name="title" value="Ya se ha curado" />
-	<property name="publicationDate" value="2018/04/01 12:21"/>
+	<property name="publicationDate" value="2018/08/01 12:21"/>
 	<property name="summary" value="La uña de Cristiano ronaldo se le ha curado completamente"/>
 	<property name="text" value="Tras meses de intensa recuperación, el jugador de futbol..."/>
 <property name="photosURL">
@@ -416,7 +416,7 @@
 	
 	<bean class="domain.FollowUp" id="followUp2">
 	<property name="title" value="Ya se ha arreglado la mesa" />
-	<property name="publicationDate" value="2018/04/02 06:21"/>
+	<property name="publicationDate" value="2018/06/20 06:21"/>
 	<property name="summary" value="La mesa de messi se le ha arreglado completamente"/>
 	<property name="text" value="Tras meses de intenso arreglo, el jugador de futbol y su mesa..."/>
 <property name="photosURL">
@@ -430,7 +430,7 @@
 	
 	<bean class="domain.FollowUp" id="followUp3">
 	<property name="title" value="Se ha vuelto a romper" />
-	<property name="publicationDate" value="2018/04/02 09:21"/>
+	<property name="publicationDate" value="2018/05/02 09:21"/>
 	<property name="summary" value="La mesa de messi se le ha vuelto a romper"/>
 	<property name="text" value="Cuando creíamos todos que la mesa estaba arreglada al parecer la pobre..."/>
 <property name="photosURL">

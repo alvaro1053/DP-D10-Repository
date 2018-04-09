@@ -1,6 +1,7 @@
 
 package controllers.admin;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -47,11 +48,15 @@ public class NewspaperAdminController extends AbstractController{
 		@RequestMapping(value = "/list", method = RequestMethod.GET)
 		public ModelAndView list(final String filter) {
 			ModelAndView result;
-			Collection<Newspaper> newspapers;
+			Collection<Newspaper> newspapers = new ArrayList<Newspaper>();
 			final Admin principal = this.adminService.findByPrincipal();
 			final String uri = "/admin";
 			
-			newspapers = this.newspaperService.findAll();
+			if(filter== "" || filter ==null){
+				newspapers = this.newspaperService.findAll();
+			}else{
+				newspapers = this.newspaperService.findByFilter(filter);
+			}
 			
 			result = new ModelAndView("newspaper/list");
 			result.addObject("newspapers", newspapers);
