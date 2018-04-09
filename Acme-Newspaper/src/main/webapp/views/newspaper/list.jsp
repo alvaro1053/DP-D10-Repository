@@ -66,9 +66,9 @@
 		<spring:message code="newspaper.isPrivate"
 		var="isPrivateHeader" />
 	<display:column title="${isPrivateHeader}"> 
-	<security:authorize access="hasRole('USER')" var ="isUser"/>
-	<jstl:choose>
-	<jstl:when test="${principal.newspapers.contains(row) and isUser== true}">
+	<security:authorize access="hasRole('USER')">
+
+	<jstl:if test="${principal.newspapers.contains(row)}">
 	
 	<jstl:choose>
 		<jstl:when test="${row.isPrivate == true}">
@@ -83,8 +83,8 @@
 		</a>
 		</jstl:otherwise>
 		</jstl:choose>
-	</jstl:when>
-	<jstl:otherwise>
+	</jstl:if>
+	</security:authorize>
 	<jstl:choose>
 			<jstl:when test="${row.isPrivate == true}">
 			<img class="alarmImg" src="images/lock.png" width="30" height="auto"/>
@@ -94,8 +94,7 @@
 			<img class="alarmImg" src="images/open.png" width="30" height="auto"/>
 		</jstl:otherwise>
 		</jstl:choose>
-	</jstl:otherwise>
-</jstl:choose>
+
 	
 	</display:column>
 		

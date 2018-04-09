@@ -450,6 +450,7 @@
 	<property name="moment" value="2018/03/12 09:21"/>
 	<property name="description" value="Estoy escribiendo un chirp"/>
 	<property name="user" ref="user1"/>
+	<property name="tabooWords" value="false"/>
 </bean>
 
 <!-- Chirp2 -->
@@ -459,6 +460,7 @@
 	<property name="moment" value="2018/03/12 09:32"/>
 	<property name="description" value="Estoy escribiendo otro chirp"/>
 	<property name="user" ref="user1"/>
+	<property name="tabooWords" value="false"/>
 </bean>
 
 <!-- Chirp3 -->
@@ -466,8 +468,9 @@
 	<bean class="domain.Chirp" id="chirp3">
 	<property name="title" value="Este es mi primer chirp3" />
 	<property name="moment" value="2018/03/13 09:21"/>
-	<property name="description" value="Estoy escribiendo un chirp3"/>
+	<property name="description" value="Estoy escribiendo un chirp3, sex"/>
 	<property name="user" ref="user2"/>
+	<property name="tabooWords" value="true"/>
 </bean>
 
 <!-- Customisation -->

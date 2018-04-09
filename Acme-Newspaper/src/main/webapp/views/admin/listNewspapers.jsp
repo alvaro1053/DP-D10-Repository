@@ -24,6 +24,8 @@
 
 <!-- Listing grid -->
 
+
+
 <display:table pagesize="5" class="displaytag" name="newspapers"  requestURI="admin/admin/listNewspapers.do" id="row">
 	
 	<spring:message code="newspaper.title" var="title" />

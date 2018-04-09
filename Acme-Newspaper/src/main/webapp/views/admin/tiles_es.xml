@@ -26,4 +26,9 @@
 		<put-attribute name="body" value="/views/admin/listNewspapers.jsp" />
 	</definition>
 	
+	<definition name="admin/listChirps" extends="master.page">	
+		<put-attribute name="title" value="Listar chirps con palabras tabú" />
+		<put-attribute name="body" value="/views/admin/listChirps.jsp" />
+	</definition>
+	
 </tiles-definitions>

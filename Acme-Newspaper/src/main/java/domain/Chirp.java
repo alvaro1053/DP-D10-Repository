@@ -17,9 +17,10 @@ public class Chirp extends DomainEntity {
 	private Date		moment;
 	private String		title;
 	private String		description;
-	
 	private User 		user;
+	private Boolean		tabooWords;
 	
+		
 	
 	public Date getMoment() {
 		return moment;
@@ -42,6 +43,13 @@ public class Chirp extends DomainEntity {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public Boolean getTabooWords() {
+		return tabooWords;
+	}
+	public void setTabooWords(Boolean tabooWords) {
+		this.tabooWords = tabooWords;
 	}
 
 //Relationship
