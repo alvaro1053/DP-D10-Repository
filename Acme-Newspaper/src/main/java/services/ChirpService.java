@@ -120,7 +120,8 @@ public class ChirpService {
 	
 	public Collection<Chirp> findByUserFollowers(final int userId){
 		Collection<Chirp> result;
-		
+		User principal = this.userService.findByPrincipal();
+		Assert.notNull(principal);
 		result = this.chirpRepository.findByUserFollowers(userId);
 		
 		return result;

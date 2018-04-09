@@ -61,6 +61,9 @@ public class SubscriptionService {
 
 		Assert.notNull(principal);
 		Assert.isTrue(subscription.getNewspaper().getIsPrivate() == true);
+		for(Subscription s: principal.getSubscriptions()){
+			Assert.isTrue(!(s.getNewspaper().equals(subscription.getNewspaper())));
+		}
 
 		result = this.subscriptionRepository.save(subscription);
 		
