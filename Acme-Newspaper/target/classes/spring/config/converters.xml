@@ -32,7 +32,12 @@
 		<!-- Newspaper -->
 		<bean class="converters.StringToNewspaperConverter" />
 		<bean class="converters.NewspaperToStringConverter" />
-		
+		<!-- Article -->
+		<bean class="converters.StringToArticleConverter" />
+		<bean class="converters.ArticleToStringConverter" />
+		<!-- FollowUp -->
+		<bean class="converters.StringToFollowUpConverter" />
+		<bean class="converters.FollowUpToStringConverter" />
 	</util:list>
 	
 </beans>

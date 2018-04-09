@@ -58,7 +58,8 @@ public class UserUserController extends AbstractController {
 		final ModelAndView result;
 		final User principal = this.userService.findByPrincipal();
 		User user;
-		final String uri = "user/user/display.do";
+		String requestURI = "user/user/display.do";
+		String uri = "article/user/display.do";
 		Collection<Article> articles;
 		Collection<Chirp> chirps;
 
@@ -69,6 +70,7 @@ public class UserUserController extends AbstractController {
 		result = new ModelAndView("user/display");
 		result.addObject("user", user);
 		result.addObject("uri", uri);
+		result.addObject("requestURI", requestURI);
 		result.addObject("articles", articles);
 		result.addObject("principal", principal);
 		result.addObject("chirps", chirps);
@@ -84,8 +86,10 @@ public class UserUserController extends AbstractController {
 		Collection<Article> articles;
 		Collection<Chirp> chirps;
 		String uri;
-
-		uri = "user/user/displayUserProfile.do";
+		String requestURI;
+		
+		requestURI = "user/user/displayUserProfile.do";
+		uri = "article/user/display.do";
 
 		principal = this.userService.findByPrincipal();
 
@@ -96,6 +100,7 @@ public class UserUserController extends AbstractController {
 		result.addObject("user", principal);
 		result.addObject("principal", principal);
 		result.addObject("uri", uri);
+		result.addObject("requestURI", requestURI);
 		result.addObject("articles", articles);
 		result.addObject("chirps", chirps);
 

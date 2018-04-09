@@ -84,6 +84,15 @@
 			</li>
 			-->
 		
+		<security:authorize access="hasRole('USER')">
+		<li><a class = "fNiv"><spring:message code = "master.page.followUp"/></a>
+			<ul>
+				<li class="arrow"></li>
+					<li><a href="followUp/user/list.do"><spring:message code="master.page.followUp.articles" /></a></li>
+			</ul>
+		</li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('ADMIN')">
 		<li><a class = "fNiv"><spring:message code = "master.page.tabooWords"/></a>
 			<ul>
@@ -98,7 +107,7 @@
 		
 		
 		
-		<security:authorize access="isAnonymous()">
+		<security:authorize access="isAnonymous() || hasRole('ADMIN')">
 			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.userList" /></a></li>
 		</security:authorize>
 		

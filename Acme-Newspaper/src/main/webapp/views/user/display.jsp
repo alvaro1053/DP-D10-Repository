@@ -76,7 +76,7 @@
 <jstl:when test="${not empty articles}"> 
 <ul>
 <jstl:forEach items="${articles}" var="article">
-<li> <jstl:out value="${article.title}"/> &nbsp; (<a href="article${uri}/display.do?articleId=${article.id}"> ${showArticle} </a>) </li>
+<li> <jstl:out value="${article.title}"/> &nbsp; (<a href="${uri}?articleId=${article.id}"> ${showArticle} </a>) </li>
 </jstl:forEach>
 </ul> 
 </jstl:when>
@@ -97,5 +97,11 @@
 
 	<spring:message code="user.chirp.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" sortable="true" />
-
+	
+	<spring:message code="user.chirp.description" var="descriptionHeader" />
+	<display:column property="description" title="${descriptionHeader}" sortable="true" />
+	
+	<spring:message code = "user.chirp.moment" var = "momentHeader" />
+	<spring:message code = "user.chirp.format" var = "format" />
+	<display:column property = "moment" format="${format}" title ="${momentHeader}" sortable="true"/>
 </display:table>

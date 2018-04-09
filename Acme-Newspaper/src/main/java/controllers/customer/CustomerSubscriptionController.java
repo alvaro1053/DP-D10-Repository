@@ -1,9 +1,7 @@
 
 package controllers.customer;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+
 
 import javax.validation.Valid;
 
@@ -21,14 +19,11 @@ import controllers.AbstractController;
 
 import domain.Newspaper;
 import domain.Subscription;
-import domain.User;
-import forms.NewspaperForm;
 import forms.SubscriptionForm;
 
 import services.CustomerService;
 import services.NewspaperService;
 import services.SubscriptionService;
-import services.UserService;
 
 
 @Controller

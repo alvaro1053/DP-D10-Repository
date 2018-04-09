@@ -56,7 +56,8 @@ public class UserController extends AbstractController {
 	public ModelAndView display(@RequestParam final int userId) {
 		final ModelAndView result;
 		User user;
-		final String uri = "user/display.do";
+		final String uri = "article/display.do";
+		final String requestURI = "user/display.do";
 		Collection<Article> articles;
 		Collection<Chirp> chirps;
 
@@ -67,6 +68,7 @@ public class UserController extends AbstractController {
 		result = new ModelAndView("user/display");
 		result.addObject("user", user);
 		result.addObject("uri", uri);
+		result.addObject("requestURI", requestURI);
 		result.addObject("articles", articles);
 		result.addObject("principal", null);
 		result.addObject("chirps", chirps);

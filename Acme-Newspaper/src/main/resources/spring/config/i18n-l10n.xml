@@ -31,6 +31,7 @@
 		<value>/views/article/messages</value>
 		<value>/views/customisation/messages</value>
 		<value>/views/admin/messages</value>
+		<value>/views/followUp/messages</value>
 		
 	</util:list>
 
