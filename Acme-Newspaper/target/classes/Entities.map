@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #./src/main/resources/Entities.map
 #Mon Apr 09 16:54:34 CEST 2018
 chirp2=49
@@ -26,3 +27,33 @@ newspaper3=47
 newspaper2=45
 chirp3=50
 newspaper1=39
+=======
+#./src/main/resources/Entities.map
+#Mon Apr 09 12:48:00 CEST 2018
+chirp2=49
+followUp3=44
+chirp1=48
+followUp2=43
+followUp1=41
+admin1=33
+article3=46
+customisation=51
+article2=42
+article1=40
+subscription1=52
+userAccount6=32
+userAccount5=31
+userAccount4=30
+userAccount3=29
+userAccount2=28
+userAccount1=27
+customer2=38
+customer1=37
+user3=36
+user2=35
+user1=34
+newspaper3=47
+newspaper2=45
+chirp3=50
+newspaper1=39
+>>>>>>> 67f7323ec0fb4060770c54858b3d3c030614a2f1
