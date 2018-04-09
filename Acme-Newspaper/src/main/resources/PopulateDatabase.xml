@@ -184,6 +184,7 @@
 	
 	<property name="articles">
 	<list>
+	<ref bean="article2"/>
 	</list>
 	</property>
 	</bean>
