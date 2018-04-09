@@ -1,7 +1,9 @@
 package services;
 
-import java.sql.Date;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -22,6 +24,7 @@ public class FollowUpService {
 	@Autowired
 	private FollowUpRepository	followUpRepository;
 	//Services
+	@Autowired
 	private UserService userService;
 
 	//Constructors
@@ -31,10 +34,12 @@ public class FollowUpService {
 
 	public FollowUp create() {
 		FollowUp result;
-		User principal = userService.findByPrincipal();
+		List<String> photosURL = new ArrayList<String>();
+		User principal = this.userService.findByPrincipal();
 		Assert.notNull(principal);
 
 		result = new FollowUp();
+		result.setPhotosURL(photosURL);
 
 		return result;
 	}
@@ -53,7 +58,7 @@ public class FollowUpService {
 		User principal = userService.findByPrincipal();
 		Assert.notNull(principal);
 		Assert.isTrue(followUp.getArticle().getIsDraft() == false || followUp.getArticle().getNewspaper().getPublicationDate() != null);
-		followUp.setPublicationDate(new Date(System.currentTimeMillis() - 1));	
+		
 		result = this.followUpRepository.save(followUp);
 		
 		Article article = followUp.getArticle();

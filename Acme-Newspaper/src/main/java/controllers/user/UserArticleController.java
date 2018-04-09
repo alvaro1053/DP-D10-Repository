@@ -2,19 +2,30 @@
 package controllers.user;
 
 
+import java.util.Collection;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import controllers.AbstractController;
 
 import services.ArticleService;
+import services.NewspaperService;
 import services.UserService;
 import domain.Article;
+import domain.Newspaper;
 import domain.User;
+import forms.ArticleForm;
+
 
 @Controller
 @RequestMapping("/article/user")
@@ -25,6 +36,9 @@ public class UserArticleController extends AbstractController{
 	ArticleService	articleService;
 	
 	@Autowired
+	NewspaperService	newspaperService;
+	
+	@Autowired
 	UserService	userService;
 
 
@@ -33,7 +47,63 @@ public class UserArticleController extends AbstractController{
 		super();
 	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(final String filter) {
+		ModelAndView result;
+		Collection<Article> articles;
+		final User principal = this.userService.findByPrincipal();
+		final String uri = "/user";
 
+		articles = this.articleService.findByFilter(filter);
+		result = new ModelAndView("article/list");
+		result.addObject("uri", uri);
+		result.addObject("articles", articles);
+		result.addObject("principal", principal);
+
+
+		return result;
+
+	}
+	
+	//create
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(){
+		ModelAndView result;
+		ArticleForm articleForm;
+		Collection<Newspaper> newspapers;
+		
+		articleForm = this.articleService.create();
+		newspapers = this.newspaperService.notPublishedNewspapers();
+		
+		result = this.createEditModelAndView(articleForm);
+		result.addObject("newspapers", newspapers);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final ArticleForm articleForm, BindingResult binding,RedirectAttributes redir){
+		ModelAndView result;
+		Article article;
+		
+		article = this.articleService.reconstruct(articleForm, binding);
+		if(binding.hasErrors()){
+			result = this.createEditModelAndView(articleForm);
+		}else{
+			try{
+				this.articleService.save(article);
+				result = new ModelAndView("redirect:list.do");
+				String successfulMessage = "article.commit.ok";
+				redir.addFlashAttribute("message", successfulMessage);
+			}catch(Throwable oops){
+				result = this.createEditModelAndView(articleForm, "article.commit.error");
+			}
+		}
+		
+		
+		return result;
+		
+	}
 
 	//Display
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -53,6 +123,108 @@ public class UserArticleController extends AbstractController{
 
 	}
 	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int articleId,RedirectAttributes redir) {
+		ModelAndView result;
+		User principal;
+		Article article;
+		ArticleForm articleForm;
+		Collection<Newspaper> newspapers;
+		
+		newspapers = this.newspaperService.notPublishedNewspapers();
+
+		final Boolean finalModeOption = true;
+		try{
+		principal = this.userService.findByPrincipal();
+		Assert.notNull(principal);
+
+		
+		article = this.articleService.findOne(articleId);
+		Assert.notNull(article);
+		articleForm = this.articleService.reconstructForm(article);
+
+		result = this.createEditModelAndView(finalModeOption, articleForm);
+
+		} catch (Throwable oops){
+		result = new ModelAndView("redirect:../user/list.do");
+		redir.addFlashAttribute("message", "article.permision");
+		}
+
+		result.addObject("newspapers", newspapers);
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final ArticleForm articleForm, final BindingResult binding) {
+		ModelAndView result;
+		Article article;
+		User principal;
+
+		principal = this.userService.findByPrincipal();
+		article = this.articleService.reconstruct(articleForm, binding);
+
+
+		if (binding.hasErrors()) {
+			articleForm.setIsDraft(true);
+			result = this.createEditModelAndView(articleForm);
+		} else
+			try {
+				this.articleService.save(article);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				articleForm.setIsDraft(true);
+				result = this.createEditModelAndView(articleForm, "article.commit.error");
+			}
+
+
+		result.addObject("principal",principal);
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	//Ancillary methods
+		protected ModelAndView createEditModelAndView(ArticleForm articleForm) {
+			ModelAndView result; 
+			
+			result = this.createEditModelAndView(articleForm, null);
+			
+			return result;
+		}
+		
+		protected ModelAndView createEditModelAndView(ArticleForm articleForm,
+				String message) {
+			ModelAndView result;
+			Collection<Newspaper> newspapers;
+
+			newspapers = this.newspaperService.notPublishedNewspapers();
+			
+			result = new ModelAndView("article/edit");
+			result.addObject("articleForm", articleForm);
+			result.addObject("message", message);
+			result.addObject("newspapers", newspapers);
+			result.addObject("finalModeOption", true);
+
+
+			return result;
+		}
+		
+		
+		private ModelAndView createEditModelAndView(final Boolean finalModeOption, final ArticleForm articleForm) {
+
+			final ModelAndView result;
+			final Collection<Article> articles = this.articleService.findAll();
+
+			result = new ModelAndView("article/edit");
+			result.addObject("articleForm", articleForm);
+			result.addObject("articles", articles);
+			result.addObject("finalModeOption", finalModeOption);
+
+			return result;
+		}
 
 
 }

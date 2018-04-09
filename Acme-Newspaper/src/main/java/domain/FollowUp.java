@@ -4,12 +4,18 @@ package domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 
@@ -22,7 +28,7 @@ public class FollowUp extends DomainEntity {
 	private Date		publicationDate;
 	private String		summary;
 	private String		text;
-	private Collection<String>		photosURL;
+	private List<String>		photosURL;
 	
 	private Article 	article;
 	
@@ -36,6 +42,9 @@ public class FollowUp extends DomainEntity {
 	}
 	
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Future
 	public Date getPublicationDate() {
 		return publicationDate;
 	}
@@ -63,7 +72,7 @@ public class FollowUp extends DomainEntity {
 	public Collection<String> getPhotosURL() {
 		return photosURL;
 	}
-	public void setPhotosURL(Collection<String> photosURL) {
+	public void setPhotosURL(List<String> photosURL) {
 		this.photosURL = photosURL;
 	}
 
