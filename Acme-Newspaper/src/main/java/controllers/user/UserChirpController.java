@@ -88,9 +88,6 @@ public class UserChirpController extends AbstractController{
 	}
 	
 	//Ancillary methods
-
-
-
 	protected ModelAndView createEditModelAndView(ChirpForm chirpForm) {
 		ModelAndView result; 
 		

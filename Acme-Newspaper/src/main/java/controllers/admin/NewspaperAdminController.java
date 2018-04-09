@@ -1,6 +1,7 @@
 
 package controllers.admin;
 
+import java.util.Collection;
 
 
 
@@ -15,8 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import controllers.AbstractController;
 
 import domain.Newspaper;
+import domain.Admin;
 
 
+import services.AdminService;
 import services.NewspaperService;
 
 
@@ -30,6 +33,8 @@ public class NewspaperAdminController extends AbstractController{
 	@Autowired
 	private NewspaperService	newspaperService;
 
+	@Autowired
+	private AdminService	adminService;
 
 
 	// Constructors
@@ -38,7 +43,23 @@ public class NewspaperAdminController extends AbstractController{
 		super();
 	}
 	
-	
+	// Listing
+		@RequestMapping(value = "/list", method = RequestMethod.GET)
+		public ModelAndView list(final String filter) {
+			ModelAndView result;
+			Collection<Newspaper> newspapers;
+			final Admin principal = this.adminService.findByPrincipal();
+			final String uri = "/admin";
+			
+			newspapers = this.newspaperService.findAll();
+			
+			result = new ModelAndView("newspaper/list");
+			result.addObject("newspapers", newspapers);
+			result.addObject("principal",principal);
+			result.addObject("uri", uri);
+			return result;
+		}	
+		
 	//Publish
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView publish(@RequestParam final int newspaperId, RedirectAttributes redir) {

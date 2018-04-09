@@ -104,13 +104,13 @@
 			</ul>
 		</li>
 		</security:authorize>
-		
-		
-		
+
 		<security:authorize access="isAnonymous() || hasRole('ADMIN')">
 			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.userList" /></a></li>
 		</security:authorize>
-		
+			
+
+
 		<security:authorize access="isAnonymous() || hasRole('USER') || hasRole('CUSTOMER')">
 			<li><a class="fNiv" href="article/list.do"><spring:message code="master.page.articles" /></a></li>
 		</security:authorize>

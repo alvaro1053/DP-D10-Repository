@@ -25,7 +25,7 @@
 
 <!-- Buscar  -->
 
-<form action="article/list.do" method="get">
+<form action="article${uri}/list.do" method="get">
 	<spring:message code="article.search.placeholder" var="placeholder" />
 	<input name="filter" placeholder="${placeholder}"/>
 	<br />
@@ -38,7 +38,33 @@
 
 <!-- Listing grid -->
 
-<display:table pagesize="5" class="displaytag" name="articles"  requestURI="article/list.do" id="row">
+<display:table pagesize="5" class="displaytag" name="articles"  requestURI="article${uri}/list.do" id="row">
+
+
+	<security:authorize access="hasRole('USER')">
+		<display:column>
+			<jstl:if test="${principal.id == row.user.id && row.isDraft == true}">
+				<a href="article/user/edit.do?articleId=${row.id}"><spring:message code ="article.edit"/></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+	
+	
+	<security:authorize access="hasRole('ADMIN')">
+		<spring:message code="article.confirm" var="confirmArticle"  />
+		<display:column>
+				<a href="article/admin/delete.do?articleId=${row.id}" onclick="return confirm('${confirmArticle}')"><spring:message code ="article.delete" /></a>
+		</display:column>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('USER')">
+		<jstl:if test="">
+			<display:column>
+				<a href="article/user/edit.do?articleId=${row.id}" ><spring:message code ="article.edit" /></a>
+			</display:column>
+		</jstl:if>
+	</security:authorize>
+	
 	
 	<spring:message code="article.title" var="titleHeader" />
 	<display:column title="${titleHeader}"><a href="article/display.do?articleId=${row.id}"><jstl:out value="${row.title}"></jstl:out></a></display:column>
@@ -53,4 +79,9 @@
 	<spring:message code="article.photosURL" var="picture" />
 	<display:column  title="${picture}"> <jstl:forEach var="picture" items="${row.photosURL}"><img src="${picture}" height="150" width=auto /> </jstl:forEach></display:column>
 
+
 </display:table>
+
+	<security:authorize access="hasRole('USER')">
+		<a href="article/user/create.do"> <spring:message code="article.create" /> </a>
+	</security:authorize>

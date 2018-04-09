@@ -15,8 +15,10 @@ import org.springframework.validation.Validator;
 import services.UserService;
 
 import repositories.NewspaperRepository;
+import domain.Actor;
 import domain.Admin;
 import domain.Article;
+import domain.Customer;
 import domain.Newspaper;
 import domain.Subscription;
 import domain.User;
@@ -32,6 +34,8 @@ public class NewspaperService {
 	//Services
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ActorService actorService;
 	@Autowired
 	private AdminService adminService;
 	@Autowired
@@ -62,6 +66,23 @@ public class NewspaperService {
 		result = this.newspaperRepository.findAll();
 
 		return result;
+	}
+	
+	public Collection<Newspaper> findByFilter(final String filter) {
+		Actor actor = this.actorService.findByPrincipal();
+		Collection<Newspaper> newspapers = new ArrayList<Newspaper>();
+		if(actor == null && filter == ""|| filter== null){
+			newspapers = this.newspaperRepository.publishedNewspapers();
+		}else if(actor instanceof Admin && filter == ""|| filter== null){
+			newspapers = this.newspaperRepository.findAll();
+		}else if(actor instanceof User && filter == ""|| filter== null){
+			newspapers = this.newspaperRepository.publishedNewspapers();
+		}else if(actor instanceof Customer && filter == ""|| filter== null){
+			newspapers = this.newspaperRepository.publishedNewspapers();
+		}else{
+			newspapers = this.newspaperRepository.findByFilter(filter);
+		}
+		return newspapers;
 	}
 
 	public void delete(final Newspaper newspaper) {
@@ -125,14 +146,15 @@ public class NewspaperService {
 		return result;
 	}
 	
-	public Collection<Newspaper> searchNewspapers(final String keyword){
+	public Collection<Newspaper> notPublishedNewspapers(){
 		Collection<Newspaper>result;
 		
-		result = this.newspaperRepository.searchNewspapers(keyword);
+		result = this.newspaperRepository.notPublishedNewspapers();
 		Assert.notNull(result);
 		
 		return result;
 	}
+	
 	public void publish (Newspaper newspaper){
 		User principal = this.userService.findByPrincipal();
 		Assert.notNull(principal);

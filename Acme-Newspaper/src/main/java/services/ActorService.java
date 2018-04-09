@@ -75,6 +75,7 @@ public class ActorService {
 	// Other business methods
 
 	public Actor findByPrincipal() {
+
 		Actor result;
 		UserAccount userAccount;
 		try{
@@ -87,7 +88,6 @@ public class ActorService {
 		}
 
 		return result;
-
 	}
 
 	public Actor findByUserAccount(final UserAccount userAccount) {

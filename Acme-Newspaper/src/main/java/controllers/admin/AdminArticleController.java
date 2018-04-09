@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import controllers.AbstractController;
 
@@ -70,6 +71,27 @@ public class AdminArticleController extends AbstractController {
 		return result;
 
 	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int articleId, RedirectAttributes redir) {
+	ModelAndView result;
+	Article article;
+	
+	article = this.articleService.findOne(articleId);
+
+	try {
+		this.articleService.delete(article);
+		result = new ModelAndView("redirect:../list.do");
+		String successfulMessage = "article.commit.ok";
+		redir.addFlashAttribute("message", successfulMessage);
+	} catch (Throwable oops) {
+		result = new ModelAndView("redirect:../list.do");
+		String errorMessage = "article.commit.error";
+		redir.addFlashAttribute("message", errorMessage);
+	}
+
+	return result;
+}
 	
 
 }

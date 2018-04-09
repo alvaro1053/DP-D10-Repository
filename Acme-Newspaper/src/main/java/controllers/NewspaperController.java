@@ -36,14 +36,31 @@ public class NewspaperController extends AbstractController {
 		super();
 	}
 
+	//Display
+		@RequestMapping(value = "/display", method = RequestMethod.GET)
+		public ModelAndView display(@RequestParam final int newspaperId) {
+			final ModelAndView result;
+			Newspaper newspaper;
+			final String uri = "";
+
+			newspaper = this.newspaperService.findOne(newspaperId);
+
+			result = new ModelAndView("newspaper/display");
+			result.addObject("newspaper", newspaper);
+			result.addObject("uri", uri);
+			result.addObject("principal", null);
+			return result;
+
+	}
+		
 	// Listing
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(final String filter) {
 		Actor principal = this.actorService.findByPrincipal();
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
 		final String uri = "";
-		newspapers = this.newspaperService.publishedNewspapers();
+		newspapers = this.newspaperService.findByFilter(filter);
 		result = new ModelAndView("newspaper/list");
 		if(principal != null){
 			result.addObject("principal",principal);
@@ -52,29 +69,6 @@ public class NewspaperController extends AbstractController {
 		result.addObject("uri", uri);
 		return result;
 	}	
-	
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView search(@RequestParam("keyword") final String keyword) {
-		ModelAndView result;
-		final Collection<Newspaper> newspapers;
-		final Collection<Newspaper> results;
-		final String uri = "";
-		Boolean searching;
-
-		results = this.newspaperService.searchNewspapers(keyword);
-		newspapers = this.newspaperService.publishedNewspapers();
-		newspapers.retainAll(results);
-
-		searching = true;
-
-		result = new ModelAndView("newspaper/list");
-		result.addObject("newspapers", newspapers);
-		result.addObject("searching", searching);
-		result.addObject("uri", uri);
-
-		return result;
-
-	}
 
 
 }
