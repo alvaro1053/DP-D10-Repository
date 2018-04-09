@@ -133,7 +133,7 @@ public class ArticleService {
 	public Collection<Article> findByFilter(final String filter) {
 		Collection<Article> articles = new ArrayList<Article>();
 		if(filter == ""|| filter== null){
-			articles = this.findAll();
+			articles = this.articleRepository.articlesPublished();
 		} else{
 		articles = this.articleRepository.findByFilter(filter);
 		}

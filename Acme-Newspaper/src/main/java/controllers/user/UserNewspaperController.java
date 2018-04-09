@@ -119,6 +119,24 @@ public class UserNewspaperController extends AbstractController{
 		return result;
 	}
 		
+		//Change privacity
+		@RequestMapping(value = "/private", method = RequestMethod.GET)
+		public ModelAndView changePrivacity(@RequestParam final int newspaperId, RedirectAttributes redir) {
+		ModelAndView result;
+		try {
+			this.newspaperService.changePrivacity(newspaperId);
+			result = new ModelAndView("redirect:list.do");
+			String successfulMessage = "newspaper.commit.ok";
+			redir.addFlashAttribute("message", successfulMessage);
+		} catch (Throwable oops) {
+			result = new ModelAndView("redirect:list.do");
+			String successfulMessage = "newspaper.commit.error";
+			redir.addFlashAttribute("message", successfulMessage);
+		}
+
+		return result;
+	}
+		
 		
 	// Ancillary methods ------------------------------------------------------
 

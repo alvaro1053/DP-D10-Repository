@@ -77,11 +77,14 @@ public class ActorService {
 	public Actor findByPrincipal() {
 		Actor result;
 		UserAccount userAccount;
-
+		try{
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		result = this.findByUserAccount(userAccount);
 		Assert.notNull(result);
+		}catch(Throwable oops){
+			result = null;
+		}
 
 		return result;
 

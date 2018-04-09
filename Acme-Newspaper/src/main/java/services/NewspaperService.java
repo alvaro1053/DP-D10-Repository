@@ -169,6 +169,17 @@ public class NewspaperService {
 		return result;
 	}
 
+	public void changePrivacity (int newspaperId){
+		User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Newspaper newspaper = this.findOne(newspaperId);
+		Assert.isTrue(user.getNewspapers().contains(newspaper));
+		if(newspaper.getIsPrivate() == true){
+			newspaper.setIsPrivate(false);
+		} else{
+			newspaper.setIsPrivate(true);
+		}
+	}
 
 
 }

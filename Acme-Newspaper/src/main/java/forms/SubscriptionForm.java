@@ -1,5 +1,4 @@
-
-package domain;
+package forms;
 
 
 import javax.persistence.Access;
@@ -9,15 +8,15 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import domain.*;
+
 
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Subscription extends DomainEntity {
+public class SubscriptionForm extends DomainEntity {
 
 	private CreditCard					creditCard;
-	
-	private Customer					customer;
 	private Newspaper					newspaper;
 	
 	
@@ -29,20 +28,8 @@ public class Subscription extends DomainEntity {
 	public void setCreditCard(CreditCard creditCard) {
 		this.creditCard = creditCard;
 	}
-	
-//Relationships
-	
-	@ManyToOne(optional = true)
-	@NotNull
-	@Valid
-	public Customer getCustomer() {
-		return customer;
-	}
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-	
-	@ManyToOne(optional = true)
+
+	@ManyToOne(optional = false)
 	@NotNull
 	@Valid
 	public Newspaper getNewspaper() {

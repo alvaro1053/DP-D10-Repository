@@ -65,8 +65,39 @@
 	<!-- isPrivate -->
 		<spring:message code="newspaper.isPrivate"
 		var="isPrivateHeader" />
-	<display:column property="isPrivate" title="${isPrivateHeader}"
-		sortable="true" />
+	<display:column title="${isPrivateHeader}"> 
+	<security:authorize access="hasRole('USER')" var ="isUser"/>
+	<jstl:choose>
+	<jstl:when test="${principal.newspapers.contains(row) and isUser== true}">
+	
+	<jstl:choose>
+		<jstl:when test="${row.isPrivate == true}">
+			<a href="newspaper/user/private.do?newspaperId=${row.id}"> <spring:message
+			code="newspaper.makePublic" />
+		</a>
+		</jstl:when>
+		 
+		<jstl:otherwise>
+			<a href="newspaper/user/private.do?newspaperId=${row.id}"> <spring:message
+			code="newspaper.makePrivate" />
+		</a>
+		</jstl:otherwise>
+		</jstl:choose>
+	</jstl:when>
+	<jstl:otherwise>
+	<jstl:choose>
+			<jstl:when test="${row.isPrivate == true}">
+			<img class="alarmImg" src="images/lock.png" width="30" height="auto"/>
+		</jstl:when>
+		
+		<jstl:otherwise>
+			<img class="alarmImg" src="images/open.png" width="30" height="auto"/>
+		</jstl:otherwise>
+		</jstl:choose>
+	</jstl:otherwise>
+</jstl:choose>
+	
+	</display:column>
 		
 	<!-- articles -->
 	<spring:message code="newspaper.articles"
@@ -99,7 +130,7 @@
 			code="newspaper.display" />
 		</a>
 	</display:column>
-
+<security:authorize access="hasRole('USER')">
 		<display:column>
 		<jsp:useBean id="now" class="java.util.Date"/>
 			<jstl:if test="${principal.newspapers.contains(row) && row.publicationDate > now}">
@@ -108,12 +139,33 @@
 		</a>
 		</jstl:if>
 	</display:column>
+</security:authorize>
 	
 <security:authorize access="hasRole('ADMIN')">
 		<display:column>
 		<a href="newspaper/admin/delete.do?newspaperId=${row.id}"> <spring:message
 			code="master.page.delete" />
 		</a>
+	</display:column>
+</security:authorize>
+
+
+<security:authorize access="hasRole('CUSTOMER')">
+
+<jstl:set var="subscrito" value="${false}"/>
+<jstl:forEach var="subscription" items="${principal.subscriptions}">
+<jstl:if test="${subscription.newspaper.id == row.id}">
+<jstl:set var="subscrito" value="${true}"/>
+</jstl:if>
+</jstl:forEach>
+
+		<display:column>
+		<jstl:if test="${!(subscrito == true) and (row.isPrivate == true)}">
+		<a href="subscription/customer/create.do?newspaperId=${row.id}"> <spring:message
+			code="article.subscribe" />
+		</a>
+		</jstl:if>
+		
 	</display:column>
 </security:authorize>
 		
@@ -123,3 +175,5 @@
 <a href="newspaper/user/create.do"> <spring:message
 			code="newspaper.create" /> </a>
 </security:authorize>
+
+
