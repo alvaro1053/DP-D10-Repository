@@ -1,5 +1,6 @@
+
 <%--
- * edit.jsp
+ * list.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -20,30 +21,22 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-	<form:form action="newspaper/user/edit.do" modelAttribute="newspaper">
-	<form:hidden path="id" />
-	<form:hidden path="version" /> 
+
+<!-- Listing grid -->
+
+<display:table pagesize="5" class="displaytag" name="articles"  requestURI="admin/admin/listArticles.do" id="row">
 	
+	<spring:message code="article.title" var="titleHeader" />
+	<display:column title="${titleHeader}"><a href="article/display.do?articleId=${row.id}"><jstl:out value="${row.title}"></jstl:out></a></display:column>
 	
-	<acme:textarea code="newspaper.title" path="title"/>
+	<spring:message code="article.summary" var="summary" />
+	<display:column property="summary" title="${summary}"/>
 	
-	<acme:textbox code="newspaper.description" path="description"/>
+	<spring:message code="article.body" var="body" />
+	<display:column property="body" title="${body}"/>
 	
-	<acme:textbox code="newspaper.pictureURL" path="pictureURL"/>
+	<spring:message code="article.moment" var="moment" />
+	<spring:message code="master.page.date.format" var="dateFormat" />
+	<display:column property="moment" format="{0,date,${dateFormat}}" title="${moment}"/>
 	
-	<spring:message code="newspaper.publicationDate" var="publicationDate"/>
-	<form:label path="publicationDate">${moment}</form:label>
-	<form:input path="publicationDate" placeholder="dd/mm/yyyy"/>
-	<form:errors cssClass="error" path="publicationDate"/>
-	<br />
-	
-	<spring:message code="newspaper.isPrivate"/>
-	<form:checkbox path="isPrivate" name="isPrivate" value="true"/>
-	
-	
-	
-	<acme:submit name="save" code="master.page.save"/>
-	
-	<acme:cancel url="newspaper/list.do" code="master.page.cancel"/>
-	
-	</form:form>
+</display:table>

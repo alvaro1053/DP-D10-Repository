@@ -268,7 +268,7 @@
 	<property name="pictureURL" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Marca.svg/2000px-Marca.svg.png"/>	
 	<property name="isPrivate" value="false"/>
 	<property name="user" ref="user1"/>
-	
+	<property name="tabooWords" value="false"/>
 	<property name="articles">
 	<list>
 	<ref bean="article1"/>
@@ -292,7 +292,7 @@
 	<property name="pictureURL" value="https://www.himgs.com/imagenes/hola/comunes/hola-2017.gif"/>	
 	<property name="isPrivate" value="true"/>
 	<property name="user" ref="user1"/>
-	
+	<property name="tabooWords" value="false"/>
 	<property name="articles">
 	<list>
 	<ref bean="article3"/>
@@ -312,11 +312,11 @@
 <bean class="domain.Newspaper" id="newspaper3">
 	<property name="title" value="El jueves" />
 	<property name="publicationDate" value="2019/04/12 12:21"/>
-	<property name="description" value="Nos cachondeamos de todo lo que se mueve"/>
+	<property name="description" value="Nos cachondeamos de todo lo que se mueve, sex"/>
 	<property name="pictureURL" value=""/>	
 	<property name="isPrivate" value="true"/>
 	<property name="user" ref="user1"/>
-	
+	<property name="tabooWords" value="true"/>
 	<property name="articles">
 	<list>
 	</list>

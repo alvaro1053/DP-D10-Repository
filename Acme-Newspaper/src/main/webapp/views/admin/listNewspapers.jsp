@@ -1,5 +1,6 @@
+
 <%--
- * edit.jsp
+ * list.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -20,30 +21,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-	<form:form action="newspaper/user/edit.do" modelAttribute="newspaper">
-	<form:hidden path="id" />
-	<form:hidden path="version" /> 
+
+<!-- Listing grid -->
+
+<display:table pagesize="5" class="displaytag" name="newspapers"  requestURI="admin/admin/listNewspapers.do" id="row">
 	
+	<spring:message code="newspaper.title" var="title" />
+	<display:column property="title" title="${title}"/>
 	
-	<acme:textarea code="newspaper.title" path="title"/>
+	<spring:message code="newspaper.description" var="description" />
+	<display:column property="description" title="${description}"/>
 	
-	<acme:textbox code="newspaper.description" path="description"/>
-	
-	<acme:textbox code="newspaper.pictureURL" path="pictureURL"/>
-	
-	<spring:message code="newspaper.publicationDate" var="publicationDate"/>
-	<form:label path="publicationDate">${moment}</form:label>
-	<form:input path="publicationDate" placeholder="dd/mm/yyyy"/>
-	<form:errors cssClass="error" path="publicationDate"/>
-	<br />
-	
-	<spring:message code="newspaper.isPrivate"/>
-	<form:checkbox path="isPrivate" name="isPrivate" value="true"/>
-	
-	
-	
-	<acme:submit name="save" code="master.page.save"/>
-	
-	<acme:cancel url="newspaper/list.do" code="master.page.cancel"/>
-	
-	</form:form>
+</display:table>

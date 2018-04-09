@@ -28,6 +28,7 @@
 		<value>/views/newspaper/tiles.xml</value>
 		<value>/views/article/tiles.xml</value>
 		<value>/views/customisation/tiles.xml</value>
+		<value>/views/admin/tiles.xml</value>
 
 	</util:list>
 

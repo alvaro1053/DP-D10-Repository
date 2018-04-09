@@ -25,8 +25,15 @@ public class ArticleService {
 	@Autowired
 	private ArticleRepository	articleRepository;
 	//Services
+	@Autowired
 	private UserService userService;
+	
+	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private CustomisationService customisationService;
+	
 
 	//Constructors
 	public ArticleService() {
@@ -75,6 +82,7 @@ public class ArticleService {
 	public Article save(final Article article) {
 		Article result;
 		User principal = userService.findByPrincipal();
+		Collection<String> tabooWords;
 		Assert.notNull(principal);
 		
 		article.setMoment(new Date(System.currentTimeMillis() - 1));
@@ -89,6 +97,16 @@ public class ArticleService {
 		Collection<Article> newspaperArticles = newspaper.getArticles();
 		newspaperArticles.add(article);
 		newspaper.setArticles(creatorsArticle);
+		
+		tabooWords = this.customisationService.findCustomisation().getTabooWords();
+		for (String word : tabooWords) {
+			if(article.getTitle().toLowerCase().contains(word))
+				article.setTabooWords(true);
+			if(article.getSummary().toLowerCase().contains(word))
+				article.setTabooWords(true);
+			if(article.getBody().toLowerCase().contains(word))
+				article.setTabooWords(true);
+		}
 		
 		result = this.articleRepository.save(article);
 		return result;
@@ -120,6 +138,17 @@ public class ArticleService {
 		articles = this.articleRepository.findByFilter(filter);
 		}
 		return articles;
+	}
+	
+	
+	public Collection<Article> findArticlesWithTabooWords(){
+		Collection<Article> result;
+		
+		
+		result = this.articleRepository.findArticlesWithTabooWords();
+		Assert.notNull(result);
+		
+		return result;
 	}
 	
 }

@@ -17,4 +17,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	@Query("select a from Article a where a.title like CONCAT('%',?1,'%') or a.summary like CONCAT('%',?1,'%') or a.body like CONCAT('%',?1,'%')")
 	Collection<Article> findByFilter(String filter);
 	
+	@Query("select a from Article a where a.tabooWords = true")
+	Collection<Article> findArticlesWithTabooWords();
+	
 }

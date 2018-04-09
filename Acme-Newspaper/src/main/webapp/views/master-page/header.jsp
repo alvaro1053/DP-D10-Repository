@@ -66,7 +66,22 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv" href="article/admin/list.do"><spring:message code="master.page.article" /></a></li>
+		
+			<li><a class="fNiv"><spring:message	code="master.page.article" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="article/admin/list.do"><spring:message code="master.page.articles" /></a></li>
+					<li><a  href="admin/admin/listArticles.do"><spring:message code="master.page.articlesTaboo" /></a></li>
+				</ul>
+			</li>
+			
+			<li><a class="fNiv"><spring:message	code="master.page.newspaperSingle" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="admin/admin/listNewspapers.do"><spring:message code="master.page.newspapersWithTaboo" /></a></li>
+				</ul>
+			</li>
+			
 		</security:authorize>
 		
 		
