@@ -268,7 +268,7 @@
 	<property name="pictureURL" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Marca.svg/2000px-Marca.svg.png"/>	
 	<property name="isPrivate" value="false"/>
 	<property name="user" ref="user1"/>
-	
+	<property name="tabooWords" value="false"/>
 	<property name="articles">
 	<list>
 	<ref bean="article1"/>
@@ -292,7 +292,7 @@
 	<property name="pictureURL" value="https://www.himgs.com/imagenes/hola/comunes/hola-2017.gif"/>	
 	<property name="isPrivate" value="true"/>
 	<property name="user" ref="user1"/>
-	
+	<property name="tabooWords" value="false"/>
 	<property name="articles">
 	<list>
 	<ref bean="article3"/>
@@ -312,11 +312,11 @@
 <bean class="domain.Newspaper" id="newspaper3">
 	<property name="title" value="El jueves" />
 	<property name="publicationDate" value="2019/04/12 12:21"/>
-	<property name="description" value="Nos cachondeamos de todo lo que se mueve"/>
+	<property name="description" value="Nos cachondeamos de todo lo que se mueve, sex"/>
 	<property name="pictureURL" value=""/>	
 	<property name="isPrivate" value="true"/>
 	<property name="user" ref="user1"/>
-	
+	<property name="tabooWords" value="true"/>
 	<property name="articles">
 	<list>
 	</list>
@@ -450,6 +450,7 @@
 	<property name="moment" value="2018/03/12 09:21"/>
 	<property name="description" value="Estoy escribiendo un chirp"/>
 	<property name="user" ref="user1"/>
+	<property name="tabooWords" value="false"/>
 </bean>
 
 <!-- Chirp2 -->
@@ -459,6 +460,7 @@
 	<property name="moment" value="2018/03/12 09:32"/>
 	<property name="description" value="Estoy escribiendo otro chirp"/>
 	<property name="user" ref="user1"/>
+	<property name="tabooWords" value="false"/>
 </bean>
 
 <!-- Chirp3 -->
@@ -466,8 +468,9 @@
 	<bean class="domain.Chirp" id="chirp3">
 	<property name="title" value="Este es mi primer chirp3" />
 	<property name="moment" value="2018/03/13 09:21"/>
-	<property name="description" value="Estoy escribiendo un chirp3"/>
+	<property name="description" value="Estoy escribiendo un chirp3, sex"/>
 	<property name="user" ref="user2"/>
+	<property name="tabooWords" value="true"/>
 </bean>
 
 <!-- Customisation -->

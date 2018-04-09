@@ -17,6 +17,7 @@ import domain.CreditCard;
 import domain.Customer;
 import domain.Newspaper;
 import domain.Subscription;
+import forms.SubscriptionForm;
 
 
 @Service
@@ -40,10 +41,10 @@ public class SubscriptionService {
 	// Simple CRUD methods
 	public Subscription create() {
 		Customer principal;
-		Subscription subscription;
+		Subscription subscription = new Subscription();
 		principal = this.customerService.findByPrincipal();
 		Assert.notNull(principal);
-
+		subscription.setCustomer(principal);
 		subscription = new Subscription();
 
 		return subscription;
@@ -59,7 +60,7 @@ public class SubscriptionService {
 		principal = this.customerService.findByPrincipal();
 
 		Assert.notNull(principal);
-		
+		Assert.isTrue(subscription.getNewspaper().getIsPrivate() == true);
 
 		result = this.subscriptionRepository.save(subscription);
 		
@@ -87,21 +88,17 @@ public class SubscriptionService {
 		return res;
 	}
 
-	public Subscription reconstruct(final Subscription subscription, final BindingResult binding){
-		Subscription result;
+	public Subscription reconstruct(final SubscriptionForm subscription, final BindingResult binding){
+		Subscription result = this.create();
 		
-		if(subscription.getId()==0){
-			result = subscription;
-		}else{
-			result = this.subscriptionRepository.findOne(subscription.getId());
 			
 			result.setId(subscription.getId());
 			result.setVersion(subscription.getVersion());
 			result.setCreditCard(subscription.getCreditCard());
-			result.setCustomer(subscription.getCustomer());
+			Customer customer = this.customerService.findByPrincipal();
+			result.setCustomer(customer);
 			result.setNewspaper(subscription.getNewspaper());
-		
-		}
+			
 		this.validator.validate(result, binding);
 		return result;
 		

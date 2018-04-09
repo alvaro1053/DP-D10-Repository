@@ -26,9 +26,12 @@
 		<value>/views/user/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/chirp/messages</value>
+		<value>/views/subscription/messages</value>
 		<value>/views/newspaper/messages</value>
 		<value>/views/article/messages</value>
-
+		<value>/views/customisation/messages</value>
+		<value>/views/admin/messages</value>
+		
 	</util:list>
 
 </beans>

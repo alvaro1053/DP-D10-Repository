@@ -32,7 +32,7 @@ public class Subscription extends DomainEntity {
 	
 //Relationships
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@NotNull
 	@Valid
 	public Customer getCustomer() {
@@ -42,7 +42,7 @@ public class Subscription extends DomainEntity {
 		this.customer = customer;
 	}
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@NotNull
 	@Valid
 	public Newspaper getNewspaper() {

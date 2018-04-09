@@ -38,12 +38,12 @@
 
 <!-- Listing grid -->
 
-<display:table pagesize="5" class="displaytag" name="articles"  requestURI="article/list.do" id="row">
+<display:table pagesize="5" class="displaytag" name="articles"  requestURI="article${uri}/list.do" id="row">
 
 
 	<security:authorize access="hasRole('USER')">
 		<display:column>
-			<jstl:if test="${principal.id == row.user.id}">
+			<jstl:if test="${principal.id == row.user.id && row.isDraft == true}">
 				<a href="article/user/edit.do?articleId=${row.id}"><spring:message code ="article.edit"/></a>
 			</jstl:if>
 		</display:column>

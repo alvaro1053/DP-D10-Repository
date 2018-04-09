@@ -67,7 +67,23 @@ public class UserNewspaperController extends AbstractController{
 		return result;
 	}	
 	
-	
+	//Display
+		@RequestMapping(value = "/display", method = RequestMethod.GET)
+		public ModelAndView display(@RequestParam final int newspaperId) {
+			final ModelAndView result;
+			Newspaper newspaper;
+			final User principal = this.userService.findByPrincipal();
+			final String uri = "/user";
+
+			newspaper = this.newspaperService.findOne(newspaperId);
+
+			result = new ModelAndView("newspaper/display");
+			result.addObject("newspaper", newspaper);
+			result.addObject("uri", uri);
+			result.addObject("principal", principal);
+			return result;
+
+		}
 	
 	// Creation ---------------------------------------------------------------
 
@@ -109,6 +125,24 @@ public class UserNewspaperController extends AbstractController{
 		try {
 			newspaper = this.newspaperService.findOne(newspaperId);
 			this.newspaperService.publish(newspaper);
+			result = new ModelAndView("redirect:list.do");
+			String successfulMessage = "newspaper.commit.ok";
+			redir.addFlashAttribute("message", successfulMessage);
+		} catch (Throwable oops) {
+			result = new ModelAndView("redirect:list.do");
+			String successfulMessage = "newspaper.commit.error";
+			redir.addFlashAttribute("message", successfulMessage);
+		}
+
+		return result;
+	}
+		
+		//Change privacity
+		@RequestMapping(value = "/private", method = RequestMethod.GET)
+		public ModelAndView changePrivacity(@RequestParam final int newspaperId, RedirectAttributes redir) {
+		ModelAndView result;
+		try {
+			this.newspaperService.changePrivacity(newspaperId);
 			result = new ModelAndView("redirect:list.do");
 			String successfulMessage = "newspaper.commit.ok";
 			redir.addFlashAttribute("message", successfulMessage);

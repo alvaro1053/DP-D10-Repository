@@ -3,6 +3,8 @@ package controllers.admin;
 
 import java.util.Collection;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +18,10 @@ import controllers.AbstractController;
 import domain.Newspaper;
 import domain.Admin;
 
-import services.NewspaperService;
+
 import services.AdminService;
+import services.NewspaperService;
+
 
 
 @Controller
@@ -28,7 +32,7 @@ public class NewspaperAdminController extends AbstractController{
 
 	@Autowired
 	private NewspaperService	newspaperService;
-	
+
 	@Autowired
 	private AdminService	adminService;
 

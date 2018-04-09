@@ -20,4 +20,8 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	@Query("select n from Newspaper n where n.title LIKE %?1% or n.description LIKE %?1%")
 	Collection<Newspaper> findByFilter(String filter);
 
+	@Query("select n from Newspaper n where n.tabooWords = true")
+	Collection<Newspaper> findNewspapersWithTabooWords();
+
+
 }

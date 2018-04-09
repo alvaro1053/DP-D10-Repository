@@ -36,6 +36,10 @@ public class ArticleService {
 	
 	@Autowired
 	private Validator			validator;
+	
+	@Autowired
+	private CustomisationService customisationService;
+	
 
 	//Constructors
 	public ArticleService() {
@@ -94,6 +98,7 @@ public class ArticleService {
 		Article result;
 		
 		User principal = userService.findByPrincipal();
+		Collection<String> tabooWords;
 		Assert.notNull(principal);
 		
 		article.setMoment(new Date(System.currentTimeMillis() - 1));
@@ -109,6 +114,18 @@ public class ArticleService {
 		update2.add(result);
 		newspaper.setArticles(update2);
 		
+
+		tabooWords = this.customisationService.findCustomisation().getTabooWords();
+		for (String word : tabooWords) {
+			if(article.getTitle().toLowerCase().contains(word))
+				article.setTabooWords(true);
+			if(article.getSummary().toLowerCase().contains(word))
+				article.setTabooWords(true);
+			if(article.getBody().toLowerCase().contains(word))
+				article.setTabooWords(true);
+		}
+		
+		result = this.articleRepository.save(article);
 		return result;
 	}
 
@@ -133,7 +150,7 @@ public class ArticleService {
 	public Collection<Article> findByFilter(final String filter) {
 		Collection<Article> articles = new ArrayList<Article>();
 		if(filter == ""|| filter== null){
-			articles = this.findAll();
+			articles = this.articleRepository.articlesPublished();
 		} else{
 		articles = this.articleRepository.findByFilter(filter);
 		}
@@ -159,6 +176,15 @@ public class ArticleService {
 		
 		return result;
 	}
+		
+	public Collection<Article> findArticlesWithTabooWords(){
+		Collection<Article> result;
+			
+		result = this.articleRepository.findArticlesWithTabooWords();
+		Assert.notNull(result);
+		
+		return result;
+	}
 	
 	public ArticleForm reconstructForm(final Article article) {
 		ArticleForm result;
@@ -177,5 +203,4 @@ public class ArticleService {
 
 		return result;
 	}
-	
 }

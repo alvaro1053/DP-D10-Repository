@@ -61,20 +61,50 @@
 			<li><a class="fNiv" href="newspaper/user/list.do"><spring:message code="master.page.newspaper" /></a></li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv" href="article/admin/list.do"><spring:message code="master.page.article" /></a></li>
-		</security:authorize>
-		
 		<security:authorize access="hasRole('USER')">
-			<li><a class="fNiv" href="article/user/list.do"><spring:message code="master.page.article" /></a></li>
+			<li><a href="chirp/user/create.do"><spring:message code="master.page.chirp.create" /> </a></li>
 		</security:authorize>
 		
-		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="article/list.do"><spring:message code="master.page.article" /></a></li>
-		</security:authorize>
+		<security:authorize access="hasRole('ADMIN')">
 		
+			<li><a class="fNiv"><spring:message	code="master.page.article" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="article/admin/list.do"><spring:message code="master.page.articles" /></a></li>
+				</ul>
+			</li>
+			</security:authorize>
+			
+			<!--  
+			<li><a class="fNiv"><spring:message	code="master.page.newspaperSingle" /></a>
+				<ul>
+					<li class="arrow"></li>
+					
+				</ul>
+			</li>
+			-->
+		
+		<security:authorize access="hasRole('ADMIN')">
+		<li><a class = "fNiv"><spring:message code = "master.page.tabooWords"/></a>
+			<ul>
+				<li class="arrow"></li>
+					<li><a href="customisation/admin/display.do"><spring:message code="master.page.tabooWords" /></a></li>
+					<li><a href="admin/admin/listArticles.do"><spring:message code="master.page.articlesTaboo" /></a></li>
+					<li><a href="admin/admin/listNewspapers.do"><spring:message code="master.page.newspapersWithTaboo" /></a></li>
+					<li><a href="admin/admin/listChirps.do"><spring:message code="master.page.chirpsWithTaboo" /></a></li>
+			</ul>
+		</li>
+		</security:authorize>
+
+
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.userList" /></a></li>
+		</security:authorize>
+			
+
+
+		<security:authorize access="isAnonymous() || hasRole('USER') || hasRole('CUSTOMER')">
+			<li><a class="fNiv" href="article/list.do"><spring:message code="master.page.articles" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
@@ -86,8 +116,9 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
-					<li><a href="chirp/user/create.do"><spring:message code="master.page.chirp.create" /> </a></li>
-					<li><a href="user/user/displayUserProfile.do"><spring:message code="master.page.chirp.displayUserProfile" /> </a></li>
+					<security:authorize access="hasRole('USER')">
+						<li><a href="user/user/displayUserProfile.do"><spring:message code="master.page.chirp.displayUserProfile" /> </a></li>
+					</security:authorize>
 				</ul>
 			</li>
 		</security:authorize>

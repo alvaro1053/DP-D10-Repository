@@ -38,12 +38,7 @@ public class Article extends DomainEntity {
 	
 	
 	
-	public Boolean getTabooWords() {
-		return tabooWords;
-	}
-	public void setTabooWords(Boolean tabooWords) {
-		this.tabooWords = tabooWords;
-	}
+	
 	@NotBlank
 	public String getTitle() {
 		return title;
@@ -92,7 +87,12 @@ public class Article extends DomainEntity {
 	public void setIsDraft(Boolean isDraft) {
 		this.isDraft = isDraft;
 	}
-	
+	public Boolean getTabooWords() {
+		return tabooWords;
+	}
+	public void setTabooWords(Boolean tabooWords) {
+		this.tabooWords = tabooWords;
+	}
 	
 
 

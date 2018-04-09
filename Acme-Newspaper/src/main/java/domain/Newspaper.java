@@ -33,9 +33,9 @@ public class Newspaper extends DomainEntity {
 	private Collection<Article>	articles;
 	private User 				user;
 	private Collection<Subscription>	subscriptions;
+	private Boolean				tabooWords;
 	
-	
-	
+		
 	@NotBlank
 	public String getTitle() {
 		return title;
@@ -76,6 +76,13 @@ public class Newspaper extends DomainEntity {
 	}
 	public void setIsPrivate(Boolean isPrivate) {
 		this.isPrivate = isPrivate;
+	}
+	
+	public Boolean getTabooWords() {
+		return tabooWords;
+	}
+	public void setTabooWords(Boolean tabooWords) {
+		this.tabooWords = tabooWords;
 	}
 	
 //Relationships

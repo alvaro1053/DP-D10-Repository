@@ -40,6 +40,9 @@ public class NewspaperService {
 	private AdminService adminService;
 	@Autowired
 	private Validator validator;
+	@Autowired
+	private CustomisationService customisationService;
+	
 
 	//Constructors
 	public NewspaperService() {
@@ -97,12 +100,21 @@ public class NewspaperService {
 
 	public Newspaper save(final Newspaper newspaper) {
 		Newspaper result;
+		Collection<String> tabooWords;
 		User principal = userService.findByPrincipal();
 		Assert.notNull(principal);
 		Assert.isTrue(newspaper.getUser().equals(principal));
 		
 		if(newspaper.getPublicationDate() == null){
 			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
+		}
+		
+		tabooWords = this.customisationService.findCustomisation().getTabooWords();
+		for (String word : tabooWords) {
+			if(newspaper.getTitle().toLowerCase().contains(word))
+				newspaper.setTabooWords(true);
+			if(newspaper.getDescription().toLowerCase().contains(word))
+				newspaper.setTabooWords(true);
 		}
 		
 		result = this.newspaperRepository.save(newspaper);
@@ -165,9 +177,30 @@ public class NewspaperService {
 		newspaper.setId(newspaperForm.getId());
 		newspaper.setVersion(newspaperForm.getVersion());
 		newspaper.setPublicationDate(newspaperForm.getPublicationDate());
+		newspaper.setTabooWords(false);
 		
 		validator.validate(newspaperForm, binding);
 		return newspaper;
+	}
+
+	public Collection<Newspaper> findNewspapersWithTabooWords() {
+		Collection<Newspaper> result;
+		
+		result = this.newspaperRepository.findNewspapersWithTabooWords();
+		
+		return result;
+	}
+
+	public void changePrivacity (int newspaperId){
+		User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Newspaper newspaper = this.findOne(newspaperId);
+		Assert.isTrue(user.getNewspapers().contains(newspaper));
+		if(newspaper.getIsPrivate() == true){
+			newspaper.setIsPrivate(false);
+		} else{
+			newspaper.setIsPrivate(true);
+		}
 	}
 
 

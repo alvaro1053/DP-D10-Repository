@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
 import domain.Newspaper;
 
+import services.ActorService;
 import services.NewspaperService;
 
 
@@ -25,6 +27,8 @@ public class NewspaperController extends AbstractController {
 	@Autowired
 	private NewspaperService	newspaperService;
 
+	@Autowired
+	private ActorService	actorService;
 
 	// Constructors
 
@@ -52,11 +56,15 @@ public class NewspaperController extends AbstractController {
 	// Listing
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final String filter) {
+		Actor principal = this.actorService.findByPrincipal();
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
 		final String uri = "";
 		newspapers = this.newspaperService.findByFilter(filter);
 		result = new ModelAndView("newspaper/list");
+		if(principal != null){
+			result.addObject("principal",principal);
+		}
 		result.addObject("newspapers", newspapers);
 		result.addObject("uri", uri);
 		return result;
