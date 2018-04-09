@@ -92,3 +92,10 @@
 
 
 </table>
+
+<display:table name="chirps" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+
+	<spring:message code="user.chirp.title" var="titleHeader" />
+	<display:column property="title" title="${titleHeader}" sortable="true" />
+
+</display:table>

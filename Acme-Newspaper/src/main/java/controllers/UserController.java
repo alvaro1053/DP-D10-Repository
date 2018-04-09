@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ArticleService;
 import services.UserService;
 import domain.Article;
+import domain.Chirp;
 import domain.User;
 
 @Controller
@@ -21,8 +22,8 @@ public class UserController extends AbstractController {
 
 	//Autowired
 	@Autowired
-	UserService	userService;
-	
+	UserService		userService;
+
 	@Autowired
 	ArticleService	articleService;
 
@@ -35,7 +36,7 @@ public class UserController extends AbstractController {
 	//list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		String uri = "";
+		final String uri = "";
 		ModelAndView result;
 		Collection<User> users;
 
@@ -52,22 +53,22 @@ public class UserController extends AbstractController {
 	public ModelAndView display(@RequestParam final int userId) {
 		final ModelAndView result;
 		User user;
-		final String uri = "";
+		final String uri = "user/display.do";
 		Collection<Article> articles;
-
+		Collection<Chirp> chirps;
 
 		user = this.userService.findOne(userId);
 		articles = this.articleService.articlesPublishedByUser(userId);
+		chirps = user.getChirps();
 
 		result = new ModelAndView("user/display");
 		result.addObject("user", user);
 		result.addObject("uri", uri);
 		result.addObject("articles", articles);
 		result.addObject("principal", null);
+		result.addObject("chirps", chirps);
 		return result;
 
 	}
-	
-
 
 }
