@@ -35,6 +35,9 @@ public class ChirpService {
 	
 	@Autowired
 	private Validator			validator;
+	
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	//Constructor
@@ -63,6 +66,7 @@ public class ChirpService {
 		User principal;
 		Date moment;
 		Chirp result;
+		Collection<String> tabooWords;
 
 		moment = new Date(System.currentTimeMillis() - 1);
 
@@ -73,6 +77,14 @@ public class ChirpService {
 
 		chirp.setMoment(moment);
 		chirp.setUser(principal);
+		
+		tabooWords = this.customisationService.findCustomisation().getTabooWords();
+		for (String word : tabooWords) {
+			if(chirp.getTitle().toLowerCase().contains(word))
+				chirp.setTabooWords(true);
+			if(chirp.getDescription().toLowerCase().contains(word))
+				chirp.setTabooWords(true);
+		}
 
 		result = this.chirpRepository.save(chirp);
 
@@ -114,6 +126,14 @@ public class ChirpService {
 		return result;
 		
 	}
+	
+	public Collection<Chirp> findChirpsWithTabooWords(){
+		Collection<Chirp> result;
+		
+		result = this.chirpRepository.findChirpsWithTabooWords();
+		
+		return result;
+	}
 
 	public void flush(){
 		this.chirpRepository.flush();
@@ -131,6 +151,7 @@ public class ChirpService {
 		result.setDescription(chirpForm.getDescription());
 		result.setMoment(chirpForm.getMoment());
 		result.setUser(principal);
+		result.setTabooWords(false);
 		
 		this.validator.validate(result, binding);
 		

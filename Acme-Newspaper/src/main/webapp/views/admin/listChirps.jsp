@@ -24,21 +24,18 @@
 
 <!-- Listing grid -->
 
- 
 
-<display:table pagesize="5" class="displaytag" name="articles"  requestURI="admin/admin/listArticles.do" id="row">
+
+<display:table pagesize="5" class="displaytag" name="chirps"  requestURI="admin/admin/listChirps.do" id="row">
 	
-	<spring:message code="article.title" var="titleHeader" />
-	<display:column title="${titleHeader}"><a href="article/display.do?articleId=${row.id}"><jstl:out value="${row.title}"></jstl:out></a></display:column>
+	<display:column>
+		<a href = "admin/admin/delete.do?chirpId=${row.id}"><spring:message code= "chirp.delete"/></a>
+	</display:column>
 	
-	<spring:message code="article.summary" var="summary" />
-	<display:column property="summary" title="${summary}"/>
+	<spring:message code="chirp.title" var="title" />
+	<display:column property="title" title="${title}"/>
 	
-	<spring:message code="article.body" var="body" />
-	<display:column property="body" title="${body}"/>
-	
-	<spring:message code="article.moment" var="moment" />
-	<spring:message code="master.page.date.format" var="dateFormat" />
-	<display:column property="moment" format="{0,date,${dateFormat}}" title="${moment}"/>
+	<spring:message code="chirp.description" var="description" />
+	<display:column property="description" title="${description}"/>
 	
 </display:table>

@@ -142,6 +142,7 @@ public class UserUserController extends AbstractController{
 		Collection<User> users;
 		User principal;
 		String uri;
+		Boolean followingTitle = true;
 		
 		uri = "/user";
 		
@@ -153,6 +154,7 @@ public class UserUserController extends AbstractController{
 		result.addObject("users", users);
 		result.addObject("principal", principal);
 		result.addObject("uri", uri);
+		result.addObject("followingTitle", followingTitle);
 		
 		return result;
 	}
@@ -165,7 +167,7 @@ public class UserUserController extends AbstractController{
 		Collection<User> users;
 		User principal;
 		String uri;
-		
+		Boolean followersTitle = true;
 		uri = "/user";
 		
 		principal= this.userService.findByPrincipal();
@@ -176,6 +178,7 @@ public class UserUserController extends AbstractController{
 		result.addObject("users", users);
 		result.addObject("principal", principal);
 		result.addObject("uri", uri);
+		result.addObject("followersTitle", followersTitle);
 		
 		return result;
 	}

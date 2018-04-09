@@ -12,6 +12,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <!-- Listing grid -->
+<jstl:if test="${followingTitle}">
+<h3><spring:message code ="user.followingTitle"/></h3>
+</jstl:if>
+<jstl:if test="${followersTitle}">
+<h3><spring:message code ="user.followersTitle"/></h3>
+</jstl:if>
+
 
 
 

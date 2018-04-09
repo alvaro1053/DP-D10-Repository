@@ -38,12 +38,15 @@ public class UserController extends AbstractController {
 		String uri = "";
 		ModelAndView result;
 		Collection<User> users;
+	
 
 		users = this.userService.findAll();
 
 		result = new ModelAndView("user/list");
 		result.addObject("users", users);
 		result.addObject("uri", uri);
+
+		
 		return result;
 	}
 
