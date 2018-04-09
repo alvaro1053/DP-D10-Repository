@@ -1,66 +1,57 @@
 
-package controllers;
+package controllers.customer;
 
 import java.util.Collection;
+
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
+
+import domain.Customer;
 import domain.Newspaper;
 
+import services.CustomerService;
 import services.NewspaperService;
 
-
 @Controller
-@RequestMapping("/newspaper")
-public class NewspaperController extends AbstractController {
+@RequestMapping("/newspaper/customer")
+public class CustomerNewspaperController extends AbstractController{
 
 	// Services
 
 	@Autowired
 	private NewspaperService	newspaperService;
+	
+	@Autowired
+	private CustomerService	customerService;
 
 
 	// Constructors
 
-	public NewspaperController() {
+	public CustomerNewspaperController() {
 		super();
 	}
 
-	//Display
-		@RequestMapping(value = "/display", method = RequestMethod.GET)
-		public ModelAndView display(@RequestParam final int newspaperId) {
-			final ModelAndView result;
-			Newspaper newspaper;
-			final String uri = "";
-
-			newspaper = this.newspaperService.findOne(newspaperId);
-
-			result = new ModelAndView("newspaper/display");
-			result.addObject("newspaper", newspaper);
-			result.addObject("uri", uri);
-			result.addObject("principal", null);
-			return result;
-
-	}
-		
 	// Listing
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final String filter) {
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
-		final String uri = "";
+		final Customer principal = this.customerService.findByPrincipal();
+		final String uri = "/customer";
 		newspapers = this.newspaperService.findByFilter(filter);
+		
 		result = new ModelAndView("newspaper/list");
 		result.addObject("newspapers", newspapers);
+		result.addObject("principal",principal);
 		result.addObject("uri", uri);
 		return result;
 	}	
-
 
 }

@@ -2,15 +2,9 @@
 package controllers.admin;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.validation.Valid;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +15,6 @@ import controllers.AbstractController;
 
 import domain.Newspaper;
 import domain.Admin;
-import forms.NewspaperForm;
 
 import services.NewspaperService;
 import services.AdminService;
@@ -46,7 +39,23 @@ public class NewspaperAdminController extends AbstractController{
 		super();
 	}
 	
-	
+	// Listing
+		@RequestMapping(value = "/list", method = RequestMethod.GET)
+		public ModelAndView list(final String filter) {
+			ModelAndView result;
+			Collection<Newspaper> newspapers;
+			final Admin principal = this.adminService.findByPrincipal();
+			final String uri = "/admin";
+			
+			newspapers = this.newspaperService.findAll();
+			
+			result = new ModelAndView("newspaper/list");
+			result.addObject("newspapers", newspapers);
+			result.addObject("principal",principal);
+			result.addObject("uri", uri);
+			return result;
+		}	
+		
 	//Publish
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView publish(@RequestParam final int newspaperId, RedirectAttributes redir) {

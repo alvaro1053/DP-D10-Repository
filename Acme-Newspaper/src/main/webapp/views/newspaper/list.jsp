@@ -12,21 +12,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<jstl:if test="${searching == true}"> 
-<h2> <spring:message code="newspaper.results" />  </h2>
-</jstl:if>
 
-<spring:message code="newspaper.search" var="searchNewspapers"  />
- 
-<form action="newspaper/search.do" method="post" > 
 
-<label for=""> <spring:message code="newspaper.search.keyword"/>:  </label>
-<input type="text"  id="keyWord" name="keyword">
-<br/>
-<br/>
-
-<input type="submit" name="save" value="${searchNewspapers}" >
-
+<form action="newspaper${uri}/list.do" method="get">
+	<spring:message code="newspaper.search.placeholder" var="placeholder" />
+	<input name="filter" placeholder="${placeholder}"/>
+	<br />
+<spring:message code="newspaper.search" var="search" />
+	<input type="submit"
+		value="${search}" />
 
 </form>
 

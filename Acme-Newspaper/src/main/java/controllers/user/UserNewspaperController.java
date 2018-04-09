@@ -48,12 +48,12 @@ public class UserNewspaperController extends AbstractController{
 
 	// Listing
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(final String filter) {
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
 		final User principal = this.userService.findByPrincipal();
 		final String uri = "/user";
-		newspapers = this.newspaperService.publishedNewspapers();
+		newspapers = this.newspaperService.findByFilter(filter);
 		
 		//Añadimos los no-publicados por el usuario
 		newspapers.addAll(principal.getNewspapers());
@@ -66,6 +66,8 @@ public class UserNewspaperController extends AbstractController{
 		result.addObject("uri", uri);
 		return result;
 	}	
+	
+	
 	
 	// Creation ---------------------------------------------------------------
 

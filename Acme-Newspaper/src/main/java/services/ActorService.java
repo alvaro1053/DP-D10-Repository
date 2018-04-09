@@ -75,15 +75,18 @@ public class ActorService {
 	// Other business methods
 
 	public Actor findByPrincipal() {
-		Actor result;
-		UserAccount userAccount;
+	    Actor result;
+	    UserAccount userAccount;
+	    try{
+	    userAccount = LoginService.getPrincipal();
+	    Assert.notNull(userAccount);
+	    result = this.findByUserAccount(userAccount);
+	    Assert.notNull(result);
+	    }catch(Throwable oops){
+	      result = null;
+	    }
 
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-		result = this.findByUserAccount(userAccount);
-		Assert.notNull(result);
-
-		return result;
+	    return result;
 
 	}
 

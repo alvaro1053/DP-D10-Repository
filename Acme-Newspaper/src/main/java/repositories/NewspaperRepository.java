@@ -14,7 +14,10 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	@Query("select n from Newspaper n where n.publicationDate < CURRENT_TIMESTAMP")
 	Collection<Newspaper> publishedNewspapers();
 	
+	@Query("select n from Newspaper n where n.publicationDate > CURRENT_TIMESTAMP")
+	Collection<Newspaper> notPublishedNewspapers();
+	
 	@Query("select n from Newspaper n where n.title LIKE %?1% or n.description LIKE %?1%")
-	Collection<Newspaper> searchNewspapers(String keyword);
+	Collection<Newspaper> findByFilter(String filter);
 
 }

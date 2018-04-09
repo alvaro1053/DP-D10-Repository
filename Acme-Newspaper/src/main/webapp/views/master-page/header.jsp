@@ -65,12 +65,16 @@
 			<li><a class="fNiv" href="article/admin/list.do"><spring:message code="master.page.article" /></a></li>
 		</security:authorize>
 		
-		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.userList" /></a></li>
+		<security:authorize access="hasRole('USER')">
+			<li><a class="fNiv" href="article/user/list.do"><spring:message code="master.page.article" /></a></li>
 		</security:authorize>
 		
-		<security:authorize access="permitAll">
-			<li><a class="fNiv" href="article/list.do"><spring:message code="master.page.articles" /></a></li>
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="article/list.do"><spring:message code="master.page.article" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.userList" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
