@@ -289,7 +289,7 @@
 
 <bean class="domain.Newspaper" id="newspaper2">
 	<property name="title" value="Corazón Latino" />
-	<property name="publicationDate" value="2018/04/12 12:21"/>
+	<property name="publicationDate" value="2018/04/10 12:21"/>
 	<property name="description" value="Mucha prensa rosa, mucho cotilleo y mucha polémica"/>
 	<property name="pictureURL" value="https://www.himgs.com/imagenes/hola/comunes/hola-2017.gif"/>	
 	<property name="isPrivate" value="true"/>

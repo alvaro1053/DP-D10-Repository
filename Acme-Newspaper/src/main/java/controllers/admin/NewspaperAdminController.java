@@ -16,11 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import controllers.AbstractController;
 
+import domain.Article;
 import domain.Newspaper;
 import domain.Admin;
 
-
 import services.AdminService;
+import services.ArticleService;
 import services.NewspaperService;
 
 
@@ -33,6 +34,9 @@ public class NewspaperAdminController extends AbstractController{
 
 	@Autowired
 	private NewspaperService	newspaperService;
+	
+	@Autowired
+	private ArticleService	articleService;
 
 	@Autowired
 	private AdminService	adminService;
@@ -64,6 +68,28 @@ public class NewspaperAdminController extends AbstractController{
 			result.addObject("uri", uri);
 			return result;
 		}	
+		
+		//Display
+				@RequestMapping(value = "/display", method = RequestMethod.GET)
+				public ModelAndView display(@RequestParam final int newspaperId) {
+					final ModelAndView result;
+					Newspaper newspaper;
+					Collection<Article> articles;
+					final Admin principal = this.adminService.findByPrincipal();
+					final String uri = "/admin";
+
+					newspaper = this.newspaperService.findOne(newspaperId);
+					articles = this.articleService.articlesOfNewspaper(newspaperId);
+
+
+					result = new ModelAndView("newspaper/display");
+					result.addObject("articles", articles);
+					result.addObject("newspaper", newspaper);
+					result.addObject("uri", uri);
+					result.addObject("principal", principal);
+					return result;
+
+				}
 		
 	//Publish
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)

@@ -190,6 +190,7 @@ public class NewspaperService {
 		
 		return result;
 	}
+	
 
 	public void changePrivacity (int newspaperId){
 		User user = this.userService.findByPrincipal();

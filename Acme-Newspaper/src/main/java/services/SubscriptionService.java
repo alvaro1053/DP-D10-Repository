@@ -90,6 +90,14 @@ public class SubscriptionService {
 		final Subscription res = this.subscriptionRepository.findOne(id);
 		return res;
 	}
+	
+	public Collection<Subscription> findAll() {
+		Collection<Subscription> result;
+
+		result = this.subscriptionRepository.findAll();
+
+		return result;
+	}
 
 	public Subscription reconstruct(final SubscriptionForm subscription, final BindingResult binding){
 		Subscription result = this.create();

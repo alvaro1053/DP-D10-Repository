@@ -23,11 +23,14 @@
 
 <table class="displayStyle" >
 
-
 <tr>
 <td class ="left-display"> <strong> <spring:message code="newspaper.title" /> : </strong> </td>
 <td class="right-display">  <jstl:out value = "${newspaper.title}"/> &nbsp;  </td>
 </tr>
+
+
+<jstl:if test="${suscrito == true || newspaper.isPrivate == false}"> 
+
 
 <tr>
 <td class ="left-display"> <strong> <spring:message code="newspaper.publicationDate" /> : </strong> </td>
@@ -39,24 +42,59 @@
 <td class="right-display">  <jstl:out value = "${newspaper.description}"/> &nbsp;  </td>
 </tr>
 
-<jstl:if test="${newspaper.pictureURL != null}">
+
 <tr>
 <td class ="left-display"> <strong> <spring:message code="newspaper.pictureURL" /> : </strong> </td>
 <td class="right-display">  <img src="${newspaper.pictureURL}" width="auto" height="200"> &nbsp; </td>
 </tr>
-</jstl:if>
+
 
 <tr>
-<td class ="left-display"> <strong> <spring:message code="newspaper.articles" /> : </strong> </td>
-<td class="right-display"> 
+<td class ="left-display"> <strong> <spring:message code="newspaper.user" /> : </strong> </td>
+<td class="right-display">  <jstl:out value="${newspaper.user.name}" /> &nbsp; </td>
+</tr>
+
+</jstl:if>
 
 <jstl:choose>
 <jstl:when test="${not empty newspaper.articles}"> 
-<ul>
-<jstl:forEach items="${newspaper.articles}" var="article">
-<li> <jstl:out value = "${article.title}" /> &nbsp; </li>
-</jstl:forEach>
-</ul> 
+
+
+<display:table name="articles" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+	
+	<spring:message code="newspaper.article.title" var="titleHeader" />
+	<display:column title="${titleHeader}" sortable="true" >
+	<jstl:choose>
+		<jstl:when test="${suscrito == true}">
+		<a href="article/display.do?articleId=${row.id}">
+			<jstl:out value="${row.title}"/>
+		</a>
+		</jstl:when>
+		<jstl:otherwise>
+			<jstl:out value="${row.title}"/>
+		</jstl:otherwise>
+	</jstl:choose>
+	</display:column>
+	
+	
+	<spring:message code="article.user" var="userHeader" />
+	<display:column title="${userHeader}" sortable="true" >
+	<jstl:choose>
+		<jstl:when test="${suscrito == true}">
+		<a href="user/display.do?userId=${row.user.id}">
+			<jstl:out value="${row.user.name}"/>
+		</a>
+		</jstl:when>
+		<jstl:otherwise>
+			<jstl:out value="${row.user.name}"/>
+		</jstl:otherwise>
+	</jstl:choose>
+	</display:column>
+	
+	<spring:message code="article.summary" var = "summaryHeader" />
+	<display:column property="summary" title ="${summaryHeader}" sortable="true"/>
+</display:table>
+
 </jstl:when>
 <jstl:otherwise>
 
@@ -64,14 +102,6 @@
 
 </jstl:otherwise>
 </jstl:choose>
-
-</td>
-</tr>
-
-<tr>
-<td class ="left-display"> <strong> <spring:message code="newspaper.user" /> : </strong> </td>
-<td class="right-display">  <jstl:out value="${newspaper.user.name}" /> &nbsp; </td>
-</tr>
 
 
 </table>

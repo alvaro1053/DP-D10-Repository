@@ -30,8 +30,9 @@
 </tr>
 
 <tr>
+<spring:message code="article.moment.format" var = "format"/>
 <td class ="left-display"> <strong> <spring:message code="article.moment" /> : </strong> </td>
-<td class="right-display">  <jstl:out value = "${article.moment}"/> &nbsp;  </td>
+<td class="right-display">  <fmt:formatDate value = "${article.moment}" pattern="${format}"/> &nbsp;  </td>
 </tr>
 
 <tr>

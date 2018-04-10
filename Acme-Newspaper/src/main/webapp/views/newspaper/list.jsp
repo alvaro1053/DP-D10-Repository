@@ -38,23 +38,35 @@
 		var="titleHeader" />
 	<display:column property="title" title="${titleHeader}"
 		sortable="true" />
+		
+	
+	
+	<security:authorize access="!(isAnonymous())">
 	
 	<!-- publicationDate -->
 	<spring:message code="newspaper.publicationDate"
 		var="publicationDateHeader" />
 	<display:column property="publicationDate" title="${publicationDateHeader}"
-		sortable="true" />	
-		
+		sortable="true" />		
+	
+	
+	
 	<!-- description -->
+	
+	
 	<spring:message code="newspaper.description"
 		var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}"
 		sortable="true" />
+
 		
 	<!-- pictureURL -->
 	<spring:message code="newspaper.pictureURL" var="pictureHeader" />
 	<spring:message code="newspaper.pictureError" var="pictureError" />
-	<display:column title="${pictureHeader}" sortable="true" > <img src="${row.pictureURL}"  width="auto" height="200"></display:column> 
+	<display:column title="${pictureHeader}" sortable="true" > <img src="${row.pictureURL}"  width="200" height="200"></display:column> 
+	
+	</security:authorize>
+
 
 	<!-- isPrivate -->
 		<spring:message code="newspaper.isPrivate"
@@ -88,9 +100,8 @@
 			<img class="alarmImg" src="images/open.png" width="30" height="auto"/>
 		</jstl:otherwise>
 		</jstl:choose>
-
-	
 	</display:column>
+	
 		
 	<!-- articles -->
 	<spring:message code="newspaper.articles"
@@ -123,6 +134,8 @@
 			code="newspaper.display" />
 		</a>
 	</display:column>
+	
+	
 <security:authorize access="hasRole('USER')">
 		<display:column>
 		<jsp:useBean id="now" class="java.util.Date"/>

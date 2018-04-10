@@ -20,10 +20,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import controllers.AbstractController;
 
+import domain.Article;
 import domain.Newspaper;
 import domain.User;
 import forms.NewspaperForm;
 
+import services.ArticleService;
 import services.NewspaperService;
 import services.UserService;
 
@@ -36,6 +38,9 @@ public class UserNewspaperController extends AbstractController{
 
 	@Autowired
 	private NewspaperService	newspaperService;
+	
+	@Autowired
+	private ArticleService	articleService;
 	
 	@Autowired
 	private UserService	userService;
@@ -79,12 +84,16 @@ public class UserNewspaperController extends AbstractController{
 		public ModelAndView display(@RequestParam final int newspaperId) {
 			final ModelAndView result;
 			Newspaper newspaper;
+			Collection<Article> articles;
 			final User principal = this.userService.findByPrincipal();
 			final String uri = "/user";
 
 			newspaper = this.newspaperService.findOne(newspaperId);
+			articles = this.articleService.articlesOfNewspaper(newspaperId);
+
 
 			result = new ModelAndView("newspaper/display");
+			result.addObject("articles", articles);
 			result.addObject("newspaper", newspaper);
 			result.addObject("uri", uri);
 			result.addObject("principal", principal);

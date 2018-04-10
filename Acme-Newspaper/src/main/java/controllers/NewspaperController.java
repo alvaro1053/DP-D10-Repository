@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Actor;
+import domain.Article;
 import domain.Newspaper;
 
 import services.ActorService;
+import services.ArticleService;
 import services.NewspaperService;
 
 
@@ -27,6 +29,9 @@ public class NewspaperController extends AbstractController {
 	@Autowired
 	private NewspaperService	newspaperService;
 
+	@Autowired
+	private ArticleService	articleService;
+	
 	@Autowired
 	private ActorService	actorService;
 
@@ -41,11 +46,14 @@ public class NewspaperController extends AbstractController {
 		public ModelAndView display(@RequestParam final int newspaperId) {
 			final ModelAndView result;
 			Newspaper newspaper;
+			Collection<Article> articles;
 			final String uri = "";
 
 			newspaper = this.newspaperService.findOne(newspaperId);
+			articles = this.articleService.articlesOfNewspaper(newspaperId);
 
 			result = new ModelAndView("newspaper/display");
+			result.addObject("articles", articles);
 			result.addObject("newspaper", newspaper);
 			result.addObject("uri", uri);
 			result.addObject("principal", null);
