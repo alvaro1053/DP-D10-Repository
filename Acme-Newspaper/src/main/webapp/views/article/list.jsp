@@ -43,7 +43,7 @@
 
 	<security:authorize access="hasRole('USER')">
 		<display:column>
-			<jstl:if test="${principal.id == row.user.id && row.isDraft == true}">
+			<jstl:if test="${row.isDraft == true}">
 				<a href="article/user/edit.do?articleId=${row.id}"><spring:message code ="article.edit"/></a>
 			</jstl:if>
 		</display:column>

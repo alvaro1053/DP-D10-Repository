@@ -122,38 +122,27 @@ public class UserArticleController extends AbstractController{
 		return result;
 
 	}
+
 	
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int articleId,RedirectAttributes redir) {
+	@RequestMapping(value="/edit", method= RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int articleId, RedirectAttributes redir){
 		ModelAndView result;
-		User principal;
 		Article article;
-		ArticleForm articleForm;
-		Collection<Newspaper> newspapers;
-		
-		newspapers = this.newspaperService.notPublishedNewspapers();
-
-		final Boolean finalModeOption = true;
+		User principal = this.userService.findByPrincipal();
 		try{
-		principal = this.userService.findByPrincipal();
-		Assert.notNull(principal);
-
-		
 		article = this.articleService.findOne(articleId);
-		Assert.notNull(article);
-		articleForm = this.articleService.reconstructForm(article);
-
-		result = this.createEditModelAndView(finalModeOption, articleForm);
-
+		Assert.isTrue(article.getUser().equals(principal));
+		result = this.createEditModelAndView(article);
 		} catch (Throwable oops){
-		result = new ModelAndView("redirect:../user/list.do");
+		result = new ModelAndView("redirect:/article/list.do");
 		redir.addFlashAttribute("message", "article.permision");
+		
 		}
-
-		result.addObject("newspapers", newspapers);
+		
 		return result;
+		
 	}
-
+	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final ArticleForm articleForm, final BindingResult binding) {
 		ModelAndView result;
@@ -165,7 +154,6 @@ public class UserArticleController extends AbstractController{
 
 
 		if (binding.hasErrors()) {
-			articleForm.setIsDraft(true);
 			result = this.createEditModelAndView(articleForm);
 		} else
 			try {
@@ -187,10 +175,11 @@ public class UserArticleController extends AbstractController{
 	
 	
 	//Ancillary methods
-		protected ModelAndView createEditModelAndView(ArticleForm articleForm) {
+	
+		protected ModelAndView createEditModelAndView(ArticleForm article) {
 			ModelAndView result; 
 			
-			result = this.createEditModelAndView(articleForm, null);
+			result = this.createEditModelAndView(article, null);
 			
 			return result;
 		}
@@ -206,22 +195,33 @@ public class UserArticleController extends AbstractController{
 			result.addObject("articleForm", articleForm);
 			result.addObject("message", message);
 			result.addObject("newspapers", newspapers);
-			result.addObject("finalModeOption", true);
-
 
 			return result;
 		}
 		
 		
-		private ModelAndView createEditModelAndView(final Boolean finalModeOption, final ArticleForm articleForm) {
+		protected ModelAndView createEditModelAndView(final Article article) {
+			ModelAndView result;
 
-			final ModelAndView result;
-			final Collection<Article> articles = this.articleService.findAll();
+			result = this.createEditModelAndView(article, null);
 
+			return result;
+		}
+
+		private ModelAndView createEditModelAndView(final Article article, String message) {
+
+			ModelAndView result;
+			Collection<Newspaper> newspapers;
+			newspapers = this.newspaperService.notPublishedNewspapers();
+			
+			ArticleForm articleForm = new ArticleForm();
+			
+			articleForm = this.articleService.reconstructForm(article);
+			
 			result = new ModelAndView("article/edit");
 			result.addObject("articleForm", articleForm);
-			result.addObject("articles", articles);
-			result.addObject("finalModeOption", finalModeOption);
+			result.addObject("newspapers", newspapers);
+			result.addObject("message", message);
 
 			return result;
 		}

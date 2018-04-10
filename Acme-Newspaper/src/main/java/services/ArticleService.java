@@ -150,8 +150,8 @@ public class ArticleService {
 	public Collection<Article> findByFilter(final String filter) {
 		Collection<Article> articles = new ArrayList<Article>();
 		if(filter == ""|| filter== null){
-			articles = this.articleRepository.articlesPublished();
-		} else{
+			articles = this.articleRepository.findAll();
+		}else{
 		articles = this.articleRepository.findByFilter(filter);
 		}
 		return articles;
