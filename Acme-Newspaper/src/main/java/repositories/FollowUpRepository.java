@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.FollowUp;
-import domain.Newspaper;
 
 @Repository
 public interface FollowUpRepository extends JpaRepository<FollowUp, Integer> {

@@ -103,7 +103,8 @@
 		
 		<!-- Follow up -->
 		<security:intercept-url pattern="/followUp/user/list.do" access="hasRole('USER')" /> 
-		<security:intercept-url pattern="/followUp/user/create.do" access="hasRole('USER')" /> 
+		<security:intercept-url pattern="/followUp/user/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/followUp/display.do" access="permitAll" /> 
 		
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
