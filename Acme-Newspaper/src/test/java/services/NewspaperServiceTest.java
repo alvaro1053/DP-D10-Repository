@@ -59,7 +59,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		try{
 			super.authenticate(username);
 			Collection<Newspaper> res = new ArrayList<Newspaper>();
-			res = this.newspaperService.searchNewspapers(filter);
+			res = this.newspaperService.findByFilter(filter);
 			Assert.isTrue(!res.isEmpty());
 			unauthenticate();
 		}catch(Throwable oops){

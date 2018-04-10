@@ -78,5 +78,10 @@ public class FollowUpService {
 		return result;
 	}
 
+	public Collection<FollowUp> publishedFollowUps (int articleId){
+		Collection<FollowUp> res = this.followUpRepository.publishedFollowUps(articleId);
+		return res;
+		
+	}
 
 }
