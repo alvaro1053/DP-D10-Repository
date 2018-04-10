@@ -3,6 +3,8 @@ package services;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -13,8 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ArticleRepository;
+import domain.Actor;
 import domain.Admin;
 import domain.Article;
+import domain.Customer;
 import domain.Newspaper;
 
 import domain.User;
@@ -33,6 +37,9 @@ public class ArticleService {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private ActorService actorService;
 	
 	@Autowired
 	private Validator			validator;
@@ -148,12 +155,20 @@ public class ArticleService {
 	}
 
 	public Collection<Article> findByFilter(final String filter) {
-		Collection<Article> articles = new ArrayList<Article>();
-		if(filter == ""|| filter== null){
+		Collection<Article> articles = new HashSet<Article>();
+		Actor principal = this.actorService.findByPrincipal();
+		if((principal instanceof User) && (filter == ""|| filter== null)){
+			User user = (User) principal;
+			articles = new HashSet<Article>(this.articleRepository.articlesPublished());
+			articles.addAll(user.getArticles());
+		} else if ((principal instanceof Admin) && (filter == ""|| filter== null)){
+			articles = this.findAll();
+		} else if ((principal instanceof Customer || principal == null) && (filter == ""|| filter== null)){
 			articles = this.articleRepository.articlesPublished();
-		} else{
-		articles = this.articleRepository.findByFilter(filter);
+		} else {
+			articles = this.articleRepository.findByFilter(filter);
 		}
+		
 		return articles;
 	}
 	
