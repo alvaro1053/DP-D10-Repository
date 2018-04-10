@@ -38,7 +38,7 @@ public class ArticleController extends AbstractController {
 		final String uri = "";
 
 		article = this.articleService.findOne(articleId);
-
+		
 		result = new ModelAndView("article/display");
 		result.addObject("article", article);
 		result.addObject("uri", uri);
