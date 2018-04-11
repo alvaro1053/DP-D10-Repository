@@ -102,7 +102,7 @@ public class ArticleService {
 
 	}
 	
-	public void deleteUser(final Article article) {
+	public void deleteUpdate(final Article article) {
 		Collection<Article> updated, updated2;
 		Assert.notNull(article);
 
@@ -123,12 +123,15 @@ public class ArticleService {
 	}
 
 	public void save(final Article article) {		
+		Article result;
 		User principal = userService.findByPrincipal();
 		Collection<String> tabooWords;
 		Assert.notNull(principal);
 		
 		article.setMoment(new Date(System.currentTimeMillis() - 1));
 			
+	
+		if(article.getId() != 0) { this.deleteUpdate(article); }
 
 
 		tabooWords = this.customisationService.findCustomisation().getTabooWords();
@@ -141,18 +144,16 @@ public class ArticleService {
 				article.setTabooWords(true);
 		}
 		
-		this.articleRepository.save(article);
+		result = this.articleRepository.save(article);
 		
 		final Collection<Article> update = principal.getArticles();
-		update.add(article);
+		update.add(result);
 		principal.setArticles(update);
 
-		final Newspaper newspaper = article.getNewspaper();
+		final Newspaper newspaper = result.getNewspaper();
 		final Collection<Article> update2 = newspaper.getArticles();
-		update2.add(article);
+		update2.add(result);
 		newspaper.setArticles(update2);
-		
-		
 	}
 
 	public Article findOne(final int articleId) {
