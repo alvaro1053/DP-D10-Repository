@@ -57,6 +57,7 @@ public class ArticleService {
 	public Article create() {
 		User principal;
 		Article article;
+		
 		Date moment;
 
 		principal = userService.findByPrincipal();
@@ -70,6 +71,18 @@ public class ArticleService {
 		return article;
 	}
 	
+	public ArticleForm createForm() {
+		User principal;
+		ArticleForm articleForm;
+
+		principal = this.userService.findByPrincipal();
+		Assert.notNull(principal);
+		articleForm = new ArticleForm();
+		articleForm.setIsDraft(true);
+
+		return articleForm;
+	}
+	
 	public Collection<Article> findAll() {
 		Collection<Article> result;
 
@@ -81,6 +94,7 @@ public class ArticleService {
 	public void delete(final Article article) {
 		Admin admin;
 		Collection<Article> updated, updated2;
+		final Date momentNow = new Date(System.currentTimeMillis());
 		Assert.notNull(article);
 		
 		admin = this.adminService.findByPrincipal();
@@ -98,6 +112,8 @@ public class ArticleService {
 		updated2.remove(article);
 		user.setArticles(updated2);
 
+		Assert.isTrue(article.getNewspaper().getPublicationDate().after(momentNow));
+		
 		this.articleRepository.delete(article);
 
 	}
@@ -124,6 +140,8 @@ public class ArticleService {
 
 	public void save(final Article article) {		
 		Article result;
+        final Date momentNow = new Date(System.currentTimeMillis());
+
 		User principal = userService.findByPrincipal();
 		Collection<String> tabooWords;
 		Assert.notNull(principal);
@@ -154,6 +172,9 @@ public class ArticleService {
 		final Collection<Article> update2 = newspaper.getArticles();
 		update2.add(result);
 		newspaper.setArticles(update2);
+		
+		
+		Assert.isTrue(article.getNewspaper().getPublicationDate().after(momentNow));
 	}
 
 	public Article findOne(final int articleId) {
@@ -251,5 +272,9 @@ public class ArticleService {
 		result.setNewspaper(article.getNewspaper());
 
 		return result;
+	}
+
+	public void flush() {
+		this.articleRepository.flush();
 	}
 }

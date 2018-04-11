@@ -313,7 +313,7 @@
 
 <bean class="domain.Newspaper" id="newspaper3">
 	<property name="title" value="El jueves" />
-	<property name="publicationDate" value="2019/04/12 12:21"/>
+	<property name="publicationDate" value="2019/08/12 12:21"/>
 	<property name="description" value="Nos cachondeamos de todo lo que se mueve, sex"/>
 	<property name="pictureURL" value=""/>	
 	<property name="isPrivate" value="true"/>
@@ -409,7 +409,7 @@
 	</property>	
 	<property name="isDraft" value="true"/>
 	<property name="tabooWords" value="false"/>
-	<property name="newspaper" ref="newspaper1"/>
+	<property name="newspaper" ref="newspaper3"/>
 	<property name="user" ref="user1"/>
 	<property name="followUps">
 	<list>
