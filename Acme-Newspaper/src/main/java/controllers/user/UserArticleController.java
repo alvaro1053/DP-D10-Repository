@@ -69,13 +69,13 @@ public class UserArticleController extends AbstractController{
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(){
 		ModelAndView result;
-		ArticleForm articleForm;
+		ArticleForm article;
 		Collection<Newspaper> newspapers;
 		
-		articleForm = this.articleService.create();
+		article = new ArticleForm();
 		newspapers = this.newspaperService.notPublishedNewspapers();
 		
-		result = this.createEditModelAndView(articleForm);
+		result = this.createEditModelAndView(article);
 		result.addObject("newspapers", newspapers);
 		
 		return result;

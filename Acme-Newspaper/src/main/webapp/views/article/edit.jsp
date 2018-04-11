@@ -35,7 +35,7 @@
 	<br />
 	
 <jstl:if test="${articleForm.id ==0 }">
-	<!-- QUESTIONS -->
+	<!-- PHOTOS -->
 	
 	
 	<fieldset>

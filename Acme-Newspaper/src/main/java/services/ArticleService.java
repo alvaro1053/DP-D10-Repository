@@ -46,15 +46,16 @@ public class ArticleService {
 	@Autowired
 	private CustomisationService customisationService;
 	
+	
 
 	//Constructors
 	public ArticleService() {
 		super();
 	}
 
-	public ArticleForm create() {
+	public Article create() {
 		User principal;
-		ArticleForm articleForm;
+		Article article;
 		Date moment;
 
 		principal = userService.findByPrincipal();
@@ -62,10 +63,10 @@ public class ArticleService {
 
 		moment = new Date(System.currentTimeMillis() - 1);
 		
-		articleForm = new ArticleForm();
-		articleForm.setMoment(moment);
+		article = new Article();
+		article.setMoment(moment);
 	
-		return articleForm;
+		return article;
 	}
 	
 	public Collection<Article> findAll() {
@@ -108,19 +109,12 @@ public class ArticleService {
 		Assert.notNull(principal);
 		
 		article.setMoment(new Date(System.currentTimeMillis() - 1));
-	
-		result = this.articleRepository.save(article);
-		
-		final Collection<Article> update = principal.getArticles();
-		update.add(result);
-		principal.setArticles(update);
-
-		final Newspaper newspaper = result.getNewspaper();
-		final Collection<Article> update2 = newspaper.getArticles();
-		update2.add(result);
-		newspaper.setArticles(update2);
-		
-
+			
+/*
+		if(article.getId()!=0){
+			this.articleRepository.delete(article);
+		}
+*/
 		tabooWords = this.customisationService.findCustomisation().getTabooWords();
 		for (String word : tabooWords) {
 			if(article.getTitle().toLowerCase().contains(word))
@@ -132,6 +126,16 @@ public class ArticleService {
 		}
 		
 		result = this.articleRepository.save(article);
+		
+		final Collection<Article> update = principal.getArticles();
+		update.add(result);
+		principal.setArticles(update);
+
+		final Newspaper newspaper = result.getNewspaper();
+		final Collection<Article> update2 = newspaper.getArticles();
+		update2.add(result);
+		newspaper.setArticles(update2);
+		
 		return result;
 	}
 
@@ -187,6 +191,8 @@ public class ArticleService {
 		
 		principal = this.userService.findByPrincipal();
 		
+		result.setId(articleForm.getId());
+		result.setVersion(articleForm.getVersion());
 		result.setTitle(articleForm.getTitle());
 		result.setMoment(articleForm.getMoment());
 		result.setSummary(articleForm.getSummary());
@@ -194,6 +200,8 @@ public class ArticleService {
 		result.setPhotosURL(articleForm.getPhotosURL());
 		result.setIsDraft(articleForm.getIsDraft());
 		result.setNewspaper(articleForm.getNewspaper());
+		result.setTabooWords(false);
+		result.setFollowUps(null);		
 		result.setUser(principal);
 		
 		this.validator.validate(result, binding);
