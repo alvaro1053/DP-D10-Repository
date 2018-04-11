@@ -101,21 +101,36 @@ public class ArticleService {
 		this.articleRepository.delete(article);
 
 	}
+	
+	public void deleteUser(final Article article) {
+		Collection<Article> updated, updated2;
+		Assert.notNull(article);
 
-	public Article save(final Article article) {
-		Article result;
-		
+		final Newspaper newspaper = article.getNewspaper();
+		final Collection<Article> article1 = newspaper.getArticles();
+		updated = new ArrayList<Article>(article1);
+		updated.remove(article);
+		newspaper.setArticles(updated);
+
+		final User user = article.getUser();
+		final Collection<Article> article2 = user.getArticles();
+		updated2 = new ArrayList<Article>(article2);
+		updated2.remove(article);
+		user.setArticles(updated2);
+
+		this.articleRepository.delete(article);
+
+	}
+
+	public void save(final Article article) {		
 		User principal = userService.findByPrincipal();
 		Collection<String> tabooWords;
 		Assert.notNull(principal);
 		
 		article.setMoment(new Date(System.currentTimeMillis() - 1));
 			
-/*
-		if(article.getId()!=0){
-			this.articleRepository.delete(article);
-		}
-*/
+
+
 		tabooWords = this.customisationService.findCustomisation().getTabooWords();
 		for (String word : tabooWords) {
 			if(article.getTitle().toLowerCase().contains(word))
@@ -126,18 +141,18 @@ public class ArticleService {
 				article.setTabooWords(true);
 		}
 		
-		result = this.articleRepository.save(article);
+		this.articleRepository.save(article);
 		
 		final Collection<Article> update = principal.getArticles();
-		update.add(result);
+		update.add(article);
 		principal.setArticles(update);
 
-		final Newspaper newspaper = result.getNewspaper();
+		final Newspaper newspaper = article.getNewspaper();
 		final Collection<Article> update2 = newspaper.getArticles();
-		update2.add(result);
+		update2.add(article);
 		newspaper.setArticles(update2);
 		
-		return result;
+		
 	}
 
 	public Article findOne(final int articleId) {

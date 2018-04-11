@@ -25,13 +25,13 @@
 	<form:hidden path="version" /> 
 	<form:hidden path="moment" />
 	
-	<acme:textarea code="article.title" path="title"/>
+	<acme:textbox code="article.title" path="title"/>
 	<br />
 	
 	<acme:textbox code="article.summary" path="summary"/>
 	<br />
 	
-	<acme:textbox code="article.body" path="body"/>
+	<acme:textarea code="article.body" path="body"/>
 	<br />
 	
 <jstl:if test="${articleForm.id ==0 }">
