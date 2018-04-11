@@ -11,10 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Article;
-import domain.CreditCard;
+
 import domain.Newspaper;
-import domain.Subscription;
 
 import utilities.AbstractTest;
 

@@ -66,6 +66,8 @@ public class UserService {
 		}
 
 		saved = this.UserRepository.save(User);
+		
+
 
 		//TEST ASSERT - Testing if the user is in the system after saving him/her
 		Assert.isTrue(this.UserRepository.findAll().contains(saved));
