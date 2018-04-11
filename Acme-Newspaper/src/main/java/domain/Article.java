@@ -4,6 +4,7 @@ package domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -29,7 +30,7 @@ public class Article extends DomainEntity {
 	private Date					moment;
 	private String					summary;
 	private String					body;
-	private Collection<String>		photosURL;
+	private List<String>		photosURL;
 	private Boolean					isDraft;	
 	private Newspaper 				newspaper;
 	private User 					user;
@@ -73,10 +74,10 @@ public class Article extends DomainEntity {
 	}
 	
 	@ElementCollection
-	public Collection<String> getPhotosURL() {
+	public List<String> getPhotosURL() {
 		return photosURL;
 	}
-	public void setPhotosURL(Collection<String> photosURL) {
+	public void setPhotosURL(List<String> photosURL) {
 		this.photosURL = photosURL;
 	}
 	

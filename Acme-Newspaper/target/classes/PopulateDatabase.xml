@@ -146,6 +146,7 @@
 	<list>
 	<ref bean="article1"/>
 	<ref bean="article2"/>
+	<ref bean="article4"/>
 	</list>
 	</property>
 	</bean>
@@ -288,7 +289,7 @@
 
 <bean class="domain.Newspaper" id="newspaper2">
 	<property name="title" value="Corazón Latino" />
-	<property name="publicationDate" value="2018/04/12 12:21"/>
+	<property name="publicationDate" value="2018/04/10 12:21"/>
 	<property name="description" value="Mucha prensa rosa, mucho cotilleo y mucha polémica"/>
 	<property name="pictureURL" value="https://www.himgs.com/imagenes/hola/comunes/hola-2017.gif"/>	
 	<property name="isPrivate" value="true"/>
@@ -391,6 +392,25 @@
 	<property name="tabooWords" value="true"/>
 	<property name="newspaper" ref="newspaper2"/>
 	<property name="user" ref="user2"/>
+	<property name="followUps">
+	<list>
+	</list>
+	</property>
+</bean>
+
+<bean class="domain.Article" id="article4">
+	<property name="title" value="No veas qué pasada de artículo" />
+	<property name="moment" value="2018/10/10 12:22"/>
+	<property name="summary" value="Esto es impresionante"/>
+	<property name="body" value="Es increible la capacidad de escribir de nuestros redactores, no hay color con la competencia."/>
+	<property name="photosURL">
+	<list>
+	</list>
+	</property>	
+	<property name="isDraft" value="true"/>
+	<property name="tabooWords" value="false"/>
+	<property name="newspaper" ref="newspaper1"/>
+	<property name="user" ref="user1"/>
 	<property name="followUps">
 	<list>
 	</list>

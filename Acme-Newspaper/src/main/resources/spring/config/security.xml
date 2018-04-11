@@ -53,6 +53,7 @@
 		<security:intercept-url pattern="/newspaper/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/newspaper/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/newspaper/customer/list.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/newspaper/customer/display.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/newspaper/user/list.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/newspaper/user/display.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/newspaper/user/create.do" access="hasRole('USER')" /> 
@@ -60,6 +61,7 @@
 		<security:intercept-url pattern="/newspaper/user/publish.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/newspaper/user/private.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/newspaper/admin/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/newspaper/admin/display.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/newspaper/admin/delete.do" access="hasRole('ADMIN')" /> 
 		
 		
