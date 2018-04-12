@@ -2,6 +2,8 @@
 package services;
 
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -87,6 +89,18 @@ public class AdminService {
 		result = this.adminRepository.findByUserAccountId(userAccount.getId());
 		return result;
 	}
-
+	
+	Double AverageRatioOfPrivateVersusPublicNewspapers(){
+		Admin principal = this.findByPrincipal();
+		Assert.notNull(principal);
+		Double res = 0.0;
+		Double sumas = 0.0;
+		Collection<Double> ratios = this.adminRepository.AverageRatioOfPrivateVersusPublicNewspapers();
+		for (Double d : ratios){
+			sumas +=d;
+		}
+		res = sumas/ratios.size();
+		return res;
+	}
 
 }
