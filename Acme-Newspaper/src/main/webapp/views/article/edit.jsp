@@ -34,7 +34,6 @@
 	<acme:textarea code="article.body" path="body"/>
 	<br />
 	
-<jstl:if test="${articleForm.id ==0 }">
 	<!-- PHOTOS -->
 	
 	
@@ -65,9 +64,9 @@
 			
 			</jstl:when>
 			<jstl:otherwise>
-			<jstl:forEach items="${photosURL}" var="photoURL" varStatus="i" begin="0">
+			<jstl:forEach items="${articleForm.photosURL}" var="photoURL" varStatus="i" begin="0">
    			 <tr class="list-item">
-			<td> <form:input path="photosURL[${i.index}]" /> <form:errors cssClass="error" path="photosURL[${i.index}]" /></td>
+			<td> <form:input path="photosURL[${i.index}]" /></td>
      		<td>	<a href="#" onclick="event.preventDefault();"
 					class="list-remove"> <spring:message code="article.photosURL.remove" /> </a> </td>
 	    </tr>
@@ -84,7 +83,6 @@
 
 </fieldset>
 
-</jstl:if>
 	
 	<spring:message code="article.isDraft"/>
 	<form:checkbox path="isDraft" name="isDraft" value="true"/>

@@ -110,9 +110,16 @@
 	<ul>
 		<jstl:forEach items="${row.articles}" var="article"> 
 			 <li>
-				 <a href="article/display.do?articleId=${article.id}">
-				 	<jstl:out value ="${article.title}" />
-				 </a>
+			 <jstl:choose>
+				<jstl:when test="${suscrito == true}">
+					<a href="article/display.do?articleId=${article.id}">
+						<jstl:out value="${article.title}"/>
+					</a>
+				</jstl:when>
+			<jstl:otherwise>
+			<jstl:out value="${article.title}"/>
+			</jstl:otherwise>
+			</jstl:choose>
 			 </li>
 		</jstl:forEach>
 	</ul>

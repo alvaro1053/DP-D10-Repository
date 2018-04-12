@@ -23,6 +23,47 @@ public class UserServiceTest extends AbstractTest {
 	@Autowired
 	UserService		userService;
 	
+	@Test
+	public void diverListUser(){ 
+		Object testingData[][]= {
+				
+/*
+  4.3 An actor who is not authenticated must be able to: List the users of the system and display their profiles, which must include their personal
+data and the list of articles that they have written as long as they are published
+in a newspaper.
+*/
+				
+				//Compruebo que puedo hacer listar los usuario y mostrar el perfil de un usuario sin estar logeado
+				{null, "user1",null},
+				//Compruebo que puedo hacer listar los usuario y mostrar el perfil de un usuario logeado como usuario
+				{"user1", "user2", null},
+				//Compruebo que puedo hacer listar los usuario y mostrar el perfil de un usuario logeado como admin
+				{"admin", "user3", null},
+				//Compruebo que puedo hacer listar los usuario y mostrar el perfil de un usuario logeado como customer
+				{"customer1", "user1", null},
+
+		};
+		for (int i = 0; i < testingData.length; i++){
+			templateListUser((String) testingData[i][0], super.getEntityId((String) testingData[i][1]),(Class<?>) testingData[i][2]);
+		}
+	}
+	
+	protected void templateListUser(final String username, final int userId, final Class<?> expected){
+		
+		Class<?> caught;
+		caught = null;
+		
+		try{
+			authenticate(username);
+			this.userService.findAll();
+			this.userService.findOne(userId);
+			unauthenticate();
+		} catch(Throwable oops){
+			caught = oops.getClass();
+		}
+		checkExceptions(expected, caught);
+	}
+	
 	
 	@Test
 	public void driverRegisterUser(){

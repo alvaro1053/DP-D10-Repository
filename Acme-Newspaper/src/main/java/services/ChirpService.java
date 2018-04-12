@@ -130,6 +130,8 @@ public class ChirpService {
 	
 	public Collection<Chirp> findChirpsWithTabooWords(){
 		Collection<Chirp> result;
+		Admin admin = this.adminService.findByPrincipal();
+		Assert.notNull(admin);
 		
 		result = this.chirpRepository.findChirpsWithTabooWords();
 		
