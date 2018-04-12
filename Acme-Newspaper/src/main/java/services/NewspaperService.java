@@ -185,6 +185,8 @@ public class NewspaperService {
 
 	public Collection<Newspaper> findNewspapersWithTabooWords() {
 		Collection<Newspaper> result;
+		Admin admin = this.adminService.findByPrincipal();
+		Assert.notNull(admin);
 		
 		result = this.newspaperRepository.findNewspapersWithTabooWords();
 		
@@ -202,6 +204,10 @@ public class NewspaperService {
 		} else{
 			newspaper.setIsPrivate(true);
 		}
+	}
+
+	public void flush() {
+		this.newspaperRepository.flush();
 	}
 
 

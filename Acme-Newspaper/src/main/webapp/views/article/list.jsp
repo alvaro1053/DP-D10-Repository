@@ -76,8 +76,9 @@
 	<spring:message code="master.page.date.format" var="dateFormat" />
 	<display:column property="moment" format="{0,date,${dateFormat}}" title="${moment}"/>
 	
+	<spring:message code="article.photosURL.failed" var="failed" />
 	<spring:message code="article.photosURL" var="picture" />
-	<display:column  title="${picture}"> <jstl:forEach var="picture" items="${row.photosURL}"><img src="${picture}" height="150" width=auto /> </jstl:forEach></display:column>
+	<display:column  title="${picture}"> <jstl:forEach var="picture" items="${row.photosURL}"><img src="${picture}" alt= "${failed}" height="150" width=auto /> </jstl:forEach></display:column>
 
 
 </display:table>
