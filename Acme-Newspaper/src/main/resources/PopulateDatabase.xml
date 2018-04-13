@@ -321,6 +321,7 @@
 	<property name="tabooWords" value="true"/>
 	<property name="articles">
 	<list>
+	<ref bean="article4"/>
 	</list>
 	</property>
 	

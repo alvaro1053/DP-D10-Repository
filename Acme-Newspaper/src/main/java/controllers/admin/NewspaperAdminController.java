@@ -99,11 +99,11 @@ public class NewspaperAdminController extends AbstractController{
 	try {
 		newspaper = this.newspaperService.findOne(newspaperId);
 		this.newspaperService.delete(newspaper);
-		result = new ModelAndView("redirect:../list.do");
+		result = new ModelAndView("redirect:../admin/list.do");
 		String successfulMessage = "newspaper.commit.ok";
 		redir.addFlashAttribute("message", successfulMessage);
 	} catch (Throwable oops) {
-		result = new ModelAndView("redirect:../list.do");
+		result = new ModelAndView("redirect:../admin/list.do");
 		String successfulMessage = "newspaper.commit.error";
 		redir.addFlashAttribute("message", successfulMessage);
 	}

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.SubscriptionRepository;
+import domain.Admin;
 import domain.CreditCard;
 import domain.Customer;
 import domain.Newspaper;
@@ -32,6 +33,9 @@ public class SubscriptionService {
 
 	@Autowired
 	private Validator					validator;
+	
+	@Autowired
+	private AdminService					adminService;
 
 	// Constructors
 	public SubscriptionService() {
@@ -115,6 +119,26 @@ public class SubscriptionService {
 		
 		
 	}
+	
+	public void delete (Subscription subcription){
+		Admin admin = this.adminService.findByPrincipal();
+		Assert.notNull(admin);
+		Collection<Subscription> update,update2;
+		
+		Customer c = subcription.getCustomer();
+		update = c.getSubscriptions();
+		update.remove(subcription);
+		subcription.getCustomer().setSubscriptions(update);
+		
+		Newspaper news = subcription.getNewspaper();
+		update2 = news.getSubscriptions();
+		update2.remove(subcription);
+		subcription.getNewspaper().setSubscriptions(update2);
+		
+		this.subscriptionRepository.delete(subcription);
+		
+	}
+	
 	public CreditCard reconstructCreditCard(String cookie){
 		String[] creditCard= cookie.split("\\.",6);
 		String holder = creditCard[0];

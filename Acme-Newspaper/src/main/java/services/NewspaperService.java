@@ -39,6 +39,8 @@ public class NewspaperService {
 	@Autowired
 	private AdminService adminService;
 	@Autowired
+	private SubscriptionService subcriptionService;
+	@Autowired
 	private Validator validator;
 	@Autowired
 	private CustomisationService customisationService;
@@ -93,6 +95,12 @@ public class NewspaperService {
 		Collection<Newspaper> creatorsNewspapers = creator.getNewspapers();
 		creatorsNewspapers.remove(newspaper);
 		creator.setNewspapers(creatorsNewspapers);
+		
+		Collection<Subscription> subs = new ArrayList<Subscription>(newspaper.getSubscriptions());
+		
+		for(Subscription s : subs){
+			this.subcriptionService.delete(s);
+		}
 		
 		this.newspaperRepository.delete(newspaper);
 
