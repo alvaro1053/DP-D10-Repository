@@ -44,8 +44,9 @@
 
 
 <tr>
+<spring:message code="newspaper.pictureError" var="pictureError" />
 <td class ="left-display"> <strong> <spring:message code="newspaper.pictureURL" /> : </strong> </td>
-<td class="right-display">  <img src="${newspaper.pictureURL}" width="auto" height="200"> &nbsp; </td>
+<td class="right-display">  <img src="${newspaper.pictureURL}" width="auto" height="200" alt ="${pictureError}"> &nbsp; </td>
 </tr>
 
 
