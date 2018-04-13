@@ -1,0 +1,1 @@
+-Hemos considerado en el requisito funcional 17.5 que los administradores pueden eliminar Chirps que sean Taboo.
