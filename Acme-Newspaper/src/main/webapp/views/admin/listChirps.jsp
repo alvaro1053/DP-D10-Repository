@@ -28,8 +28,10 @@
 
 <display:table pagesize="5" class="displaytag" name="chirps"  requestURI="admin/admin/listChirps.do" id="row">
 	
+	
 	<display:column>
-		<a href = "admin/admin/delete.do?chirpId=${row.id}"><spring:message code= "chirp.delete"/></a>
+		<spring:message code = "chirp.confirm.delete" var = "confirmDeleteChirp" />
+		<a href = "admin/admin/delete.do?chirpId=${row.id}" onclick="return confirm('${confirmDeleteChirp}')"><spring:message code= "chirp.delete"/></a>
 	</display:column>
 	
 	<spring:message code="chirp.title" var="title" />

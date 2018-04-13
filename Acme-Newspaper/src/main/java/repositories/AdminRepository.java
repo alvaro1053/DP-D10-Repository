@@ -33,10 +33,10 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 	@Query("select stddev(n.articles.size) from Newspaper n")
 	Double StandardDesviationArticlesPerNewspaper();
 	//7.4 The newspapers that have at least 10% more articles than the average.
-	@Query("select n from Newspaper n where n.articles.size >(select avg(n.articles.size) * 1.1 from Newspaper n)")
+	@Query("select n.title from Newspaper n where n.articles.size >(select avg(n.articles.size) * 1.1 from Newspaper n)")
 	Collection<Newspaper> NewspapersWithMoreArticlesThanAverage();
 	//7.5 The newspapers that have at least 10% fewer articles than the average.
-	@Query("select n from Newspaper n where n.articles.size <(select avg(n.articles.size) * 0.9 from Newspaper n)")
+	@Query("select n.title from Newspaper n where n.articles.size <(select avg(n.articles.size) * 0.9 from Newspaper n)")
 	Collection<Newspaper> NewspapersWithLessArticlesThanAverage();
 	//7.6 The ratio of users who have ever created a newspaper.
 	@Query("select (select count(u) from User u where (u.newspapers.size >=1))*1.0/count(u2) from User u2")
@@ -75,5 +75,5 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 	Double ratioPublicVersusPrivatePerPublisher();	
 	//1.5 (A) The average ratio of private versus public newspapers per publisher.
 	@Query("select count(n)/(select count(n) from n) from User u join u.newspapers n where n.isPrivate = TRUE")
-	Collection<Double> AverageRatioOfPrivateVersusPublicNewspapers();
+	Collection<Long> AverageRatioOfPrivateVersusPublicNewspapers();
 }
