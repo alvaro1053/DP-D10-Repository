@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 
 
+import domain.Article;
 import domain.Newspaper;
 import forms.NewspaperForm;
 
@@ -262,6 +263,9 @@ public class NewspaperServiceTest extends AbstractTest {
 		try{
 			super.authenticate(username);
 			Newspaper newspaper = this.newspaperService.findOne(newspaperId);
+			for (Article a : newspaper.getArticles()){
+				a.setIsDraft(false);
+			}
 			this.newspaperService.publish(newspaper);
 		}catch(Throwable oops){
 			caught = oops.getClass();

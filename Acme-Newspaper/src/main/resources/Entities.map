@@ -1,15 +1,5 @@
 #./src/main/resources/Entities.map
-<<<<<<< HEAD
-#Fri Apr 13 22:38:56 CEST 2018
-customisation=6
-admin1=5
-userAccount1=4
-=======
-<<<<<<< HEAD
-#Fri Apr 13 22:09:28 CEST 2018
-=======
-#Fri Apr 13 21:59:23 CEST 2018
->>>>>>> eb3766dd9b63a93c39db714e7d0a14c50226918c
+#Fri Apr 13 23:08:34 CEST 2018
 chirp2=51
 followUp3=45
 chirp1=50
@@ -37,4 +27,3 @@ newspaper3=48
 newspaper2=46
 chirp3=52
 newspaper1=40
->>>>>>> cbe8787a109ecc948e6a2c83b95863d95629b03c
