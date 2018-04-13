@@ -94,7 +94,6 @@ public class ArticleService {
 	public void delete(final Article article) {
 		Admin admin;
 		Collection<Article> updated, updated2;
-		final Date momentNow = new Date(System.currentTimeMillis());
 		Assert.notNull(article);
 		
 		admin = this.adminService.findByPrincipal();
@@ -112,7 +111,6 @@ public class ArticleService {
 		updated2.remove(article);
 		user.setArticles(updated2);
 
-		Assert.isTrue(article.getNewspaper().getPublicationDate().after(momentNow));
 		
 		this.articleRepository.delete(article);
 
@@ -249,7 +247,9 @@ public class ArticleService {
 		
 	public Collection<Article> findArticlesWithTabooWords(){
 		Collection<Article> result;
-			
+		Admin admin = this.adminService.findByPrincipal();
+		Assert.notNull(admin);
+		
 		result = this.articleRepository.findArticlesWithTabooWords();
 		Assert.notNull(result);
 		

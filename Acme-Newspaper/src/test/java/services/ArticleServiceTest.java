@@ -168,11 +168,11 @@ public class ArticleServiceTest extends AbstractTest {
 	}
 */	
 	
-	//Requisito C 7.1 An actor who is authenticated as an administrator must be able to: Remove an article that he or she thinks is inappropriate.
 		@Test
 		public void driverDelete() {
 			final Object testingData[][] = {
-				
+					//Requisito C 7.1 An actor who is authenticated as an administrator must be able to: Remove an article that he or she thinks is inappropriate.
+
 					//TEST POSITIVO
 					//Pruebo que el admin puede eliminar el artículo 3
 					{"admin", "article4", null}, 
@@ -184,7 +184,7 @@ public class ArticleServiceTest extends AbstractTest {
 					//Se elimina el article4 incorrectamente porque solo lo puede eliminar el admin
 					{"user1", "article4", IllegalArgumentException.class},
 					//Se elimina el article1 incorrectamente porque su newspaper ya esta publicado
-					{"admin", "article1", IllegalArgumentException.class}
+					{"customer1", "article1", IllegalArgumentException.class}
 			};
 			for (int i = 0; i < testingData.length; i++)
 				this.templateDelete((String) testingData[i][0], super.getEntityId((String) testingData[i][1]), (Class<?>) testingData[i][2]);

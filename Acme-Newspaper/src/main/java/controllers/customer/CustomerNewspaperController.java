@@ -54,12 +54,25 @@ public class CustomerNewspaperController extends AbstractController{
 	public ModelAndView list(final String filter) {
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
+		Collection<Subscription> subscritions;
 		final Customer principal = this.customerService.findByPrincipal();
+		Boolean suscrito = false;
 		final String uri = "/customer";
 		newspapers = this.newspaperService.findByFilter(filter);
+		subscritions = this.subscriptionService.findAll();
+
+		
+		for(Subscription subs: subscritions){
+			if(principal.getSubscriptions().contains(subs)){
+				suscrito = true;
+			}else{
+				suscrito = false;
+			}
+		}
 		
 		result = new ModelAndView("newspaper/list");
 		result.addObject("newspapers", newspapers);
+		result.addObject("suscrito", suscrito);
 		result.addObject("principal",principal);
 		result.addObject("uri", uri);
 		return result;
