@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 
 import domain.User;
@@ -127,6 +128,58 @@ in a newspaper.
 		actorForm.setCheck(checkTerms);	
 		
 		return actorForm;
+	}
+	
+	/* 16.2: An actor who is authenticated as a user must be able to follow or 
+	 *       unfollow another user. */
+	
+	@Test
+	public void driverFollowUnfollowUser() {
+		Object testingData[][] = {
+			// User1 sigue y deja de seguir al user3
+			{"user1", "user3", null},
+			// User1 sigue al user2, que ya seguía anteriormente
+			{"user1", "user2", IllegalArgumentException.class},
+			// Usuario no autenticado sigue al user1
+			{null, "user1", IllegalArgumentException.class}
+		};
+		
+		for(int i = 0; i<testingData.length; i++) {
+			this.startTransaction();
+			templateFollowUnfollowUser((String) testingData[i][0], getEntityId((String) testingData[i][1]), (Class<?>) testingData[i][2]);
+			this.rollbackTransaction();
+		}
+	}
+	
+	protected void templateFollowUnfollowUser(String username, int userToBeFollowedId, Class<?> expected) {
+		Class<?> caught;
+		User principal, userToBeFollowed;
+		
+		caught=null;
+		
+		try{
+			this.authenticate(username);
+			
+			userToBeFollowed = this.userService.findOne(userToBeFollowedId);
+			
+			principal = this.userService.findByPrincipal();
+			this.userService.follow(userToBeFollowed);
+			Assert.isTrue(principal.getFollows().contains(userToBeFollowed));
+			Assert.isTrue(userToBeFollowed.getFollowers().contains(principal));
+			
+			this.userService.unfollow(userToBeFollowed);
+			Assert.isTrue(!principal.getFollows().contains(userToBeFollowed));
+			Assert.isTrue(!userToBeFollowed.getFollowers().contains(principal));
+			
+			this.userService.flush();
+			
+			this.unauthenticate();
+		} catch (Throwable oops) {
+			this.unauthenticate();
+			caught = oops.getClass();
+		}
+		
+		this.checkExceptions(expected, caught);
 	}
 
 }
