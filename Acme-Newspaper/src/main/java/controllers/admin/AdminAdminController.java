@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import domain.Article;
 import domain.Chirp;
@@ -79,21 +78,19 @@ public class AdminAdminController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam int chirpId, RedirectAttributes redir ){
+	public ModelAndView delete(@RequestParam int chirpId){
 		ModelAndView result;
 		Chirp chirp;
 		
-		chirp = this.chirpService.findOne(chirpId);
-		Assert.notNull(chirp);
-		
-
 		try{
+			chirp = this.chirpService.findOne(chirpId);
+			Assert.notNull(chirp);
+		
 			this.chirpService.delete(chirp);
 			result = new ModelAndView("redirect:listChirps.do");
-			redir.addFlashAttribute("message", "chirp.deleted.successfully");
 		}catch(Throwable oops){
 			result = new ModelAndView("redirect:listChirps.do");
-			redir.addFlashAttribute("message", "chirp.commit.error");
+			
 		}
 
 		
