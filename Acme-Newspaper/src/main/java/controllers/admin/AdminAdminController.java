@@ -83,17 +83,15 @@ public class AdminAdminController {
 		ModelAndView result;
 		Chirp chirp;
 		
-		chirp = this.chirpService.findOne(chirpId);
-		Assert.notNull(chirp);
-		
-
 		try{
+			chirp = this.chirpService.findOne(chirpId);
+			Assert.notNull(chirp);
+		
 			this.chirpService.delete(chirp);
 			result = new ModelAndView("redirect:listChirps.do");
-			redir.addFlashAttribute("message", "chirp.deleted.successfully");
 		}catch(Throwable oops){
 			result = new ModelAndView("redirect:listChirps.do");
-			redir.addFlashAttribute("message", "chirp.commit.error");
+			
 		}
 
 		
