@@ -14,6 +14,7 @@ import repositories.AdminRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Admin;
+import domain.Newspaper;
 
 @Service
 @Transactional
@@ -82,7 +83,6 @@ public class AdminService {
 		return result;
 
 	}
-
 	public Admin findByUserAccount(final UserAccount userAccount) {
 		Assert.notNull(userAccount);
 		Admin result;
@@ -90,13 +90,137 @@ public class AdminService {
 		return result;
 	}
 	
-	Double AverageRatioOfPrivateVersusPublicNewspapers(){
+	
+	//queries
+	
+	//7.1
+	public Double AverageNewspapersPerUser(){
+		Double result;
+		result = this.adminRepository.AverageNewspapersPerUser();
+		return result;
+	}
+	
+	public Double StandardDesviationNewspapersPerUser(){
+		Double result;
+		result = this.adminRepository.StandardDesviationNewspapersPerUser();
+		return result;
+	}
+	//7.2
+	public Double AverageArticlesPerUser(){
+		Double result;
+		result = this.adminRepository.AverageArticlesPerUser();
+		return result;
+	}
+	
+	public Double StandardDesviationArticlesPerUser(){
+		Double result;
+		result = this.adminRepository.StandardDesviationArticlesPerUser();
+		return result;
+	}
+	//7.3
+	public Double AverageArticlesPerNewspaper(){
+		Double result;
+		result = this.adminRepository.AverageArticlesPerNewspaper();
+		return result;
+	}
+	
+	public Double StandardDesviationArticlesPerNewspaper(){
+		Double result;
+		result = this.adminRepository.StandardDesviationArticlesPerNewspaper();
+		return result;
+	}
+	//7.4
+	public Collection<Newspaper> NewspapersWithMoreArticlesThanAverage(){
+		Collection<Newspaper> result;
+		result = this.adminRepository.NewspapersWithMoreArticlesThanAverage();
+		return result;
+	}
+	//7.5
+	public Collection<Newspaper> NewspapersWithLessArticlesThanAverage(){
+		Collection<Newspaper> result;
+		result = this.adminRepository.NewspapersWithLessArticlesThanAverage();
+		return result;
+	}
+	//7.6
+	public Double RatioUsersWithAtLeast1Newspaper(){
+		Double result;
+		result = this.adminRepository.RatioUsersWithAtLeast1Newspaper();
+		return result;
+	}
+	//7.7
+	public Double RatioUsersWithAtLeast1Article(){
+		Double result;
+		result = this.adminRepository.RatioUsersWithAtLeast1Article();
+		return result;
+	}
+	//6.1
+	public Double AverageFollowsUpPerArticle(){
+		Double result;
+		result = this.adminRepository.AverageFollowsUpPerArticle();
+		return result;
+	}
+	//6.2
+	public Double AverageFollowUpPerArticleOneWeek(){
+		Double result;
+		result = this.adminRepository.AverageFollowUpPerArticleOneWeek();
+		return result;
+	}
+	//6.3
+	public Double AverageFollowUpPerArticleTwoWeek(){
+		Double result;
+		result = this.adminRepository.AverageFollowUpPerArticleTwoWeek();
+		return result;
+	}
+	//6.4
+	public Double AverageChirpsPerUser(){
+		Double result;
+		result = this.adminRepository.AverageChirpsPerUser();
+		return result;
+	}
+	
+	public Double StandardDesviationChirpsPerUser(){
+		Double result;
+		result = this.adminRepository.StandardDesviationChirpsPerUser();
+		return result;
+	}
+	//6.5
+	public Double RatioUsersWithMoreAvgChirps(){
+		Double result;
+		result = this.adminRepository.RatioUsersWithMoreAvgChirps();
+		return result;
+	}
+	//1.1
+	public Double RatioPublicVersusPrivate(){
+		Double result;
+		result = this.adminRepository.RatioPublicVersusPrivate();
+		return result;
+	}
+	//1.2
+	public Double AverageArticlesPerPrivateNewspaper(){
+		Double result;
+		result = this.adminRepository.AverageArticlesPerPrivateNewspaper();
+		return result;
+	}
+	//1.3
+	public Double AverageArticlesPerPublicNewspaper(){
+		Double result;
+		result = this.adminRepository.AverageArticlesPerPublicNewspaper();
+		return result;
+	}
+	//1.4
+	public Double ratioPublicVersusPrivatePerPublisher(){
+		Double result;
+		result = this.adminRepository.ratioPublicVersusPrivatePerPublisher();
+		return result;
+	}
+	//1.5
+	public Long AverageRatioOfPrivateVersusPublicNewspapers(){
 		Admin principal = this.findByPrincipal();
 		Assert.notNull(principal);
-		Double res = 0.0;
-		Double sumas = 0.0;
-		Collection<Double> ratios = this.adminRepository.AverageRatioOfPrivateVersusPublicNewspapers();
-		for (Double d : ratios){
+		Long res = new Long(0);
+		Long sumas = new Long(0);
+		Collection<Long> ratios = this.adminRepository.AverageRatioOfPrivateVersusPublicNewspapers();
+		for (Long d : ratios){
 			sumas +=d;
 		}
 		res = sumas/ratios.size();
