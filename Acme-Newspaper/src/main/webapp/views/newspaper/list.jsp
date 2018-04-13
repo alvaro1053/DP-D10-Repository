@@ -63,8 +63,10 @@
 	<!-- pictureURL -->
 	<spring:message code="newspaper.pictureURL" var="pictureHeader" />
 	<spring:message code="newspaper.pictureError" var="pictureError" />
-	<display:column title="${pictureHeader}" sortable="true" > <img src="${row.pictureURL}"  width="200" height="200"></display:column> 
-	
+
+	<display:column title="${pictureHeader}" sortable="true" > 
+	<img src="${row.pictureURL}" alt="${pictureError}"  width="200" height="200"> 
+	</display:column>
 	</security:authorize>
 
 
