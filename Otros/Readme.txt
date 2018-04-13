@@ -1,1 +1,3 @@
--Hemos considerado en el requisito funcional 17.5 que los administradores pueden eliminar Chirps que sean Taboo.
+-En el listar de newspaper y la lista de articles se muestran cosas distintas para cada actor: si estás logeado como admin te muestra todos; si estás logeado como user te muestra los publicados y los tuyos (sin repeticiones); y si estoy logeado como customer o estoy sin logear solo muestra los publicados. 
+-Cuando envías un primer formulario de creación de artículo(con los campos vacíos o que no cumpla con las restricciones) el sistema dinámico para añadir imágenes deja de funcionar, por lo que es necesario recargar la página de formulario si se desean añadir imágenes
+-Respecto las taboo words, hemos considerado que los CHIRPS inapropiados son solo los que aparecen en las taboo words, y esos sí los podrá eliminar el admin. Si no contienen taboo words no son inapropiados  y por tanto no los puede eliminar.
