@@ -66,8 +66,6 @@ public class UserService {
 		}
 
 		saved = this.UserRepository.save(User);
-		
-
 
 		//TEST ASSERT - Testing if the user is in the system after saving him/her
 		Assert.isTrue(this.UserRepository.findAll().contains(saved));
@@ -138,43 +136,47 @@ public class UserService {
 		this.UserRepository.flush();
 	}
 
-	public void follow(User userToBeFollowed) {
+	public void follow(final User userToBeFollowed) {
 		User principal;
 		Collection<User> usersToBeAdded;
 		principal = this.findByPrincipal();
-		
+
+		//TEST ASSERT - Testing if the user principal already follows the user to be followed
+		Assert.isTrue(!principal.getFollows().contains(userToBeFollowed));
+		//TEST ASSERT
+
 		usersToBeAdded = principal.getFollows();
 		usersToBeAdded.add(userToBeFollowed);
 		principal.setFollows(usersToBeAdded);
-		
+
 		usersToBeAdded = userToBeFollowed.getFollowers();
 		usersToBeAdded.add(principal);
 		userToBeFollowed.setFollowers(usersToBeAdded);
-		
-		
+
 	}
 
-	public void unfollow(User userToBeUnfollowed) {
+	public void unfollow(final User userToBeUnfollowed) {
 		User principal;
 		Collection<User> usersToBeUnfollowed;
 		principal = this.findByPrincipal();
-		
+
+		//TEST ASSERT - Testing if the user principal follows the user to be unfollowed
+		Assert.isTrue(principal.getFollows().contains(userToBeUnfollowed));
+		//TEST ASSERT
+
 		usersToBeUnfollowed = principal.getFollows();
-		
-		if(usersToBeUnfollowed.contains(userToBeUnfollowed))
+
+		if (usersToBeUnfollowed.contains(userToBeUnfollowed)) {
 			usersToBeUnfollowed.remove(userToBeUnfollowed);
-		
-		principal.setFollows(usersToBeUnfollowed);
-		
-		
+			principal.setFollows(usersToBeUnfollowed);
+		}
+
 		usersToBeUnfollowed = userToBeUnfollowed.getFollowers();
-		
-		if(usersToBeUnfollowed.contains(userToBeUnfollowed))
-			usersToBeUnfollowed.remove(userToBeUnfollowed);
-			
-		userToBeUnfollowed.setFollowers(usersToBeUnfollowed);
-		
-		
-		
+
+		if (usersToBeUnfollowed.contains(principal)) {
+			usersToBeUnfollowed.remove(principal);
+			userToBeUnfollowed.setFollowers(usersToBeUnfollowed);
+		}
+
 	}
 }
