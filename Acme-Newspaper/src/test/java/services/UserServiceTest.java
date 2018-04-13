@@ -69,16 +69,30 @@ in a newspaper.
 	@Test
 	public void driverRegisterUser(){
 		
+/*
+4. An actor who is not authenticated must be able to:
+	1. Register to the system as a user.
+*/
 			Object testingData[][] = {
+					//Test positivo, probando el registro de un usuario con todos sus campos
 					{"userPrueba1", "surn1","email@prueba.com", "111222333", "calle1",true,"prueba1", "prueba1pass", "prueba1pass",null},
+					//Test negativo, probando el registro de un usuario con el nombre vacio
 					{"", "surn2","email@prueba.com", "111222333", "calle2",true,"prueba2", "prueba2pass", "prueba2pass",NullPointerException.class},
+					//Test negativo, probando el registro de un usuario con el apellido vacio
 					{"userPrueba3", "","email@prueba.com", "111222333", "calle3",true,"prueba3", "prueba3pass", "prueba3pass",NullPointerException.class},
+					//Test negativo, probando el registro de un usuario con el email con un pattern incorrecto
 					{"userPrueba4", "surn4","emailMAl", "111222333", "calle4",true,"prueba4", "prueba4pass", "prueba4pass",NullPointerException.class},
+					//Test negativo, probando el registro de un usuario con el email vacio
 					{"userPrueba5", "surn5","", "111222333", "calle5",true,"prueba5", "prueba5pass", "prueba5pass",NullPointerException.class},
+					//Test negativo, probando el registro de un usuario con la contraseña de seguridad de verificación distinta de la original
 					{"userPrueba6", "surn6","email@prueba.com", "111222333", "calle6",true,"prueba6", "prueba6pass", "mal",NullPointerException.class},
+					//Test negativo, probando el registro de un usuario con el campo de los términos y condiciones no marcados
 					{"userPrueba7", "surn7","email@prueba.com", "111222333", "calle7",false,"prueba7", "prueba7pass", "prueba7pass",NullPointerException.class},
+					//Test negativo, probando el registro de un usuario con el nombre de usuario a vacío
 					{"userPrueba8", "surn8","email@prueba.com", "111222333", "calle8",true,"", "prueba8pass", "prueba8pass",NullPointerException.class},
+					//Test negativo, probando el registro de un usuario con un nombre de usuario repetido
 					{"userPrueba9", "surn9","email@prueba.com", "111222333", "calle8",true,"user1", "prueba9pass", "prueba9pass",DataIntegrityViolationException.class},
+					//Test positivo, probando el registro de un usuario con el número de teléfono con un signo +
 					{"userPrueba10", "surn10","email@prueba.com", "+111222333", "calle10",true,"prueba10", "prueba10pass", "prueba10pass",null},
 					
 					
